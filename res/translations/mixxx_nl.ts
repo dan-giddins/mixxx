@@ -3268,7 +3268,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Wanneer beat-detectie aan is, berekent Mixxx voor elke track automatisch het aantal beats per minuut en toont ze in een beat-rooster, zodat je verschillende tracks makkelijker kunt synchroniseren.</translation>
     </message>
@@ -3284,8 +3284,8 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>Activeer snelle beat-detectie.
 Als dit aan staat, dan analyseert Mixxx enkel de eerste minuut van een track voor beat informatie.
@@ -3293,9 +3293,9 @@ Dit kan de beat detectie versnellen, maar heeft mogelijk een verminderde kwalite
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
-        <translation>Probeert de fase (eerste beat) te corrigeren van beat-roosters met vast tempo 
+        <translation>Probeert de fase (eerste beat) te corrigeren van beat-roosters met vast tempo
 door de beats te analyseren ten einde uitschieters over te slaan.</translation>
     </message>
     <message>
@@ -3325,8 +3325,8 @@ door de beats te analyseren ten einde uitschieters over te slaan.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Zet beats die gedetecteerd werden door de analysemodule om in een beat-rooster met vast tempo.
 Gebruik deze instelling als je tracks een vast tempo hebben (zoals de meeste elektronische muziek).
@@ -4687,7 +4687,7 @@ CUP mode:
 - Cue button while playing = go to cue point and play after release
 </source>
         <translation>Mixxx-modus:
-- Cue-knop bij pauze op cue-punt = voorbeeld 
+- Cue-knop bij pauze op cue-punt = voorbeeld
 - Cue-knop bij pauze niet op cue-punt = zet cue-punt
 - Cue-knop tijdens afspelen = pauze op cue-punt
 Mixxx-modus (zonder knipperen):
@@ -5161,7 +5161,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Wanneer toonaarddetectie aanstaat, detecteert Mixxx de toonaard van je tracks
 en stelt je in staat de toonhoogte aan te passen voor harmonisch mixen.</translation>
@@ -7535,7 +7535,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Geen OpenGL-ondersteuning.</translation>
     </message>

@@ -30,7 +30,7 @@ mkdirp(path.dirname(path.resolve(process.argv[3])))
           modulesOnly: false, // required for rollup-plugin-commonjs
           // for valid values see https://github.com/substack/node-resolve
           customResolveOptions: {
-            paths: [ path.resolve('packages', tgt, 'node_modules') ]
+            paths: [path.resolve('packages', tgt, 'node_modules')]
           }
         }),
         json(),

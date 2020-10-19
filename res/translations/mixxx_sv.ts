@@ -3268,7 +3268,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>När taktigenkänning är aktiverad, så upptäcker Mixxx antalet takter per minut samt antalet takter för din låt samt visar automatiskt en taktmatris som hjälper dig synkronisera låtar baserat på taktinformationen.</translation>
     </message>
@@ -3284,16 +3284,16 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Aktivera snabb tempo identifiering. 
-När den är aktiverad så analyserar Mixxx endast den första minuten av en låt för taktidentifiering. 
+        <translation>Aktivera snabb tempo identifiering.
+När den är aktiverad så analyserar Mixxx endast den första minuten av en låt för taktidentifiering.
 Detta kan snabba upp identifieringen på långsamma datorer men kan skapa taktmatriser av sämre kvalitet.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Försöker att korrigera fasen (första taktslaget) för ett taktmönster med fast tempo
 genom att analysera taktslagen för att eliminera avvikande värden.</translation>
@@ -3325,8 +3325,8 @@ genom att analysera taktslagen för att eliminera avvikande värden.</translatio
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Konverterar taktslag som hittats av takthittaren till ett taktmönster med enhetligt tempo.
 Använd den här inställningen om dina låtar har ett konstant tempo (t.ex. elektronisk musik).
@@ -5143,7 +5143,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>När tonartsfinnaren är aktiverad, tar Mixxx reda på tonarten för dina låtar
 så att du kan justera tonhöjden för harmonisk mixning.</translation>
@@ -7515,7 +7515,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Inget OpenGL-
 stöd.</translation>

@@ -3180,7 +3180,7 @@ Spiele den gesamten Titel. Beginne mit dem Überblenden ab der ausgewählten Anz
 Sekunden vor dem Ende des Titels. Eine negative Überblendzeit fügt
 Stille zwischen den Titeln hinzu.
 
-Stille überspringen: 
+Stille überspringen:
 Spiele den gesamten Titel mit Ausnahme der Stille an Anfang und Ende.
 Beginne mit dem Überblenden ab der ausgewählten Anzahl von Sekunden vor dem
 letzter Ton.</translation>
@@ -3290,9 +3290,9 @@ Sind keine Titel-Quellen konfiguriert, wird der Titel stattdessen aus der Biblio
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>Wenn die Beat-Erkennung aktiviert ist, wird Mixxx die Geschwindigkeit und Beats Ihrer Titel erkennen, 
+        <translation>Wenn die Beat-Erkennung aktiviert ist, wird Mixxx die Geschwindigkeit und Beats Ihrer Titel erkennen,
 automatisch ein Beat-Grid für diese anzeigen und Ihnen ermöglichen, die Titel mittels der Beat-Informationen zu synchronisieren.</translation>
     </message>
     <message>
@@ -3307,18 +3307,18 @@ automatisch ein Beat-Grid für diese anzeigen und Ihnen ermöglichen, die Titel 
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Schnelle Beat-Erkennung aktivieren. 
-Wenn aktiviert, wird Mixxx nur die erste Minute eines Titels für die Beat-Informationen analysieren. 
+        <translation>Schnelle Beat-Erkennung aktivieren.
+Wenn aktiviert, wird Mixxx nur die erste Minute eines Titels für die Beat-Informationen analysieren.
 Diese Einstellung kann die Beat-Erkennung auf langsameren Computern beschleunigen, kann aber zu Beatgrids mit geringerer Qualität führen.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
-        <translation>Versucht die Phase (Erster Beat) von Beatgrids mit festem Tempo 
+        <translation>Versucht die Phase (Erster Beat) von Beatgrids mit festem Tempo
 durch analysieren der Beats und verwerfen von Ausreißern zu korrigieren.</translation>
     </message>
     <message>
@@ -3348,11 +3348,11 @@ durch analysieren der Beats und verwerfen von Ausreißern zu korrigieren.</trans
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
-        <translation>Konvertiert die durch den Analysator erkannten Beats in Beatgrids mit festem Tempo. 
-Benutzen Sie diese Einstellung wenn Ihre Titel ein konstantes Tempo haben (z.B. die meiste elektronische Musik). 
+        <translation>Konvertiert die durch den Analysator erkannten Beats in Beatgrids mit festem Tempo.
+Benutzen Sie diese Einstellung wenn Ihre Titel ein konstantes Tempo haben (z.B. die meiste elektronische Musik).
 Das führt oft zu Beatgrids mit höherer Qualität, wird aber nicht so gut bei Titeln mit Tempowechseln funktionieren.</translation>
     </message>
     <message>
@@ -4715,7 +4715,7 @@ CUP mode:
 - Cue-Taste während Pause nicht am Cue-Punkt = Cue-Punkt setzen
 - Cue-Taste während der Wiedergabe = Pause bei Cue-Punkt
 Mixxx-Modus (Kein Blinken):
-- Wie im Mixxx-Modus, jedoch ohne blinkende Indikatoren 
+- Wie im Mixxx-Modus, jedoch ohne blinkende Indikatoren
 Pionier-Modus:
 - Wie im Mixxx-Modus mit blinkender Wiedergabe-Taste
 Denon-Modus: - Cue-Taste am Cue-Punkt = Vorhören
@@ -4791,7 +4791,7 @@ it will place it at the main cue point if the main cue point has been set previo
 This may be helpful for upgrading to Mixxx 2.3 from earlier versions.
 
 If this option is disabled, the intro start point is automatically placed at the first sound.</source>
-        <translation>Wenn der Analysator den Intro-Startpunkt automatisch platziert, 
+        <translation>Wenn der Analysator den Intro-Startpunkt automatisch platziert,
 wird er am Haupt-Cuepunkt platziert, wenn dieser zuvor festgelegt wurde.
 Dies kann hilfreich sein, um von früheren Versionen auf Mixxx 2.3 zu aktualisieren.
 
@@ -5189,7 +5189,7 @@ Sie können jederzeit Titel auf dem Bildschirm ziehen und ablegen, um ein Deck z
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Bei aktivierter Tonart-Erkennung erkennt Mixxx die Tonart Ihrer Titel
 und ermöglicht es Ihnen die Tonhöhe für harmonisches Mixen anzupassen.</translation>
@@ -7567,7 +7567,7 @@ Das führt oft zu Beatgrids mit höherer Qualität, wird aber nicht so gut bei T
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Keine OpenGL
 Unterstützung.</translation>
@@ -8448,7 +8448,7 @@ Um diese Aktion abzubrechen, drücken Sie Abbrechen im Datei-Dialog.</translatio
 1/8 - 2 beats if tempo is detected
 1/8 - 2 seconds if no tempo is detected</source>
         <translation>Verzögerungszeit
-1/8-2 Beats wenn das Tempo erkannt wird 
+1/8-2 Beats wenn das Tempo erkannt wird
 1/8-2 Sekunden wenn kein Tempo erkannt wird</translation>
     </message>
     <message>
@@ -8697,7 +8697,7 @@ Mit einer Breite von Null kann der gesamte Verzögerungsbereich manuell überstr
 1/4 - 4 beats rounded to 1/2 beat if tempo is detected
 1/4 - 4 seconds if no tempo is detected</source>
         <translation>Wie schnell der Sound von einer Seite zur anderen geht
-1/4 - 4 Beats gerundet auf 1/2 Beat wenn das Tempo erkannt wird 
+1/4 - 4 Beats gerundet auf 1/2 Beat wenn das Tempo erkannt wird
 1/4 - 4 Sekunden wenn kein Tempo erkannt wird</translation>
     </message>
     <message>
@@ -9275,7 +9275,7 @@ Es ist als Ergänzung zu den steilen Misch-Equalizern konzipiert.</translation>
 A lower Q affects a wider band of frequencies,
 a higher Q affects a narrower band of frequencies.</source>
         <translation>Steuert die Bandbreite von Filter 1.
-Ein niedrigerer Q beeinflusst ein breiteres Frequenzband, 
+Ein niedrigerer Q beeinflusst ein breiteres Frequenzband,
 ein höherer Q beeinflusst ein schmaleres Frequenzband.</translation>
     </message>
     <message>
@@ -9312,7 +9312,7 @@ ein höherer Q beeinflusst ein schmaleres Frequenzband.</translation>
 A lower Q affects a wider band of frequencies,
 a higher Q affects a narrower band of frequencies.</source>
         <translation>Steuert die Bandbreite von Filter 2.
-Ein niedrigerer Q beeinflusst ein breiteres Frequenzband, 
+Ein niedrigerer Q beeinflusst ein breiteres Frequenzband,
 ein höherer Q beeinflusst ein schmaleres Frequenzband.</translation>
     </message>
     <message>
@@ -9354,7 +9354,7 @@ ein höherer Q beeinflusst ein schmaleres Frequenzband.</translation>
 4 beats - 1/8 beat if tempo is detected
 1/4 Hz - 8 Hz if no tempo is detected</source>
         <translation>Tempo der Lautstärkeänderungen
-4 Beats - 1/8 Beat wenn das Tempo erkannt wird 
+4 Beats - 1/8 Beat wenn das Tempo erkannt wird
 1/8 Hz - 8 Hz wenn kein Tempo erkannt wird</translation>
     </message>
     <message>

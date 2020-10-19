@@ -21,11 +21,13 @@ export default class Screen extends Component {
     this.playListSidebar = makePlaylistSidebar(timerBuilder)(midiComponentBuilder)
     this.layout = makeLayout(controlComponentBuilder)(midiComponentBuilder)(this.modifier)(`${id}.layout`)
   }
+
   onMount () {
     this.modifier.mount()
     this.playListSidebar.mount()
     this.layout.mount()
   }
+
   onUnmount () {
     this.playListSidebar.unmount()
     this.modifier.unmount()

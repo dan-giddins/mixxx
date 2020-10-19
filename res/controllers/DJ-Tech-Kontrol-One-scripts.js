@@ -66,14 +66,14 @@ KONTROL1.mod["s"]={state:"o",timer:false,doshift:true};
 //############################################################################
 
 KONTROL1.init = function init(id, debug) { // called when the device is opened & set up
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     KONTROL1.updateLEDs();
     if(KONTROL1.disableFlash!==true)KONTROL1.ledTimer = engine.beginTimer(1000, "KONTROL1.doLEDs()");//set timer for LED indicator flashes
     engine.connectControl("[Channel1]", "volume", "KONTROL1.testconnect");
     };
 
 KONTROL1.shutdown = function shutdown() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     };
 
 
@@ -83,7 +83,7 @@ KONTROL1.shutdown = function shutdown() {
 //############################################################################
 
 KONTROL1.button = function button(channel, control, value, status, group) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //input received - gatekeeper function connected to most buttons
     //check channel - see if the deck selector has been moved
     KONTROL1.checkChannel(channel);
@@ -95,7 +95,7 @@ KONTROL1.button = function button(channel, control, value, status, group) {
     };
 
 KONTROL1.knob = function knob(channel, control, value, status, group) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //input received - gatekeeper function connected to most knobs
     //check channel - see if the deck selector has been moved
     KONTROL1.checkChannel(channel);
@@ -109,7 +109,7 @@ KONTROL1.knob = function knob(channel, control, value, status, group) {
 
 //MOD functions
 KONTROL1.knobPress = function knobPress(knobnum){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //{state:"o",timer:false,dobankswitch:true};
     KONTROL1.modPress(knobnum);//turn mod on
     engine.stopTimer(KONTROL1.mod[knobnum]["timer"]);//kill any previous timer
@@ -117,7 +117,7 @@ KONTROL1.knobPress = function knobPress(knobnum){
     }
 
 KONTROL1.knobRelease = function knobRelease(knobnum){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //switches banks when one of the four knob buttons is released
     //knobnum is k1, k2, k3, or k4
     //unless button has been held down for more than 1/2 second, in which case the knob is used as a modifier
@@ -141,7 +141,7 @@ KONTROL1.knobRelease = function knobRelease(knobnum){
     };
 
 KONTROL1.shiftPress = function shiftPress(){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     var knobnum="s";
     KONTROL1.modPress(knobnum);//turn mod on
     engine.stopTimer(KONTROL1.mod[knobnum]["timer"]);//kill any previous timer
@@ -149,7 +149,7 @@ KONTROL1.shiftPress = function shiftPress(){
     }
 
 KONTROL1.shiftRelease = function shiftRelease(){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     var knobnum="s";
     //switches shift state
     //unless button has been held down for more than 1/2 second, in which case the knob is used as a modifier
@@ -167,7 +167,7 @@ KONTROL1.shiftRelease = function shiftRelease(){
     };
 
 KONTROL1.modPress = function modPress(knobnum){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     KONTROL1.mod[knobnum]["state"]="I";//turn mod on
     if (KONTROL1.mod["p1"]["state"]=="I" && KONTROL1.mod["p2"]["state"]=="I"){//both pitch buttons on, force update of all LEDS
         KONTROL1.updateLEDs(false, true);
@@ -175,7 +175,7 @@ KONTROL1.modPress = function modPress(knobnum){
     }
 
 KONTROL1.modRelease = function modRelease(knobnum){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     if (KONTROL1.mod["p1"]["state"]=="I"){
         //reset cue move stuff
@@ -196,14 +196,14 @@ KONTROL1.modRelease = function modRelease(knobnum){
 //############################################################################
 
 KONTROL1.doLEDs = function doLEDs() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     engine.stopTimer(KONTROL1.flashTimer);
     KONTROL1.flashTimer=engine.beginTimer(30, "KONTROL1.bankIndicators()");
     return;    
     };
 
 KONTROL1.bankIndicators= function bankIndicators(){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //flash knob LEDs to indicate current bank
     var cc = KONTROL1.channels[KONTROL1.curChannel]['cc'];
     var address = KONTROL1.bankIndicatorLED[KONTROL1.channels[KONTROL1.curChannel]['curBank']];
@@ -221,7 +221,7 @@ KONTROL1.bankIndicators= function bankIndicators(){
     }
 
 KONTROL1.stopFlashTimer = function stopFlashTimer() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     engine.stopTimer(KONTROL1.flashTimer);
     KONTROL1.flashcount=0;
     var cc = KONTROL1.channels[KONTROL1.curChannel]['cc'];
@@ -230,7 +230,7 @@ KONTROL1.stopFlashTimer = function stopFlashTimer() {
     }
 
 KONTROL1.updateLEDs = function updateLEDs(knobsonly, force) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //fires on mod press/release, shift switch, channel switch, bank switch
     //updates all LEDs
     var state;
@@ -280,16 +280,16 @@ KONTROL1.updateLEDs = function updateLEDs(knobsonly, force) {
             continue;
             }
         else if (control[2]=="eval"){//LED state determined by evaluating a javascript statement
-            if (KONTROL1.debug>2){print("##updateLEDs Eval: "+control[3])};
-            if (KONTROL1.debug>2){print("##updateLEDs midino: "+midino)};
-            if (KONTROL1.debug>2){print("##evalstate: "+eval(control[3]))};
+            if (KONTROL1.debug>2){print("##updateLEDs Eval: "+control[3])}
+            if (KONTROL1.debug>2){print("##updateLEDs midino: "+midino)}
+            if (KONTROL1.debug>2){print("##evalstate: "+eval(control[3]))}
             state=eval(control[3]);
             }//end if
         //figure out whether we want a CC or noteon message - CC for knobs, noteon otherwise
         if (midino==0x37 || midino==0x36 || midino==0x35 || midino==0x34){
             ch=KONTROL1.channels[KONTROL1.curChannel]['cc'];
-            if (KONTROL1.debug>2){print("ch: "+ch)};
-            if (KONTROL1.debug>2){print("midino: "+midino)};
+            if (KONTROL1.debug>2){print("ch: "+ch)}
+            if (KONTROL1.debug>2){print("midino: "+midino)}
             }else{
             ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
             }
@@ -301,19 +301,19 @@ KONTROL1.updateLEDs = function updateLEDs(knobsonly, force) {
 
 //connected control functions
 KONTROL1.doLogKnobLEDs = function doLogKnobLEDs(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //show values of mixxx control on knob leds
     //logarithmic scale (0 min, 4 max) - used for pregain and lo mid hi filters, for example.
     //K = 4*(V)^2
     //V = (K/4)^0.5 -- K= value coming from prog (0-4, logarithmic scale), V=value adjusted to linear 0-1 
-    if (KONTROL1.debug>2){print("unadjusted value: "+value)};
+    if (KONTROL1.debug>2){print("unadjusted value: "+value)}
     value=(Math.pow((value/4),.5))*127;
     if (value<70){value+=10;}//add a bit to center 50% mark
         else if (value<110){value+=5;}
         else if (value<120){value+=2;}
     value=(value>127)?127:value;
     value=(value<0)?0:value;
-    if (KONTROL1.debug>2){print("value: "+value)};
+    if (KONTROL1.debug>2){print("value: "+value)}
     var midino;
     var ch=KONTROL1.channels[KONTROL1.curChannel]['cc'];
     if (control=="pregain"){midino=0x37;}
@@ -325,9 +325,9 @@ KONTROL1.doLogKnobLEDs = function doLogKnobLEDs(value,group,control) {
     }
  
 KONTROL1.doHotcueLEDs = function doHotcueLEDs(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     value=value*127;
-    if (KONTROL1.debug>2){print("value: "+value)};
+    if (KONTROL1.debug>2){print("value: "+value)}
     var hotcuenum=control.replace("hotcue_", "");
     var hotcuenum=hotcuenum.replace("_enabled", "");
     var ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
@@ -337,7 +337,7 @@ KONTROL1.doHotcueLEDs = function doHotcueLEDs(value,group,control) {
     }
 
 KONTROL1.doFilterKillLEDs = function doFilterKillLEDs(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     value=value*127;
     ch=KONTROL1.channels[KONTROL1.curChannel]['cc'];
     if (control=="filterHighKill"){midino=0x08}    
@@ -347,7 +347,7 @@ KONTROL1.doFilterKillLEDs = function doFilterKillLEDs(value,group,control) {
     }
 
 KONTROL1.syncLED = function syncLED(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     ch=KONTROL1.channels[KONTROL1.curChannel]['cc'];
     value=(value>0)?1:0;
     ledstate=value*127;
@@ -355,7 +355,7 @@ KONTROL1.syncLED = function syncLED(value,group,control) {
     }
 
 KONTROL1.cueLED = function cueLED(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
     value=(value>0)?1:0;
     ledstate=value*127;
@@ -363,7 +363,7 @@ KONTROL1.cueLED = function cueLED(value,group,control) {
     }
 
 KONTROL1.playLED = function playLED(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     ch=KONTROL1.channels[KONTROL1.curChannel]['cc'];
     value=(value>0)?1:0;
     ledstate=value*127;
@@ -371,7 +371,7 @@ KONTROL1.playLED = function playLED(value,group,control) {
     }
 
 KONTROL1.loopLenLEDs = function loopLenLEDs(deck, num){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //light LEDS for loop length dial
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
@@ -391,7 +391,7 @@ KONTROL1.loopLenLEDs = function loopLenLEDs(deck, num){
 
 
 KONTROL1.lightButtonLEDs = function lightButtonLEDs(value,group,control){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //light button leds for simple binary values
     //set KONTROL1.buttonLEDs object to contain new addresses as required
     ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
@@ -405,7 +405,7 @@ KONTROL1.lightButtonLEDs = function lightButtonLEDs(value,group,control){
 };
 
 KONTROL1.LoopBankLEDs = function LoopBankLEDs(value,group,control){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //light button leds for simple binary values
     //set KONTROL1.buttonLEDs object to contain new addresses as required
     ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
@@ -419,7 +419,7 @@ KONTROL1.LoopBankLEDs = function LoopBankLEDs(value,group,control){
 };
 
 KONTROL1.resumeLED = function resumeLED() {//lights sync button if a resume position is set
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     var state;
     if (KONTROL1.channels[KONTROL1.curChannel]["resumepos"]>-1){
         state=127;
@@ -432,7 +432,7 @@ KONTROL1.resumeLED = function resumeLED() {//lights sync button if a resume posi
     };
 
 KONTROL1.scratchParameterLEDs = function scratchParameterLEDs(midino,thearray,theindex) {//lights knobs for scratch parameter adjustment
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var state=Math.round((127/thearray.length)*theindex);
     state=(state>127)?127:state;
@@ -449,7 +449,7 @@ KONTROL1.scratchParameterLEDs = function scratchParameterLEDs(midino,thearray,th
 //############################################################################
 
 KONTROL1.checkChannel = function checkChannel(channel){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //checks to see whether the channel has changed (deck selector knob sends no midi when changed,
     //so every time input is received, this function checks its midi channel to see if it's different from the last)
     if (KONTROL1.curChannel!=channel){
@@ -457,32 +457,32 @@ KONTROL1.checkChannel = function checkChannel(channel){
         KONTROL1.curChannel=channel;
         //add in any functions to run here.  Eg: update LEDs, etc. [TODO]
         KONTROL1.updateLEDs();
-        };
+        }
     };
 
 KONTROL1.disableBankSwitch = function disableBankSwitch(knobnum) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //timed function - fires half a second after pressing knob.
     //Don't do the bank switch if you hold down the button (if knob button is used as modifier)
     KONTROL1.mod[knobnum]["dobankswitch"]=false;
     };
 
 KONTROL1.switchBank = function switchBank(bank){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     KONTROL1.channels[KONTROL1.curChannel]["curBank"]=bank;
     //add in any functions to run here.  Eg: update LEDs, etc. [TODO]
     KONTROL1.updateLEDs();
     };
 
 KONTROL1.disableShiftSwitch = function disableShiftSwitch(knobnum) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //timed function - fires half a second after pressing knob.
     //Don't do the bank switch if you hold down the button (if knob button is used as modifier)
     KONTROL1.mod[knobnum]["doshift"]=false;
     };
 
 KONTROL1.switchShift = function switchShift(bank){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     KONTROL1.channels[KONTROL1.curChannel]["curShift"]=(KONTROL1.channels[KONTROL1.curChannel]["curShift"]=="a")?"b":"a";
     //add in any functions to run here.  Eg: update LEDs, etc. [TODO]
     KONTROL1.updateLEDs();
@@ -495,7 +495,7 @@ KONTROL1.switchShift = function switchShift(bank){
 //############################################################################
 
 KONTROL1.toggleBinaryControl = function toggleBinaryControl(control, newstate){//toggles a binary control.  If newstate is provided, it will toggle to that state, otherwise it toggles on/off
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group = KONTROL1.getGroup(deck);
@@ -507,7 +507,7 @@ KONTROL1.toggleBinaryControl = function toggleBinaryControl(control, newstate){/
 
 
 KONTROL1.logKnobAdjust = function logKnobAdjust(group, control, minRange, maxRange, value){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //use a knob to adjust a mixxx control
     //on a logarithmic scale (0 min, 4 max)
     //K = 4*(V)^2
@@ -519,20 +519,20 @@ KONTROL1.logKnobAdjust = function logKnobAdjust(group, control, minRange, maxRan
 
     var newValue=4*Math.pow((adjustedValue+inc),2);
 
-    if (KONTROL1.debug>2){print("group: "+KONTROL1.getGroup(group))};
-    if (KONTROL1.debug>2){print("control: "+control)};
-    if (KONTROL1.debug>2){print("curValue: "+curValue)};
-    if (KONTROL1.debug>2){print("adjustedValue: "+adjustedValue)};
-    if (KONTROL1.debug>2){print("newValue: "+newValue)};
-    if (KONTROL1.debug>2){print("inc: "+inc)};
+    if (KONTROL1.debug>2){print("group: "+KONTROL1.getGroup(group))}
+    if (KONTROL1.debug>2){print("control: "+control)}
+    if (KONTROL1.debug>2){print("curValue: "+curValue)}
+    if (KONTROL1.debug>2){print("adjustedValue: "+adjustedValue)}
+    if (KONTROL1.debug>2){print("newValue: "+newValue)}
+    if (KONTROL1.debug>2){print("inc: "+inc)}
     if (newValue>4)newValue=4;
     if (newValue<0)newValue=0;
     engine.setValue(KONTROL1.getGroup(group), control, newValue);
     }
 
 KONTROL1.wheelTouch = function wheelTouch(channel, control, value, status, group) {//activate scratching
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
-    if (KONTROL1.debug>2){print("channel: "+channel)};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
+    if (KONTROL1.debug>2){print("channel: "+channel)}
 
     if (value == 0x7F) {//wheel is being touched
         engine.scratchEnable(channel+1, KONTROL1.wheelResArray[KONTROL1.wheelResIndex]*KONTROL1.scratchInterpolation, KONTROL1.scratchRevArray[KONTROL1.scratchRevIndex], KONTROL1.scratchAlphaArray[KONTROL1.scratchAlphaIndex], KONTROL1.scratchAlphaArray[KONTROL1.scratchAlphaIndex]/KONTROL1.scratchBetaArray[KONTROL1.scratchBetaIndex]);
@@ -545,10 +545,10 @@ KONTROL1.wheelTouch = function wheelTouch(channel, control, value, status, group
     };
 
 KONTROL1.wheelTurn = function wheelTurn(channel, control, value, status, group) {//do scratching
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
-    if (KONTROL1.debug>2){print("channel: "+channel)};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
+    if (KONTROL1.debug>2){print("channel: "+channel)}
 
-    if (value>1){var newValue=1}else{var newValue=-1};
+    if (value>1){var newValue=1}else{var newValue=-1}
     if (!KONTROL1.scratching[group]){//do jog or other functions (move loops, hotcues, etc.) if not scratching
         
         //check if a loop needs to be moved
@@ -558,30 +558,30 @@ KONTROL1.wheelTurn = function wheelTurn(channel, control, value, status, group) 
         
         engine.setValue(group, "jog", newValue);    
         return true;
-        };
+        }
     for (i=0; i<KONTROL1.scratchInterpolation; i++){
         engine.scratchTick(channel+1,newValue);
     }
     };
 
 KONTROL1.hotcueButton = function hotcueButton(hotcuenum, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group = KONTROL1.getGroup(deck);
     //activate 
     if (KONTROL1.mod["p1"]["state"]=="I"){
         engine.setValue(group, "hotcue_"+hotcuenum+"_clear", 1);
-        if (KONTROL1.debug>2){print("cleared")};
+        if (KONTROL1.debug>2){print("cleared")}
         } else {
         engine.setValue(group, "hotcue_"+hotcuenum+"_activate", 1);
         engine.setValue(group, "hotcue_"+hotcuenum+"_activate", 0);
-        if (KONTROL1.debug>2){print("activated")};
-        };
+        if (KONTROL1.debug>2){print("activated")}
+        }
 
     };
 
 KONTROL1.cueClear = function cueClear(cue, control, deck){//clear hotcue - OR move hotcue to new button
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group = KONTROL1.getGroup(deck);
 
@@ -610,7 +610,7 @@ KONTROL1.cueClear = function cueClear(cue, control, deck){//clear hotcue - OR mo
 }
 
 KONTROL1.cueMoveIndicatorLEDs = function cueMoveIndicatorLEDs(control){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     ch=KONTROL1.channels[KONTROL1.curChannel]['noteon'];
      
     KONTROL1.cuemovecontrol=control;
@@ -630,7 +630,7 @@ KONTROL1.cueMoveIndicatorLEDs = function cueMoveIndicatorLEDs(control){
 };
 
 KONTROL1.cueLoop = function cueLoop(cue, len){//jump to hotcue and start loop
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group = KONTROL1.getGroup(deck);
 
@@ -658,7 +658,7 @@ KONTROL1.cueLoop = function cueLoop(cue, len){//jump to hotcue and start loop
 }
 
 KONTROL1.kill = function kill(freq, value, deck){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //kills low mid high, or mutes all by recording current track volume level, switching to 0, then restoring previous volume level
     //if P1 mod is on when button pressed, it toggles on and off.  Otherwise it's momentary
     //args: freq = "all", "low", "mid", or "high"
@@ -705,7 +705,7 @@ KONTROL1.kill = function kill(freq, value, deck){
     }
 
 KONTROL1.resetKnob = function resetKnob(control, deck){//resets gain, low mid high to 50%
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
@@ -713,35 +713,35 @@ KONTROL1.resetKnob = function resetKnob(control, deck){//resets gain, low mid hi
     }
 
 KONTROL1.play = function play(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     var state=(engine.getValue(group, "play")==1)?0:1;
     if (value>0){//button was pressed
-        if (KONTROL1.debug){print("play newstate: "+state)};
-        if (KONTROL1.debug){print("play group: "+group)};
+        if (KONTROL1.debug){print("play newstate: "+state)}
+        if (KONTROL1.debug){print("play group: "+group)}
         engine.setValue(group, "play", state);
         } else {//button was released
-        };
+        }
     
 }
 
 KONTROL1.cue = function play(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     if (value>0){//button was pressed
         engine.setValue(group, "cue_default", 1);
         } else {//button was released
-        };
+        }
     
 }
 
 //LOOPS
 KONTROL1.beatLoop = function beatLoop(looplen, value, deck) {//activate beatloop
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     //activate beatloop
@@ -752,12 +752,12 @@ KONTROL1.beatLoop = function beatLoop(looplen, value, deck) {//activate beatloop
             }
         } else {//button was released
         KONTROL1.loopbuttonDown=false;
-        };
+        }
 
     };
 
 KONTROL1.beatLoopRoll = function beatLoopRoll(looplen, value, deck) {//activate beatloop
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     //activate beatlooproll
@@ -768,12 +768,12 @@ KONTROL1.beatLoopRoll = function beatLoopRoll(looplen, value, deck) {//activate 
         KONTROL1.beatlooprolllen[group]=looplen;
         } else {//button was released
         KONTROL1.loopbuttonDown=false;
-        };
+        }
 
     };
 
 KONTROL1.beatjump = function (jumplen) {//jumps back jumplen beats
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     
@@ -793,7 +793,7 @@ KONTROL1.beatjump = function (jumplen) {//jumps back jumplen beats
     };
 
 KONTROL1.saveLoop = function saveLoop(cue){//save the current loop inpoint as a hotcue
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
 
@@ -809,7 +809,7 @@ KONTROL1.saveLoop = function saveLoop(cue){//save the current loop inpoint as a 
 }
 
 KONTROL1.reloopButton = function reloopButton(value, deck) {//reloop/exit button
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     
@@ -829,21 +829,21 @@ KONTROL1.reloopButton = function reloopButton(value, deck) {//reloop/exit button
                 engine.setValue(group, "reloop_exit", 1);
                 }
             
-            };
+            }
         KONTROL1.doreloop=true;
         engine.stopTimer(KONTROL1.reloopTimer);
-        };
+        }
 
     };
 
 KONTROL1.disablereloop = function disablereloop() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //timed function - fires half a second after pressing reloop.  Don't do the reloop if you hold down the button (so you can move the loop without exiting)
     KONTROL1.doreloop=false;
     };
 
 KONTROL1.looplenDial = function looplenDial(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //activates variable length loop depending on dial position
 
     deck=(typeof deck !== 'undefined')?deck:"default";
@@ -872,7 +872,7 @@ KONTROL1.looplenDial = function looplenDial(value, deck) {
     };
 
 KONTROL1.loopIn = function loopIn(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //Set or move loop in point
     deck=(typeof deck !== 'undefined')?deck:"default";
@@ -884,14 +884,14 @@ KONTROL1.loopIn = function loopIn(value, deck) {
         KONTROL1.loopinbuttonTimer = engine.beginTimer(500, "KONTROL1.disableloopin()", true);
         } else {//button was released
         KONTROL1.loopinbuttonDown=false;
-        if (KONTROL1.doloopin===true) {engine.setValue(group, "loop_in", 1);engine.setValue(group, "loop_in", 0);};
+        if (KONTROL1.doloopin===true) {engine.setValue(group, "loop_in", 1);engine.setValue(group, "loop_in", 0);}
         KONTROL1.doloopin=true;
         engine.stopTimer(KONTROL1.loopinbuttonTimer);
-        };
+        }
 }
 
 KONTROL1.loopOut = function loopOut(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //set or move loop out point
     deck=(typeof deck !== 'undefined')?deck:"default";
@@ -903,28 +903,28 @@ KONTROL1.loopOut = function loopOut(value, deck) {
         KONTROL1.loopoutbuttonTimer = engine.beginTimer(500, "KONTROL1.disableloopout()", true);
         } else {//button was released
         KONTROL1.loopoutbuttonDown=false;
-        if (KONTROL1.doloopout===true) {engine.setValue(group, "loop_out", 1);};
+        if (KONTROL1.doloopout===true) {engine.setValue(group, "loop_out", 1);}
         KONTROL1.doloopout=true;
         engine.stopTimer(KONTROL1.loopoutbuttonTimer);
-        };
+        }
 }
 
 KONTROL1.disableloopin = function disableloopin() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //timed function - fires half a second after pressing reloop.  Don't do the reloop if you hold down the button (so you can move the loop without exiting)
     KONTROL1.doloopin=false;
     };
 
 KONTROL1.disableloopout = function disableloopout() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //timed function - fires half a second after pressing reloop.  Don't do the reloop if you hold down the button (so you can move the loop without exiting)
     KONTROL1.doloopout=false;
     };
 
 KONTROL1.loopMinus = function loopMinus(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //shrinks loop or moves loop back
     deck=(typeof deck !== 'undefined')?deck:"default";
@@ -933,7 +933,7 @@ KONTROL1.loopMinus = function loopMinus(value, deck) {
     if (KONTROL1.loopbuttonDown !== true && KONTROL1.loopoutbuttonDown !== true && KONTROL1.loopinbuttonDown !== true){engine.setValue(group, "loop_halve", 1); return false;}//shrink loop if no loop button down 
     else if (KONTROL1.loopbuttonDown === true && engine.getValue(group, "loop_start_position")>=0 && engine.getValue(group, "loop_end_position")>=0 ){
         //move loop
-        if (KONTROL1.debug>2){print("##doing move both back#####")};
+        if (KONTROL1.debug>2){print("##doing move both back#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var start = engine.getValue(group, "loop_start_position");
         var end = engine.getValue(group, "loop_end_position");
@@ -943,7 +943,7 @@ KONTROL1.loopMinus = function loopMinus(value, deck) {
         }
     else if (KONTROL1.loopinbuttonDown === true && engine.getValue(group, "loop_start_position")>=0){
         //move loop in point    
-        if (KONTROL1.debug>2){print("##doing move inpoint back#####")};
+        if (KONTROL1.debug>2){print("##doing move inpoint back#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var start = engine.getValue(group, "loop_start_position");
         engine.setValue(group, "loop_start_position", start-interval);
@@ -951,7 +951,7 @@ KONTROL1.loopMinus = function loopMinus(value, deck) {
         }
     else if (KONTROL1.loopoutbuttonDown === true && engine.getValue(group, "loop_end_position")>=0){
         //move loop out point    
-        if (KONTROL1.debug>2){print("##doing move outpoint back#####")};
+        if (KONTROL1.debug>2){print("##doing move outpoint back#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var end = engine.getValue(group, "loop_end_position");
         engine.setValue(group, "loop_end_position", end-interval);
@@ -960,7 +960,7 @@ KONTROL1.loopMinus = function loopMinus(value, deck) {
 }
 
 KONTROL1.wheelMoveLoop = function wheelMoveLoop (val){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
     
@@ -976,20 +976,20 @@ KONTROL1.wheelMoveLoop = function wheelMoveLoop (val){
     if (KONTROL1.loopbuttonDown !== true && KONTROL1.loopoutbuttonDown !== true && KONTROL1.loopinbuttonDown !== true){engine.setValue(group, "loop_halve", 1); return false;}//shrink loop if no loop button down 
     else if (KONTROL1.loopbuttonDown === true && start>=0 && end>=0 ){
         //move loop
-        if (KONTROL1.debug>2){print("##doing move both back#####")};
+        if (KONTROL1.debug>2){print("##doing move both back#####")}
         engine.setValue(group, "loop_start_position", start-interval);
         engine.setValue(group, "loop_end_position", end-interval);
         return true;
         }
     else if (KONTROL1.loopinbuttonDown === true && start>=0){
         //move loop in point    
-        if (KONTROL1.debug>2){print("##doing move inpoint back#####")};
+        if (KONTROL1.debug>2){print("##doing move inpoint back#####")}
         engine.setValue(group, "loop_start_position", start-interval);
         return true;
         }
     else if (KONTROL1.loopoutbuttonDown === true && end>=0){
         //move loop out point    
-        if (KONTROL1.debug>2){print("##doing move outpoint back#####")};
+        if (KONTROL1.debug>2){print("##doing move outpoint back#####")}
         engine.setValue(group, "loop_end_position", end-interval);
         return true;
         }//end if
@@ -998,12 +998,12 @@ KONTROL1.wheelMoveLoop = function wheelMoveLoop (val){
     }
 
 KONTROL1.moveLoop = function moveLoop(moveInPoint, moveOutPoint, increment) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //
     }
 
 KONTROL1.loopPlus = function loopPlus(value, deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //grows loop or moves loop forward
     deck=(typeof deck !== 'undefined')?deck:"default";
@@ -1012,7 +1012,7 @@ KONTROL1.loopPlus = function loopPlus(value, deck) {
     if (KONTROL1.loopbuttonDown !== true && KONTROL1.loopoutbuttonDown !== true && KONTROL1.loopinbuttonDown !== true){engine.setValue(group, "loop_double", 1); return false;}//shrink loop if no loop button down 
     else if (KONTROL1.loopbuttonDown === true && engine.getValue(group, "loop_start_position")>=0 && engine.getValue(group, "loop_end_position")>=0 ){
         //move loop
-        if (KONTROL1.debug>2){print("##doing move both forward#####")};
+        if (KONTROL1.debug>2){print("##doing move both forward#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var start = engine.getValue(group, "loop_start_position");
         var end = engine.getValue(group, "loop_end_position");
@@ -1022,14 +1022,14 @@ KONTROL1.loopPlus = function loopPlus(value, deck) {
         }
     else if (KONTROL1.loopinbuttonDown === true && engine.getValue(group, "loop_start_position")>=0){
         //move loop in point    
-        if (KONTROL1.debug>2){print("##doing move inpoint forward#####")};
+        if (KONTROL1.debug>2){print("##doing move inpoint forward#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var start = engine.getValue(group, "loop_start_position");
         engine.setValue(group, "loop_start_position", start+interval);
         return true;        }
     else if (KONTROL1.loopoutbuttonDown === true && engine.getValue(group, "loop_end_position")>=0){
         //move loop out point    
-        if (KONTROL1.debug>2){print("##doing move outpoint forward#####")};
+        if (KONTROL1.debug>2){print("##doing move outpoint forward#####")}
         var interval =    KONTROL1.loopmove*engine.getValue(group, "track_samples")/engine.getValue(group, "duration");
         var end = engine.getValue(group, "loop_end_position");
         engine.setValue(group, "loop_end_position", end+interval);
@@ -1040,7 +1040,7 @@ KONTROL1.loopPlus = function loopPlus(value, deck) {
 //sync and resume
 
 KONTROL1.resumeSet = function resumeSet(deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //records the time the set button is pressed, and the current play position
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
@@ -1048,25 +1048,25 @@ KONTROL1.resumeSet = function resumeSet(deck) {
     if (engine.getValue(group, "playposition")>=0 && engine.getValue(group, "playposition")<=1){
         KONTROL1.channels[KONTROL1.curChannel]["resumepos"] = engine.getValue(group, "playposition");
         KONTROL1.channels[KONTROL1.curChannel]["resumetime"] = Date.now();//get time in milliseconds
-        };
+        }
     KONTROL1.resumeLED();
     };
 
 KONTROL1.resumeClear = function resumeClear(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     KONTROL1.channels[KONTROL1.curChannel]["resumepos"]=-1;
     KONTROL1.resumeLED();
     };
 
 KONTROL1.resumeUnset = function resumeUnset(value,group,control) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //when a new track is loaded, turn off resume settings
     var ch;
     for (var k in KONTROL1.defaultDeck){
         if (KONTROL1.defaultDeck[k]==group){ch=k;}
         }
         
-    if (KONTROL1.debug){print("##ch: "+ch)};
+    if (KONTROL1.debug){print("##ch: "+ch)}
     KONTROL1.channels[ch]["resumepos"]=-1;
     KONTROL1.resumeLED();
     };
@@ -1079,7 +1079,7 @@ engine.connectControl("[Channel3]","LoadSelectedTrack","KONTROL1.resumeUnset");
 engine.connectControl("[Channel4]","LoadSelectedTrack","KONTROL1.resumeUnset");
 
 KONTROL1.resume = function resume(deck) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     //records the time the set button is pressed, and the current play position
     deck=(typeof deck !== 'undefined')?deck:"default";
     var group=KONTROL1.getGroup(deck);
@@ -1117,7 +1117,7 @@ KONTROL1.scratchBetaDefaultIndex=2;
 
 
 KONTROL1.setScratchRev = function setScratchRev(value) {//set scratch parameter - record RPM
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     var inc=(value==127)?1:-1;//increment - how far to move on each knob click
     KONTROL1.scratchRevIndex+=inc;
@@ -1129,7 +1129,7 @@ KONTROL1.setScratchRev = function setScratchRev(value) {//set scratch parameter 
     }
 
 KONTROL1.setScratchWheelRes = function setScratchWheelRes(value) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     var inc=(value==127)?1:-1;//increment - how far to move on each knob click
     KONTROL1.wheelResIndex+=inc;
@@ -1141,7 +1141,7 @@ KONTROL1.setScratchWheelRes = function setScratchWheelRes(value) {
     }
 
 KONTROL1.setScratchAlpha = function setScratchAlpha(value) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     var inc=(value==127)?1:-1;//increment - how far to move on each knob click
     KONTROL1.scratchAlphaIndex+=inc;
@@ -1153,7 +1153,7 @@ KONTROL1.setScratchAlpha = function setScratchAlpha(value) {
 }
 
 KONTROL1.setScratchBeta = function setScratchBeta(value) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
     
     var inc=(value==127)?1:-1;//increment - how far to move on each knob click
     KONTROL1.scratchBetaIndex+=inc;
@@ -1169,7 +1169,7 @@ KONTROL1.setScratchBeta = function setScratchBeta(value) {
 //############################################################################
 
 KONTROL1.getControl=function getControl(control){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     //returns the array of control commands and LED state functions for the control pressed for the current bank/mods
     var bank=KONTROL1.getBankCode();//check for setting on current bank with mods first
@@ -1187,50 +1187,50 @@ KONTROL1.getControl=function getControl(control){
     }
 
 KONTROL1.getModCode = function getModCode() {//returns the mod code to use as part of the key to access the controls object
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr=KONTROL1.mod["p1"]["state"]+KONTROL1.mod["p2"]["state"]+KONTROL1.mod["k1"]["state"]+KONTROL1.mod["k2"]["state"]+KONTROL1.mod["k3"]["state"]+KONTROL1.mod["k4"]["state"]+KONTROL1.mod["s"]["state"];
     return outstr;
     };
 
 KONTROL1.getBankCode = function getBankCode() {//returns the bank code (with mods) to use as a key to access the controls object
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr=KONTROL1.channels[KONTROL1.curChannel]["curBank"]+KONTROL1.channels[KONTROL1.curChannel]["curShift"]+"-"+KONTROL1.getModCode();
     return outstr;
     };
 
 KONTROL1.getNoModBankCode = function getNoModBankCode() {//return current bank with no mods
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr=KONTROL1.channels[KONTROL1.curChannel]["curBank"]+KONTROL1.channels[KONTROL1.curChannel]["curShift"]+"-ooooooo";
     return outstr;
     };
 
 KONTROL1.getNoShiftBankCode = function getNoShiftBankCode() {//return current bank with mods but no shift
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr=KONTROL1.channels[KONTROL1.curChannel]["curBank"]+"a-"+KONTROL1.getModCode();
     return outstr;
     };
 
 KONTROL1.getNoShiftNoModBankCode = function getNoShiftNoModBankCode() {//return current bank with no shifts or mods
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr=KONTROL1.channels[KONTROL1.curChannel]["curBank"]+"a-ooooooo";
     return outstr;
     };
 
 KONTROL1.getGroup = function getGroup(groupstr) {//return Mixx group
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var outstr;
     if (groupstr=="default"){outstr=KONTROL1.defaultDeck[KONTROL1.curChannel];}
     else if (groupstr=="alt"){outstr=KONTROL1.altDeck[KONTROL1.curChannel];}
     else if (groupstr=="sync"){outstr=KONTROL1.syncDeck[KONTROL1.curChannel];}
     else {outstr=groupstr;}
-    if (KONTROL1.debug>2){print("##getGroup groupstr: "+groupstr)};
-    if (KONTROL1.debug>2){print("##getGroup outstr: "+outstr)};
+    if (KONTROL1.debug>2){print("##getGroup groupstr: "+groupstr)}
+    if (KONTROL1.debug>2){print("##getGroup outstr: "+outstr)}
     return outstr;
     };
 
@@ -1251,7 +1251,7 @@ KONTROL1.testval=60;
 
 
 KONTROL1.testconnect=function testconnect(value,group,control){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     print ("CONNECT CONTROL TEST");
     print ("value: "+value);
@@ -1264,7 +1264,7 @@ KONTROL1.testconnect=function testconnect(value,group,control){
     }
 
 KONTROL1.testvalknob=function testvalknob(channel, control, value, status, group){
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     var inc=(value==127)?3:-3;
     KONTROL1.testval+=inc;
@@ -1275,7 +1275,7 @@ KONTROL1.testvalknob=function testvalknob(channel, control, value, status, group
 
 
 KONTROL1.testflash2 = function testflash2() {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     if (KONTROL1.flashon==0){
         midi.sendShortMsg(0xB0, 0x37, 0);
@@ -1293,7 +1293,7 @@ KONTROL1.testflash2 = function testflash2() {
 
 
 KONTROL1.test = function test(channel, control, value, status, group) {
-    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())};
+    if (KONTROL1.debug>2){print("##function: "+KONTROL1.getFunctionName())}
 
     print("channel: "+channel);
     print("control: "+control);

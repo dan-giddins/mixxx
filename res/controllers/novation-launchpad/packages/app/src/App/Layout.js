@@ -68,7 +68,7 @@ class SelectorBar extends Component {
   layout: { [key: string]: Block }
   mountedPresets: { [key: number]: Preset }
 
-  static buttons = [ 'up', 'down', 'left', 'right', 'session', 'user1', 'user2', 'mixer' ]
+  static buttons = ['up', 'down', 'left', 'right', 'session', 'user1', 'user2', 'mixer']
 
   static channels = [0, 1, 2, 3, 4, 5, 6, 7]
 
@@ -179,11 +179,13 @@ export default class Layout extends Component {
     super()
     this.selectorBar = new SelectorBar(controlComponentBuilder, midiComponentBuilder, modifier, `${id}.selectorBar`)
   }
+
   onMount () {
     this.selectorBar.mount()
     const diff = reorganize([], initialChannels)
     this.selectorBar.updateLayout(diff)
   }
+
   onUnmount () {
     const diff = reorganize(this.selectorBar.getLayout(), [])
     this.selectorBar.updateLayout(diff)
@@ -207,9 +209,9 @@ const offsets = [
 ]
 
 const presets = {
-  grande: [ Grande ],
-  tall: [ Tall, Juggler ],
-  short: [ Short, Sampler ]
+  grande: [Grande],
+  tall: [Tall, Juggler],
+  short: [Short, Sampler]
 }
 
 const cycled = {

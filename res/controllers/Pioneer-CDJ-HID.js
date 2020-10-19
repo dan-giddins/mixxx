@@ -170,7 +170,7 @@ function PioneerCDJController() {
         // anyway when implemented. When I know what data is sent, I
         // will add a helper function to actually do something with it!
         var waveform_packet_datalen = 400;
-        packet = new HIDPacket("waveform", 0x1, undefined, [0x2]);;
+        packet = new HIDPacket("waveform", 0x1, undefined, [0x2]);
         for (var i=0;i<waveform_packet_datalen;i++)
             packet.addControl("hid","byte_"+i,i,"B");
         //this.controller.registerOutputPacket(packet);

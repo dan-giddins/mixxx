@@ -57,14 +57,14 @@
         <location filename="../../src/library/banshee/bansheefeature.cpp" line="77"/>
         <source>Banshee database file not found at
 </source>
-        <translation>Banshee podatkovna baza ni bila najdena v 
+        <translation>Banshee podatkovna baza ni bila najdena v
 </translation>
     </message>
     <message>
         <location filename="../../src/library/banshee/bansheefeature.cpp" line="86"/>
         <source>There was an error loading your Banshee database at
 </source>
-        <translation>Zgiodila se je napaka pri nalaganju Banshee podatkovne baze v 
+        <translation>Zgiodila se je napaka pri nalaganju Banshee podatkovne baze v
 </translation>
     </message>
 </context>
@@ -3288,7 +3288,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Če je vklopljeno prepoznavanje beata, Mixxx prepozna število udarcev na minuto oziroma BPM vaših skladb. Samodejno prikaže mrežo udarcev beata in vam omogoči da sinhronizirate skladbe na podlagi informaciji o beatu.</translation>
     </message>
@@ -3304,8 +3304,8 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>Vklopi hitro prepoznavanje beata.
 Če je vklopljeno, Mixxx za določitev beata analizira zgolj prvo minuto skladbe.
@@ -3313,7 +3313,7 @@ Tako je mogoče pohitriti prepoznavanje beata na počasnejših računalnikih, ve
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Poskuša popraviti fazo (prvi beat) mreže beatov s fiksnim tempom, tako da analizira beat in zanemari neporavnane.</translation>
     </message>
@@ -3344,8 +3344,8 @@ by analyzing the beats to discard outliers.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Pretvori beate, ki jih odkrije analizator, v mrežo beatov s konstantnim tempom.
 Uporabite to nastavitev pri skladbah s konstantnim tempom (npr. večina elektronske glasbe).
@@ -4706,7 +4706,7 @@ CUP mode:
 - Cue button while pause not at cue point = set cue point and play after release
 - Cue button while playing = go to cue point and play after release
 </source>
-        <translation>Mixxx način: 
+        <translation>Mixxx način:
 - Gumb Cue ko je pavzirano na cue iztočnici = predogled
 - Gumb Cue ko je pavzirano in ni na cue iztočnici = nastavi cue iztočnico
 - Gumb Cue ko predvaja = pavziraj na cue iztočnici
@@ -5186,7 +5186,7 @@ Vedno lahko skladbe tudi povlečete in sputite, da podvojite nek predvajalnik.</
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Ko je vklopljeno prepoznavanje tonalitete, Mixxx prepozna glasbeno tonaliteto vaših skladb in vam omogoča, da prilagodite njihovo višino za harmonično miksanje.</translation>
     </message>
@@ -6574,14 +6574,14 @@ Ciljna glasnost je približna in predpostavlja, da ostaneta predojačitev in izh
         <location filename="../../src/preferences/dialog/dlgprefwaveformdlg.ui" line="303"/>
         <source>The waveform overview shows the waveform envelope of the entire track.
 Select from different types of displays for the waveform overview, which differ primarily in the level of detail shown in the waveform.</source>
-        <translation>Pregled celotne valovne oblike prikazuje valovno obliko celotne skladbe. 
+        <translation>Pregled celotne valovne oblike prikazuje valovno obliko celotne skladbe.
 Izbirajte med različnimi vrstami prikaza valovne oblike, ki se primarno razlikujejo v stopnji detajlov, ki so prikazane v valovni obliki.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefwaveformdlg.ui" line="311"/>
         <source>The waveform shows the waveform envelope of the track near the current playback position.
 Select from different types of displays for the waveform, which differ primarily in the level of detail shown in the waveform.</source>
-        <translation>Valovna oblika prikazuje valovno obliko blizu trenutnega mesta predvajanja. 
+        <translation>Valovna oblika prikazuje valovno obliko blizu trenutnega mesta predvajanja.
 Izbirajte med različnimi vrstami prikaza valovne oblike, ki se primarno razlikujejo v stopnji detajlov, ki so prikazane v valovni obliki.</translation>
     </message>
     <message>
@@ -7563,7 +7563,7 @@ Večinoma daje bolj kakovostne mreže beatov, vendar ne deluje dobro s skladbami
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Ni podpore za
 OpenGL.</translation>

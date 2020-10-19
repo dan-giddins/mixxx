@@ -3269,7 +3269,7 @@ Se não estão configuradas fontes de faixas, então a faixa é adicionada da bi
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Quando a deteção de batidas está validada, o Mixxx deteta as batidas por minuto e as batidas da sua faixa,
 automaticamente mostra a grelha de batidas delas, e permite sincronizar as faixas usando a sua informação sobre as batidas.</translation>
@@ -3286,8 +3286,8 @@ automaticamente mostra a grelha de batidas delas, e permite sincronizar as faixa
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>Ativa a deteçao rápida de batidas.
 Se ativada o Mixxx apenas analisa o primeiro minuto duma faixa para obtenção da batida.
@@ -3295,7 +3295,7 @@ Isto pode acelerar a deteção da batida em computadores mais lentos mas pode re
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Tenta corrigir a fase (primeira batida) de grelhas de batidas de tempo fixo
 analisando as batidas para rejeitar as discrepantes.</translation>
@@ -3327,8 +3327,8 @@ analisando as batidas para rejeitar as discrepantes.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Converte as batidas detetadas pelo analisador numa grelha de batidas de tempo fixo.
 Use esta definição se as suas faixas tiverem um tempo constante (ex. a maioria da música).
@@ -5163,7 +5163,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Quando a deteção de tom está validada, o Mixxx deteta o tom musical das suas faixas
 e permite ajustar esse tom para misturas harmónicas.</translation>
@@ -7538,7 +7538,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Sem suporte
 OpenGL</translation>
@@ -8323,7 +8323,7 @@ To abort this action, press Cancel on the file dialog.</source>
 
 %1
 
-Depois de carregar em OK, irá ver o seletor de ficheiros. Para dar ao Mixx permissão, tem de seleccionar &apos;%2&apos; para proceguir. Se não quiser dar ao Mixx acesso, carregue em Cancelar no seletor de ficheiros. Lamentamos a inconveniencia. 
+Depois de carregar em OK, irá ver o seletor de ficheiros. Para dar ao Mixx permissão, tem de seleccionar &apos;%2&apos; para proceguir. Se não quiser dar ao Mixx acesso, carregue em Cancelar no seletor de ficheiros. Lamentamos a inconveniencia.
 
 Para abortar esta acção, prima Cancelar no diálogo de ficheiro.</translation>
     </message>

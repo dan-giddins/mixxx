@@ -3268,9 +3268,9 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>Když je povoleno rozpoznávání rytmu, Mixxx zjišťuje počet úderů za minutu a rytmus vaší skladby, 
+        <translation>Když je povoleno rozpoznávání rytmu, Mixxx zjišťuje počet úderů za minutu a rytmus vaší skladby,
 automaticky ukáže rytmickou mřížku a dovolí vám seřízení skladeb pomocí informací o jejich rytmu.</translation>
     </message>
     <message>
@@ -3285,18 +3285,18 @@ automaticky ukáže rytmickou mřížku a dovolí vám seřízení skladeb pomoc
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Povolit rychlé rozpoznávání rytmu. 
-Když je zapnuto, Mixxx provede, aby získal údaje o rytmu, rozbor jen u první minuty skladby. 
+        <translation>Povolit rychlé rozpoznávání rytmu.
+Když je zapnuto, Mixxx provede, aby získal údaje o rytmu, rozbor jen u první minuty skladby.
 Toto nastavení může urychlit provádění rozboru na pomalejších počítačích, může ale vést k rytmickým mřížkám nižší jakosti.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
-        <translation>Pokusí se opravit fázi (první takt) rytmické mřížky s pevným tempem 
+        <translation>Pokusí se opravit fázi (první takt) rytmické mřížky s pevným tempem
 pomocí rozboru úderů a zahozením odchylných hodnot.</translation>
     </message>
     <message>
@@ -3326,8 +3326,8 @@ pomocí rozboru úderů a zahozením odchylných hodnot.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Převádí analyzátorem rozpoznaný rytmus do rytmické mřížky s pevným tempem.
 Použijte toto nastavení, pokud mají vaše skladby stálé tempo (např. většina elektronické hudby).
@@ -5163,9 +5163,9 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
-        <translation>Když je povoleno rozpoznávání tóniny, Mixxx rozpozná tóninu vašich skladeb 
+        <translation>Když je povoleno rozpoznávání tóniny, Mixxx rozpozná tóninu vašich skladeb
 a umožní vám upravit tóninu pro libozvučné míchání.</translation>
     </message>
     <message>
@@ -7543,7 +7543,7 @@ Použijte toto nastavení, pokud mají vaše skladby stálé tempo (např. vět�
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Žádná podpora
 pro OpenGL.</translation>

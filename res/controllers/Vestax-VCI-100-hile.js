@@ -5,7 +5,7 @@
 // For Mixxx version 1.11.x
 // 
 
-function HileVci100() {};
+function HileVci100() {}
 
 HileVci100.debugging = true;
 

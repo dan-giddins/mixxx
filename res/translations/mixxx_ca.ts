@@ -3269,7 +3269,7 @@ Si no hi ha cap font configurada, s&apos;afegeix una pista de la biblioteca.</tr
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Quan la deteccio de ritme està activada, el Mixxx detecta els tocs per minut (BPM) i la graella de ritme de les vostres pistes,
 mostra automàticament la graella, i utilitza aquesta informació per sincronitzar les pistes durant la reproducció.</translation>
@@ -3286,8 +3286,8 @@ mostra automàticament la graella, i utilitza aquesta informació per sincronitz
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>Habilita la detecció ràpida del ritme
 Si s&apos;activa, Mixx només analitza el primer minut de la pista per determinar el ritme
@@ -3295,7 +3295,7 @@ Això pot incrementar la velocitat de detecció en ordinadors lents, però les g
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Prova de corregir la fase (primer toc) de les graelles de ritme de tempo constant
 analitzant els tocs per descartar falsos positius</translation>
@@ -3327,8 +3327,8 @@ analitzant els tocs per descartar falsos positius</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Converteix els tocs detectats per l&apos;analitzador en una graella de tempo constant
 Utilitzeu aquesta opció si les vostres pistes tenen un tempo constant (p.ex. la majoria de música electrònica).
@@ -5164,7 +5164,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Quan la detecció de clau està activada, el Mixxx detecta la clau musical de les vostres pistes
 i permet que es pugui ajustar el to per a una mescla harmònica.</translation>
@@ -7542,7 +7542,7 @@ Sovint ofereix una graella de pulsacions de major qualitat, però no serà prou 
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Sense suport
 OpenGL.</translation>

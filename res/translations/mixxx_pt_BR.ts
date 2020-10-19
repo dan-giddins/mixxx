@@ -3268,7 +3268,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Quando a detecção de batidas está ativada, o Mixxx detecta as batidas por minuto e batidas de suas músicas,
 mostra automaticamente uma grade de batidas para elas, e permite sincronizar as músicas usando a informação de batidas delas.</translation>
@@ -3285,8 +3285,8 @@ mostra automaticamente uma grade de batidas para elas, e permite sincronizar as 
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>Ativar detecção rápida de batidas.
 Se ativado, o Mixxx só analisa o primeiro minuto de uma faixa.
@@ -3294,7 +3294,7 @@ Isto poderá acelerar a detecção de batidas em computadores mais lentos, entre
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Tenta corrigir a fase (primeira batida) de grades de batida de tempo fixo
 analisando as batidas para descartar problemas.</translation>
@@ -3326,10 +3326,10 @@ analisando as batidas para descartar problemas.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
-        <translation>Converte batidas detectadas pelo analisador em uma grade de batidas de ritmo constante. 
+        <translation>Converte batidas detectadas pelo analisador em uma grade de batidas de ritmo constante.
 Use esta configuração se suas músicas têm um ritmo constante (por exemplo a maioria das músicas eletrônicas).
 Muitas vezes resulta em grades de batida de maior qualidade, mas não vai funcionar bem nas músicas que têm variação de ritmo.</translation>
     </message>
@@ -5163,7 +5163,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Quando a detecção de tom está ativada, o Mixxx detecta o tom das suas faixas e permite que você ajuste o pitch para ter uma mixagem harmônica.</translation>
     </message>
@@ -7536,7 +7536,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Sem suporte
 OpenGL.</translation>

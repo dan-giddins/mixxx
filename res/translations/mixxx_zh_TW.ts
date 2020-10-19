@@ -3267,7 +3267,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>啟用節拍檢測後，Mixxx 檢測你的音軌每分鐘節拍數，
 自動顯示節拍網格，並允許您使用其節拍資訊同步音軌。</translation>
@@ -3284,8 +3284,8 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
         <translation>啟用快速跳動檢測。
 如果啟動 Mixxx 僅分析軌道打資訊的第一分鐘。
@@ -3293,7 +3293,7 @@ This can speed up beat detection on slower computers but may result in lower qua
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>嘗試糾正階段 （第一次打敗） 的固定節奏 beatgrids 通過分析的節拍放棄離群值。</translation>
     </message>
@@ -3324,8 +3324,8 @@ by analyzing the beats to discard outliers.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>將轉換成固定節奏 beatgrid 分析器檢測到的節拍。
 使用此設置，如果你的曲目有恆定的節奏 （例如大多數電子音樂）。
@@ -5142,7 +5142,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>啟用關鍵檢測後，Mixxx 檢測你的痕跡的音樂鍵，並允許您在球場調整他們的諧波的混合。</translation>
     </message>
@@ -7515,7 +7515,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>沒有 OpenGL 支援。</translation>
     </message>

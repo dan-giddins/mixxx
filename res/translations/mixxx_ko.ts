@@ -3266,9 +3266,9 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>박자 감지가 활성화 되어있을 때, Mixxx는 분당 박자수(BPM)와 귀하 트랙들의 박자를 감지해서, 
+        <translation>박자 감지가 활성화 되어있을 때, Mixxx는 분당 박자수(BPM)와 귀하 트랙들의 박자를 감지해서,
 자동으로 박자 격자(beat-grid)를 보여주고, 박자 정보를 이용해 노래들 간 박자를 맞출 수 있게해 줍니다</translation>
     </message>
     <message>
@@ -3283,18 +3283,18 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>빠른 박자 감지 활성화. 
+        <translation>빠른 박자 감지 활성화.
 활성화 시 Mixxx는 박자 정보를 위해 트랙의 처음 1분만을 분석합니다.
 이는 느린 컴퓨터에서 박자 감지를 빠르게 하지만, 박자 격자(beat grid)의 품질을 떨어뜨릴 수 있습니다.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
-        <translation>고정된 템포의 박자 격자(beat grid)의 첫 단계의 박자를 수정 시도합니다. 
+        <translation>고정된 템포의 박자 격자(beat grid)의 첫 단계의 박자를 수정 시도합니다.
 이는 예외 박자들을 분석하여 더 정확한 박자 격자를 얻을 수 있게 합니다.</translation>
     </message>
     <message>
@@ -3324,8 +3324,8 @@ by analyzing the beats to discard outliers.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation type="unfinished"/>
     </message>
@@ -5136,7 +5136,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation type="unfinished"/>
     </message>
@@ -7507,7 +7507,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation type="unfinished"/>
     </message>

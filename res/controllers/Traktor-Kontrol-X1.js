@@ -1,5 +1,5 @@
 
-function KontrolX1() {};
+function KontrolX1() {}
 
 KontrolX1.debugging = true;
 

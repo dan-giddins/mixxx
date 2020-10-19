@@ -54,7 +54,7 @@ TrakProDJ.LoadSelectedTrack = function(channel, control, value, status, group) {
     if (channel != 7) {
         print("TrakProDJ.LoadSelectedTrack: Unknown channel: " + channel);
         return
-    };
+    }
     if (control == 0x1f) {
         var group = '[Channel1]';
     } else if (control == 0x20) {
@@ -73,22 +73,22 @@ TrakProDJ.browse = function(channel, control, value, status, group) {
     switch (channel) {
         case 2:
             ctrl = TrakProDJ.deck1_browse_controls.playlist;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck1_browse_controls.playlist = val;
             break;
         case 3:
             ctrl = TrakProDJ.deck1_browse_controls.track;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck1_browse_controls.track = val;
             break
         case 4:
             ctrl = TrakProDJ.deck2_browse_controls.playlist;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck2_browse_controls.playlist = val;
             break;
         case 5:
             ctrl = TrakProDJ.deck2_browse_controls.track;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck2_browse_controls.track = val;
             break;
         default:
@@ -105,7 +105,7 @@ TrakProDJ.browse = function(channel, control, value, status, group) {
     print(channel + ' old ' + ctrl + ' new ' + val);
     if (change==0) {
         return;
-    };
+    }
     if (channel==3 || channel==5) {
         if (change == -1) {
             engine.setValue('[Playlist]','SelectPrevTrack',true);

@@ -382,7 +382,7 @@
     <message>
         <location filename="../../src/broadcast/broadcastmanager.cpp" line="114"/>
         <source>Please enable at least one connection to use Live Broadcasting.</source>
-        <translation>Бар једна веза мора бити активна 
+        <translation>Бар једна веза мора бити активна
 за емитовање уживо.</translation>
     </message>
 </context>
@@ -1889,7 +1889,7 @@
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="502"/>
         <source>Adjust the balance between the original (dry) and processed (wet) signal.</source>
-        <translation>Постави однос јачине сувог 
+        <translation>Постави однос јачине сувог
 (чистог) сигнала и обрађеног
 сигнала (ефекта)</translation>
     </message>
@@ -3313,9 +3313,9 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>Када је укључено откривање такта, Миксикс открива број тактова у минуту и број тактова ваших нумера, 
+        <translation>Када је укључено откривање такта, Миксикс открива број тактова у минуту и број тактова ваших нумера,
 и сам приказује њихову мрежу тактова, и омогућава вам да ускладите нумере користећи податке о њиховим тактовима.</translation>
     </message>
     <message>
@@ -3330,18 +3330,18 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Укључите брзо откривање такта. 
-Ако је покренуто Миксикс анализира само први минут нумере у потрази за подацима о такту. 
+        <translation>Укључите брзо откривање такта.
+Ако је покренуто Миксикс анализира само први минут нумере у потрази за подацима о такту.
 Ово може убрзати откривање такта на споријим рачунарима, али може да резултира слабијим квалитетом тактне мреже.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
-        <translation>Покушаће да поправи фазу (први такт) тактне мреже сталног темпа 
+        <translation>Покушаће да поправи фазу (први такт) тактне мреже сталног темпа
 анализирањем тактова да би одбацио непожељне.</translation>
     </message>
     <message>
@@ -3371,8 +3371,8 @@ by analyzing the beats to discard outliers.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Откуцаји који се детектују биће
 претворени у &quot;метар&quot; фиксног темпа.
@@ -3396,7 +3396,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="144"/>
         <source>e.g. from 3rd-party programs or Mixxx versions before 1.11.
 (Not checked: Analyze only, if no beats exist.)</source>
-        <translation>нпр. програми 3-ћих лица, или 
+        <translation>нпр. програми 3-ћих лица, или
 верзије Миксиксикса &lt; 1.11 (ако нема
 откуцаја, врши анализу)</translation>
     </message>
@@ -3451,7 +3451,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <translation>Савет: Када мапирате дугме или прекидач,
 померите/притисните га само једном.
 Код пот-а и клизача, најбоље је померити их
-у оба смера. Не дирајте више контрола 
+у оба смера. Не дирајте више контрола
 одједном.</translation>
     </message>
     <message>
@@ -3564,7 +3564,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="53"/>
         <source>If the mapping is not working try enabling an advanced option below and then try the control again. Or click Retry to redetect the midi control.</source>
         <translation>Ако научена контрола не реагује,
-покушајте да активирате неки од 
+покушајте да активирате неки од
 избора испод, па пробајте опет.
 Можете такође пробати поновну
 детекцију дугметом &quot;Покушај опет&quot;</translation>
@@ -3578,7 +3578,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="288"/>
         <source>Unable to detect a mapping -- please try again. Be sure to only touch one control at once.</source>
         <translation>Не могу да препознам поруку - покушајте
-опет. Да ли можда дирате више контрола 
+опет. Да ли можда дирате више контрола
 одједном?</translation>
     </message>
     <message>
@@ -3594,7 +3594,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="445"/>
         <source>Learning: %1. Now move a control on your controller.</source>
-        <translation>Учим: %1. Сада померите елемент 
+        <translation>Учим: %1. Сада померите елемент
 на хардверу.</translation>
     </message>
     <message>
@@ -3805,7 +3805,7 @@ You tried to learn: %1,%2</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefautodjdlg.ui" line="102"/>
         <source>Minimum number of tracks after which random tracks may be added</source>
-        <translation>Минимални број преосталих нумера 
+        <translation>Минимални број преосталих нумера
 на листи испод којег се активира насумично
 додавање</translation>
     </message>
@@ -3955,7 +3955,7 @@ Two source connections to the same server can&apos;t have the same mountpoint.</
         <source>Due to flaws in some streaming clients, updating Ogg Vorbis metadata dynamically can cause listener glitches and disconnections. Check this box to update the metadata anyway.</source>
         <translation>Због пропуста у неким програмима за
 пријем емитовања, ажурирање мета-
--података за Ог Ворбис у току 
+-података за Ог Ворбис у току
 емитовања може довести до прекида
 у звуку или вези.
 Омогући уживо ажурирање мета-података</translation>
@@ -3988,7 +3988,7 @@ Two source connections to the same server can&apos;t have the same mountpoint.</
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbroadcastdlg.ui" line="124"/>
         <source>Turn on Live Broadcasting when applying these settings</source>
-        <translation>Активирај емитовање уживо по 
+        <translation>Активирај емитовање уживо по
 активацији изабраних параметара</translation>
     </message>
     <message>
@@ -4822,7 +4822,7 @@ CUP mode:
 - Cue button while pause not at cue point = set cue point and play after release
 - Cue button while playing = go to cue point and play after release
 </source>
-        <translation>Миксиксикс: 
+        <translation>Миксиксикс:
 - притисак на паузи на маркеру = провера
 - притисак на паузи ван маркера = постави маркер
 - притисак при репродукцији = паузирај код маркера
@@ -5312,11 +5312,11 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Када је детекција тоналитета активна,
 Миксиксикс ће препознати музички
-тоналитет нумера, а ви га можете дотерати 
+тоналитет нумера, а ви га можете дотерати
 када желите да миксујете тонално.</translation>
     </message>
     <message>
@@ -6208,7 +6208,7 @@ The loudness target is approximate and assumes track pregain and master output l
         <source>When an unanalyzed track is playing, Mixxx will avoid an abrupt volume change by not applying a newly calculated ReplayGain value.</source>
         <translation>Када се репродукује нумера без познате гласноће,
 Микс ће избећи наглу промену гласноће
-тако што ће игнорисати новосрачунату 
+тако што ће игнорисати новосрачунату
 вредност &quot;РиплејГејн&quot;-а.</translation>
     </message>
     <message>
@@ -7755,7 +7755,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation type="unfinished"/>
     </message>

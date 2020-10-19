@@ -3269,9 +3269,9 @@ Si no hay fuentes de pistas configuradas, se añade una pista de la biblioteca.<
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>Cuando la detección de cuadrícula de tempo está activada, Mixxx detecta las pulsaciones por minuto (BPM) y la ubicación de las pulsaciones en la pista, 
+        <translation>Cuando la detección de cuadrícula de tempo está activada, Mixxx detecta las pulsaciones por minuto (BPM) y la ubicación de las pulsaciones en la pista,
 muestra automáticamente una cuadrícula de tempo, y le permite sincronizar las pistas usando esta información.</translation>
     </message>
     <message>
@@ -3286,16 +3286,16 @@ muestra automáticamente una cuadrícula de tempo, y le permite sincronizar las 
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Activar la detección rápida de pulsaciones. 
-Si está activado, Mixxx sólo analiza el primer minuto de la pista para obtener la información sobre las pulsaciones. 
+        <translation>Activar la detección rápida de pulsaciones.
+Si está activado, Mixxx sólo analiza el primer minuto de la pista para obtener la información sobre las pulsaciones.
 Esto puede agilizar su detección en ordenadores lentos, pero puede producir cuadrículas de tempo de peor calidad.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Intenta corregir la fase (ubicación de la primera pulsación) de las cuadrículas
 de tempo con tempo constante, analizando las pulsaciones para descartar valores extremos.</translation>
@@ -3327,8 +3327,8 @@ de tempo con tempo constante, analizando las pulsaciones para descartar valores 
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
         <translation>Convierte las pulsaciones encontradas por el analizador en una cuadrícula de tempo constante.
 Use esta opción si sus pistas tienen tempo constante (p. ej. la mayoría de de música electrónica).
@@ -5164,7 +5164,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Cuando la detección de clave está habilitada, Mixxx detecta la clave musical de sus canciones
 y le permite su afinación para la mezcla armónica.</translation>
@@ -7540,7 +7540,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>No hay soporte
 de OpenGL.</translation>

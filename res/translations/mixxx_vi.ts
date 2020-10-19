@@ -3268,7 +3268,7 @@ If no track sources are configured, the track is added from the library instead.
     <name>DlgBeatsDlg</name>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
-        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+        <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
         <translation>Khi phát hiện đánh bại được kích hoạt, Mixxx phát hiện nhịp mỗi phút và nhịp đập của bài nhạc của bạn, tự động cho thấy một mạng lưới đánh bại cho họ, và cho phép bạn đồng bộ hóa theo dõi bằng cách sử dụng thông tin của họ đánh bại.</translation>
     </message>
@@ -3284,16 +3284,16 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="109"/>
-        <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+        <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
-        <translation>Cho phép phát hiện đánh bại nhanh. 
-Nếu kích hoạt Mixxx chỉ phân tích những phút đầu tiên của một ca khúc để đánh bại thông tin. 
+        <translation>Cho phép phát hiện đánh bại nhanh.
+Nếu kích hoạt Mixxx chỉ phân tích những phút đầu tiên của một ca khúc để đánh bại thông tin.
 Điều này có thể tăng tốc độ phát hiện đánh bại trên máy tính chậm hơn nhưng có thể gây ra thấp hơn chất lượng beatgrids.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="133"/>
-        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+        <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
         <translation>Cố gắng sửa chữa giai đoạn (lần đầu tiên đánh bại) của beatgrids nhịp độ cố định bằng cách phân tích các beats để loại bỏ outliers.</translation>
     </message>
@@ -3324,11 +3324,11 @@ by analyzing the beats to discard outliers.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="121"/>
-        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+        <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
-        <translation>Chuyển đổi nhịp đập của bộ phân tích của phát hiện vào một beatgrid nhịp độ cố định. 
-Sử dụng thiết đặt này nếu bài nhạc của bạn có một nhịp độ liên tục (ví dụ: hầu hết âm nhạc điện tử). 
+        <translation>Chuyển đổi nhịp đập của bộ phân tích của phát hiện vào một beatgrid nhịp độ cố định.
+Sử dụng thiết đặt này nếu bài nhạc của bạn có một nhịp độ liên tục (ví dụ: hầu hết âm nhạc điện tử).
 Thường kết quả trong cao chất lượng beatgrids, nhưng sẽ không tốt trên bài hát có nhịp độ thay đổi.</translation>
     </message>
     <message>
@@ -5142,7 +5142,7 @@ You can always drag-and-drop tracks on screen to clone a deck.</source>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefkeydlg.ui" line="20"/>
-        <source>When key detection is enabled, Mixxx detects the musical key of your tracks 
+        <source>When key detection is enabled, Mixxx detects the musical key of your tracks
 and allows you to pitch adjust them for harmonic mixing.</source>
         <translation>Khi phát hiện quan trọng được kích hoạt, Mixxx phát hiện phím âm nhạc của bài nhạc của bạn và cho phép bạn cắm điều chỉnh chúng để pha trộn hài hòa.</translation>
     </message>
@@ -7515,7 +7515,7 @@ Often results in higher quality beatgrids, but will not do well on tracks that h
         <location filename="../../src/skin/legacyskinparser.cpp" line="1187"/>
         <source>No OpenGL
 support.</source>
-        <extracomment>Shown when Spinny can not be displayed. Please keep 
+        <extracomment>Shown when Spinny can not be displayed. Please keep
  unchanged</extracomment>
         <translation>Không có hỗ trợ OpenGL.</translation>
     </message>

@@ -14,7 +14,7 @@ const nextTrackBtn = Buttons.stop
 
 const autoscrolled = (binding) => (timerBuilder: TimerBuilder) => {
   let started
-  let minInterval = 32
+  const minInterval = 32
   let interval
   let timer
 
@@ -80,9 +80,11 @@ export default class PlaylistSidebar extends Component {
     super()
     this.buttons = buttons
   }
+
   onMount () {
     this.buttons.forEach((button) => button.mount())
   }
+
   onUnmount () {
     this.buttons.forEach((button) => button.unmount())
   }
