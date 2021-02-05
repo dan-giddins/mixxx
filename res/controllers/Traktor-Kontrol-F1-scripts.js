@@ -70,7 +70,7 @@ function KontrolF1Controller() {
         packet.addControl("hid", "fader_4", 20,"H");
         this.controller.registerInputPacket(packet);
 
-    }
+    };
 
     this.registerOutputPackets = function() {
         var packet = new HIDPacket("lights", 0x80);
@@ -105,54 +105,54 @@ function KontrolF1Controller() {
         packet.addControl("hid", "sync_brightness", 23,"B");
 
         // Pad RGB color button controls, 3 bytes per pad
-        packet.addControl("hid", "grid_1_blue", 24,"B")
-        packet.addControl("hid", "grid_1_red", 25,"B")
-        packet.addControl("hid", "grid_1_green", 26,"B")
-        packet.addControl("hid", "grid_2_blue", 27,"B")
-        packet.addControl("hid", "grid_2_red", 28,"B")
-        packet.addControl("hid", "grid_2_green", 29,"B")
-        packet.addControl("hid", "grid_3_blue", 30,"B")
-        packet.addControl("hid", "grid_3_red", 31,"B")
-        packet.addControl("hid", "grid_3_green", 32,"B")
-        packet.addControl("hid", "grid_4_blue", 33,"B")
-        packet.addControl("hid", "grid_4_red", 34,"B")
-        packet.addControl("hid", "grid_4_green", 35,"B")
-        packet.addControl("hid", "grid_5_blue", 36,"B")
-        packet.addControl("hid", "grid_5_red", 37,"B")
-        packet.addControl("hid", "grid_5_green", 38,"B")
-        packet.addControl("hid", "grid_6_blue", 39,"B")
-        packet.addControl("hid", "grid_6_red", 40,"B")
-        packet.addControl("hid", "grid_6_green", 41,"B")
-        packet.addControl("hid", "grid_7_blue", 42,"B")
-        packet.addControl("hid", "grid_7_red", 43,"B")
-        packet.addControl("hid", "grid_7_green", 44,"B")
-        packet.addControl("hid", "grid_8_blue", 45,"B")
-        packet.addControl("hid", "grid_8_red", 46,"B")
-        packet.addControl("hid", "grid_8_green", 47,"B")
-        packet.addControl("hid", "grid_9_blue", 48,"B")
-        packet.addControl("hid", "grid_9_red", 49,"B")
-        packet.addControl("hid", "grid_9_green", 50,"B")
-        packet.addControl("hid", "grid_10_blue", 51,"B")
-        packet.addControl("hid", "grid_10_red", 52,"B")
-        packet.addControl("hid", "grid_10_green", 53,"B")
-        packet.addControl("hid", "grid_11_blue", 54,"B")
-        packet.addControl("hid", "grid_11_red", 55,"B")
-        packet.addControl("hid", "grid_11_green", 56,"B")
-        packet.addControl("hid", "grid_12_blue", 57,"B")
-        packet.addControl("hid", "grid_12_red", 58,"B")
-        packet.addControl("hid", "grid_12_green", 59,"B")
-        packet.addControl("hid", "grid_13_blue", 60,"B")
-        packet.addControl("hid", "grid_13_red", 61,"B")
-        packet.addControl("hid", "grid_13_green", 62,"B")
-        packet.addControl("hid", "grid_14_blue", 63,"B")
-        packet.addControl("hid", "grid_14_red", 64,"B")
-        packet.addControl("hid", "grid_14_green", 65,"B")
-        packet.addControl("hid", "grid_15_blue", 66,"B")
-        packet.addControl("hid", "grid_15_red", 67,"B")
-        packet.addControl("hid", "grid_15_green", 68,"B")
-        packet.addControl("hid", "grid_16_blue", 69,"B")
-        packet.addControl("hid", "grid_16_red", 70,"B")
-        packet.addControl("hid", "grid_16_green", 71,"B")
+        packet.addControl("hid", "grid_1_blue", 24,"B");
+        packet.addControl("hid", "grid_1_red", 25,"B");
+        packet.addControl("hid", "grid_1_green", 26,"B");
+        packet.addControl("hid", "grid_2_blue", 27,"B");
+        packet.addControl("hid", "grid_2_red", 28,"B");
+        packet.addControl("hid", "grid_2_green", 29,"B");
+        packet.addControl("hid", "grid_3_blue", 30,"B");
+        packet.addControl("hid", "grid_3_red", 31,"B");
+        packet.addControl("hid", "grid_3_green", 32,"B");
+        packet.addControl("hid", "grid_4_blue", 33,"B");
+        packet.addControl("hid", "grid_4_red", 34,"B");
+        packet.addControl("hid", "grid_4_green", 35,"B");
+        packet.addControl("hid", "grid_5_blue", 36,"B");
+        packet.addControl("hid", "grid_5_red", 37,"B");
+        packet.addControl("hid", "grid_5_green", 38,"B");
+        packet.addControl("hid", "grid_6_blue", 39,"B");
+        packet.addControl("hid", "grid_6_red", 40,"B");
+        packet.addControl("hid", "grid_6_green", 41,"B");
+        packet.addControl("hid", "grid_7_blue", 42,"B");
+        packet.addControl("hid", "grid_7_red", 43,"B");
+        packet.addControl("hid", "grid_7_green", 44,"B");
+        packet.addControl("hid", "grid_8_blue", 45,"B");
+        packet.addControl("hid", "grid_8_red", 46,"B");
+        packet.addControl("hid", "grid_8_green", 47,"B");
+        packet.addControl("hid", "grid_9_blue", 48,"B");
+        packet.addControl("hid", "grid_9_red", 49,"B");
+        packet.addControl("hid", "grid_9_green", 50,"B");
+        packet.addControl("hid", "grid_10_blue", 51,"B");
+        packet.addControl("hid", "grid_10_red", 52,"B");
+        packet.addControl("hid", "grid_10_green", 53,"B");
+        packet.addControl("hid", "grid_11_blue", 54,"B");
+        packet.addControl("hid", "grid_11_red", 55,"B");
+        packet.addControl("hid", "grid_11_green", 56,"B");
+        packet.addControl("hid", "grid_12_blue", 57,"B");
+        packet.addControl("hid", "grid_12_red", 58,"B");
+        packet.addControl("hid", "grid_12_green", 59,"B");
+        packet.addControl("hid", "grid_13_blue", 60,"B");
+        packet.addControl("hid", "grid_13_red", 61,"B");
+        packet.addControl("hid", "grid_13_green", 62,"B");
+        packet.addControl("hid", "grid_14_blue", 63,"B");
+        packet.addControl("hid", "grid_14_red", 64,"B");
+        packet.addControl("hid", "grid_14_green", 65,"B");
+        packet.addControl("hid", "grid_15_blue", 66,"B");
+        packet.addControl("hid", "grid_15_red", 67,"B");
+        packet.addControl("hid", "grid_15_green", 68,"B");
+        packet.addControl("hid", "grid_16_blue", 69,"B");
+        packet.addControl("hid", "grid_16_red", 70,"B");
+        packet.addControl("hid", "grid_16_green", 71,"B");
 
         // Play key brightness control, 0-0xff
         packet.addControl("hid", "play_4_1_brightness", 72,"B");
@@ -166,32 +166,32 @@ function KontrolF1Controller() {
 
         this.controller.registerOutputPacket(packet);
 
-    }
+    };
 
     this.initializeHIDController = function() {
         this.scalers = {};
         this.scalers["volume"] = function(value) {
             return script.absoluteLin(value, 0, 1, 0, 4096);
-        }
+        };
         this.scalers["pregain"] = function(value) {
             return script.absoluteNonLin(value,0,1,5,0,4096);
-        }
+        };
         this.scalers["rate"] = function(value) {
             return script.absoluteLin(value,-1,1,0,4096);
-        }
+        };
         this.scalers["ratereversed"] = function(value) {
             return -script.absoluteLin(value,-1,1,0,4096);
-        }
+        };
         this.scalers["plusminus"] = function(value) {
             return script.absoluteLin(value,-1,1,0,4096);
-        }
+        };
         this.scalers["eq"] = function(value) {
             return script.absoluteNonLin(value, 0, 1, 4, 0, 4096);
-        }
+        };
 
         this.registerInputPackets();
         this.registerOutputPackets();
-    }
+    };
 
     // Set brightness for single color buttons with brightness adjustment
     // Valid adjustment range is 0-0x7f
@@ -214,7 +214,7 @@ function KontrolF1Controller() {
         if (value>0x7f)
             value = 0x7f;
         field.value = value;
-    }
+    };
 
     this.set7SegmentNumber = function(number) {
         var controller = this.controller;
@@ -227,14 +227,14 @@ function KontrolF1Controller() {
             right = KontrolF1.segments['empty'];
         }
 
-        for (var i=0;i<7;i++) {
+        for (var i=0; i<7; i++) {
             field = packet.getField("hid", "left_segment_"+(i+1));
             field.value = left[i];
             field = packet.getField("hid", "right_segment_"+(i+1));
             field.value = right[i];
         }
         HIDDebug("segments left " + left + " right "  + right);
-    }
+    };
 
     // Set the 8 bytes in left or right 7-segment display. DP is the dot.
     this.set7SegmentValue = function(name, dp, v1, v2, v3, v4, v5, v6, v7) {
@@ -257,7 +257,7 @@ function KontrolF1Controller() {
         field.value = v6;
         field = packet.getField("hid", name+"_segment_7");
         field.value = v7;
-    }
+    };
 
     // Set RGB color for one of the 16 pads.
     // Index is pad number index as 1-16.
@@ -288,7 +288,7 @@ function KontrolF1Controller() {
             blue=0x7f;
         field = packet.getField("hid", "grid_"+index+"_blue");
         field.value = blue;
-    }
+    };
 
     // reset all lights to off state
     this.resetLEDs = function() {
@@ -302,22 +302,22 @@ function KontrolF1Controller() {
             }
         }
         packet.send();
-    }
+    };
 
     // Send update for LED packets after LED state modifications
     this.updateLEDs = function() {
         var packet = this.controller.getOutputPacket("lights");
         packet.send();
-    }
+    };
 
 }
 
 KontrolF1 = new KontrolF1Controller();
 
-KontrolF1.init = function (id) {
+KontrolF1.init = function(id) {
     KontrolF1.id = id;
 
-    KontrolF1.controlModeButtons = { "decks": "capture",  "samplers": "quant" };
+    KontrolF1.controlModeButtons = {"decks": "capture",  "samplers": "quant"};
     KontrolF1.defaultControlMode = "decks";
 
     KontrolF1.initializeHIDController();
@@ -356,7 +356,7 @@ KontrolF1.init = function (id) {
 
     KontrolF1.updateLEDs();
     HIDDebug("NI Traktor F1 "+KontrolF1.id+" initialized");
-}
+};
 
 KontrolF1.testSegments = function() {
     if (KontrolF1.testSegment < 100) {
@@ -367,7 +367,7 @@ KontrolF1.testSegments = function() {
         KontrolF1.set7SegmentNumber(undefined);
     }
     KontrolF1.updateLEDs();
-}
+};
 
 // Device cleanup function
 KontrolF1.shutdown = function() {
@@ -378,17 +378,17 @@ KontrolF1.shutdown = function() {
 
     KontrolF1.shutdownHardware(2);
     HIDDebug("NI Traktor F1 "+KontrolF1.id+" shut down");
-}
+};
 
 // Mandatory default handler for incoming packets
 KontrolF1.incomingData = function(data,length) {
     KontrolF1.controller.parsePacket(data,length);
-}
+};
 
 // Mandatory LED update callback handler
 KontrolF1.activeLEDUpdateWrapper = function() {
     KontrolF1.controller.updateActiveDeckLEDs();
-}
+};
 
 // Handle button LED updates after packet receive if required:
 // F1 will reset LEDs to a default state without this
@@ -397,7 +397,7 @@ KontrolF1.ButtonLEDPressUpdate = function(packet,changed_data) {
     var send_led_update = false;
     for (var field in changed_data) {
         var delta = changed_data[field];
-        var name = field.split(".")[1]
+        var name = field.split(".")[1];
         // Select encoder also resets LEDs for some reason
         if (field=="select_encoder") {
             send_led_update = true;
@@ -433,7 +433,7 @@ KontrolF1.ButtonLEDPressUpdate = function(packet,changed_data) {
     }
     if (send_led_update)
         KontrolF1.updateLEDs();
-}
+};
 
 KontrolF1.disconnectModeLEDs = function(mode) {
     var grid = KontrolF1.grids[mode];
@@ -441,7 +441,7 @@ KontrolF1.disconnectModeLEDs = function(mode) {
     for (var name in grid) {
         var button = grid[name];
         if (button.ledname==undefined)
-            continue
+            continue;
         engine.connectControl(button.group, button.ledname,
             KontrolF1.setLED, false
         );
@@ -455,7 +455,7 @@ KontrolF1.disconnectModeLEDs = function(mode) {
             KontrolF1.setLED, false
         );
     }
-}
+};
 
 KontrolF1.connectModeLEDs = function(mode) {
     var grid = KontrolF1.grids[mode];
@@ -489,7 +489,7 @@ KontrolF1.connectModeLEDs = function(mode) {
         KontrolF1.setButtonBrightness("play_"+button_index+"_2", value);
     }
     KontrolF1.updateLEDs();
-}
+};
 
 KontrolF1.setLED = function(value,group,key) {
     var grid = KontrolF1.grids[KontrolF1.controlMode];
@@ -521,7 +521,7 @@ KontrolF1.setLED = function(value,group,key) {
         break;
     }
     KontrolF1.updateLEDs();
-}
+};
 
 KontrolF1.linkKnob = function(mode,knob,group,name,scaler) {
     if (!(mode in KontrolF1.knobs))
@@ -533,7 +533,7 @@ KontrolF1.linkKnob = function(mode,knob,group,name,scaler) {
     mapping.name = name;
     mapping.scaler = scaler;
     KontrolF1.knobs[mode][knob] = mapping;
-}
+};
 
 KontrolF1.knob = function(field) {
     var controller = KontrolF1.controller;
@@ -548,7 +548,7 @@ KontrolF1.knob = function(field) {
         return;
     }
     return KontrolF1.control(knob,field);
-}
+};
 
 KontrolF1.linkFader = function(mode,fader,group,name,scaler,callback) {
     if (!(mode in KontrolF1.faders))
@@ -561,7 +561,7 @@ KontrolF1.linkFader = function(mode,fader,group,name,scaler,callback) {
     mapping.scaler = scaler;
     mapping.callback = callback;
     KontrolF1.faders[mode][fader] = mapping;
-}
+};
 
 KontrolF1.fader = function(field) {
     var controller = KontrolF1.controller;
@@ -576,7 +576,7 @@ KontrolF1.fader = function(field) {
         return;
     }
     return KontrolF1.control(fader,field);
-}
+};
 
 KontrolF1.linkGrid = function(mode,button,group,name,toggle,callback,ledcolor,ledname) {
     if (!(mode in KontrolF1.grids))
@@ -600,7 +600,7 @@ KontrolF1.linkGrid = function(mode,button,group,name,toggle,callback,ledcolor,le
     mapping.ledcolor = ledcolor;
     mapping.callback = callback;
     KontrolF1.grids[mode][button] = mapping;
-}
+};
 
 KontrolF1.grid = function(field) {
     var mode = KontrolF1.grids[KontrolF1.controlMode];
@@ -614,7 +614,7 @@ KontrolF1.grid = function(field) {
         return;
     }
     return KontrolF1.button(button,field);
-}
+};
 
 KontrolF1.linkPlay = function(mode,button,group,name,toggle,callback,ledname) {
     if (!(mode in KontrolF1.playbuttons))
@@ -635,7 +635,7 @@ KontrolF1.linkPlay = function(mode,button,group,name,toggle,callback,ledname) {
     mapping.ledname = ledname;
     mapping.callback = callback;
     KontrolF1.playbuttons[mode][button] = mapping;
-}
+};
 
 KontrolF1.play = function(field) {
     var mode = KontrolF1.playbuttons[KontrolF1.controlMode];
@@ -649,7 +649,7 @@ KontrolF1.play = function(field) {
         return;
     }
     return KontrolF1.button(button,field);
-}
+};
 
 KontrolF1.control = function(control,field) {
     if (control.callback!=undefined) {
@@ -658,7 +658,7 @@ KontrolF1.control = function(control,field) {
     }
     var scaler = KontrolF1.scalers[control.scaler];
     engine.setValue(control.group,control.name,scaler(field.value));
-}
+};
 
 KontrolF1.button = function(button,field) {
     var controller = KontrolF1.controller;
@@ -672,10 +672,10 @@ KontrolF1.button = function(button,field) {
         else
             controller.toggle(button.group,button.name,field.value);
     } else {
-        var value = (field.value==1) ? true : false;
+        var value = (field.value==1);
         engine.setValue(button.group,button.name,value);
     }
-}
+};
 
 KontrolF1.switchControlMode = function(field) {
     if (field.name=='quant') {
@@ -685,7 +685,7 @@ KontrolF1.switchControlMode = function(field) {
     } else {
         HIDDebug("Unconfigured mode selector button: " + field.name);
     }
-}
+};
 
 KontrolF1.setControlMode = function(mode) {
     if (mode==KontrolF1.controlMode)
@@ -708,7 +708,7 @@ KontrolF1.setControlMode = function(mode) {
         KontrolF1.controlModeButtons[KontrolF1.controlMode],0x7f
     );
     KontrolF1.updateLEDs();
-}
+};
 
 KontrolF1.registerCallbacks = function() {
     var controller = KontrolF1.controller;
@@ -811,7 +811,7 @@ KontrolF1.registerCallbacks = function() {
     KontrolF1.linkPlay("samplers", "play_2", "[Sampler2]", "play", true);
     KontrolF1.linkPlay("samplers", "play_3", "[Sampler3]", "play", true);
     KontrolF1.linkPlay("samplers", "play_4", "[Sampler4]", "play", true);
-}
+};
 
 KontrolF1.hotcue = function(button,field) {
     var controller = KontrolF1.controller;
@@ -823,5 +823,5 @@ KontrolF1.hotcue = function(button,field) {
     else
         name = button.name + '_activate';
     engine.setValue(button.group,name,true);
-}
+};
 

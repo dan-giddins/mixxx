@@ -405,7 +405,7 @@
     <message>
         <location filename="../../src/broadcast/broadcastmanager.cpp" line="113"/>
         <source>Please enable at least one connection to use Live Broadcasting.</source>
-        <translation>Бар једна веза мора бити активна 
+        <translation>Бар једна веза мора бити активна
 за емитовање уживо.</translation>
     </message>
 </context>
@@ -1932,7 +1932,7 @@
     <message>
         <location filename="../../src/controllers/controlpickermenu.cpp" line="743"/>
         <source>Adjust the balance between the original (dry) and processed (wet) signal.</source>
-        <translation>Постави однос јачине сувог 
+        <translation>Постави однос јачине сувог
 (чистог) сигнала и обрађеног
 сигнала (ефекта)</translation>
     </message>
@@ -3723,7 +3723,7 @@ by analyzing the beats to discard outliers.</source>
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="144"/>
         <source>e.g. from 3rd-party programs or Mixxx versions before 1.11.
 (Not checked: Analyze only, if no beats exist.)</source>
-        <translation>нпр. програми 3-ћих лица, или 
+        <translation>нпр. програми 3-ћих лица, или
 верзије Миксиксикса &lt; 1.11 (ако нема
 откуцаја, врши анализу)</translation>
     </message>
@@ -3778,7 +3778,7 @@ by analyzing the beats to discard outliers.</source>
         <translation>Савет: Када мапирате дугме или прекидач,
 померите/притисните га само једном.
 Код пот-а и клизача, најбоље је померити их
-у оба смера. Не дирајте више контрола 
+у оба смера. Не дирајте више контрола
 одједном.</translation>
     </message>
     <message>
@@ -3891,7 +3891,7 @@ by analyzing the beats to discard outliers.</source>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="47"/>
         <source>If the mapping is not working try enabling an advanced option below and then try the control again. Or click Retry to redetect the midi control.</source>
         <translation>Ако научена контрола не реагује,
-покушајте да активирате неки од 
+покушајте да активирате неки од
 избора испод, па пробајте опет.
 Можете такође пробати поновну
 детекцију дугметом &quot;Покушај опет&quot;</translation>
@@ -3905,7 +3905,7 @@ by analyzing the beats to discard outliers.</source>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="313"/>
         <source>Unable to detect a mapping -- please try again. Be sure to only touch one control at once.</source>
         <translation>Не могу да препознам поруку - покушајте
-опет. Да ли можда дирате више контрола 
+опет. Да ли можда дирате више контрола
 одједном?</translation>
     </message>
     <message>
@@ -3921,7 +3921,7 @@ by analyzing the beats to discard outliers.</source>
     <message>
         <location filename="../../src/controllers/dlgcontrollerlearning.cpp" line="482"/>
         <source>Learning: %1. Now move a control on your controller.</source>
-        <translation>Учим: %1. Сада померите елемент 
+        <translation>Учим: %1. Сада померите елемент
 на хардверу.</translation>
     </message>
     <message>
@@ -4126,7 +4126,7 @@ You tried to learn: %1,%2</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefautodjdlg.ui" line="215"/>
         <source>Minimum number of tracks after which random tracks may be added</source>
-        <translation>Минимални број преосталих нумера 
+        <translation>Минимални број преосталих нумера
 на листи испод којег се активира насумично
 додавање</translation>
     </message>
@@ -4276,7 +4276,7 @@ Two source connections to the same server can&apos;t have the same mountpoint.</
         <source>Due to flaws in some streaming clients, updating Ogg Vorbis metadata dynamically can cause listener glitches and disconnections. Check this box to update the metadata anyway.</source>
         <translation>Због пропуста у неким програмима за
 пријем емитовања, ажурирање мета-
--података за Ог Ворбис у току 
+-података за Ог Ворбис у току
 емитовања може довести до прекида
 у звуку или вези.
 Омогући уживо ажурирање мета-података</translation>
@@ -4309,7 +4309,7 @@ Two source connections to the same server can&apos;t have the same mountpoint.</
     <message>
         <location filename="../../src/preferences/dialog/dlgprefbroadcastdlg.ui" line="124"/>
         <source>Turn on Live Broadcasting when applying these settings</source>
-        <translation>Активирај емитовање уживо по 
+        <translation>Активирај емитовање уживо по
 активацији изабраних параметара</translation>
     </message>
     <message>
@@ -5207,7 +5207,7 @@ CUP mode:
 - Cue button while pause not at cue point = set cue point and play after release
 - Cue button while playing = go to cue point and play after release
 </source>
-        <translation>Миксиксикс: 
+        <translation>Миксиксикс:
 - притисак на паузи на маркеру = провера
 - притисак на паузи ван маркера = постави маркер
 - притисак при репродукцији = паузирај код маркера
@@ -6599,7 +6599,7 @@ The loudness target is approximate and assumes track pregain and master output l
         <source>When an unanalyzed track is playing, Mixxx will avoid an abrupt volume change by not applying a newly calculated ReplayGain value.</source>
         <translation>Када се репродукује нумера без познате гласноће,
 Микс ће избећи наглу промену гласноће
-тако што ће игнорисати новосрачунату 
+тако што ће игнорисати новосрачунату
 вредност &quot;РиплејГејн&quot;-а.</translation>
     </message>
     <message>

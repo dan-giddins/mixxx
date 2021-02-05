@@ -16,26 +16,26 @@ var shiftEnt=0;
 NumarkDJ2Go.shiftA = function(channel, control, value, status, group) {
 shiftA = ((status=="0x90") ? 1 : 0);
 shiftUsed=0;
-}
+};
 NumarkDJ2Go.shiftB = function(channel, control, value, status, group) {
 shiftB = ((status=="0x90") ? 1 : 0);
 shiftUsed=0;
-}
+};
 NumarkDJ2Go.shiftBck = function(channel, control, value, status, group) {
 shiftBck = ((status=="0x90") ? 1 : 0);
 shiftUsed=0;
-}
+};
 NumarkDJ2Go.shiftEnt = function(channel, control, value, status, group) {
 shiftEnt = ((status=="0x90") ? 1 : 0);
 shiftUsed=0;
-}
+};
 
 
 NumarkDJ2Go.flip = function(group, key) {
 	var flip=engine.getValue(group, key);
 	flip = (flip != true);
 	engine.setValue(group, key, flip);
-	}
+	};
 
 //Initialise and shutdown stuff.
 //========================================================
@@ -87,7 +87,7 @@ NumarkDJ2Go.deck = function(deckNum) {
 	this.deckNum = deckNum;
 	this.group = "[Channel" + deckNum + "]";
 	this.loadedCheck = function() {
-		var yesno = (engine.getValue(this.group, "track_samples") > 0)?true:false;
+		var yesno = (engine.getValue(this.group, "track_samples") > 0);
 		return yesno;
 	};
 	//Brake effect introduced in Mixxx 1.11
@@ -122,10 +122,9 @@ NumarkDJ2Go.deck = function(deckNum) {
 	//used to automatically turn the scratch mode off when the jog wheel stops moving for a period.
 	//This allows play to resume when scratching finished.
 	this.scratch  = function(forwards) {
-		if (this.scratchTimer !== 0)
-			{
+		if (this.scratchTimer !== 0) {
 			engine.stopTimer(this.scratchTimer);
-			};
+			}
 		var playDelay = 40; //Adjust to suit.
 		var scrConst = 1;  //Adjust to suit.
 		var scrVal = (forwards)?scrConst:-scrConst;
@@ -141,10 +140,9 @@ NumarkDJ2Go.deck = function(deckNum) {
 		//For some reason the ramping pitchbend option in Mixxx menu together with temp_rate_up/down doesn't seem
 		//to work for the jog wheel. So this function allows the pitch bend to ramp the faster/more
 		//revolutions of the wheel.
-		if (this.pitchTimer !== 0)
-			{
+		if (this.pitchTimer !== 0) {
 			engine.stopTimer(this.pitchTimer);
-			};
+			}
 		var bendConst = 0.002; //Adjust to suit.
 		var nVal = (Math.abs(this.bendVal) + bendConst); //Turn bendVal to absolute value and add.
 		nVal = (nVal > 3.0)?3.0:nVal; //If gone over 3, keep at 3.
@@ -159,15 +157,14 @@ NumarkDJ2Go.deck = function(deckNum) {
 	};
 	//Controls for the deck--buttons, sliders, etc--are associated with the deck using this array.
 	this.control = [];
-	this.beatActive = function(){
+	this.beatActive = function() {
 	if (engine.getValue(this.group, "beat_active")) {
-	    this.beatLed = true
-            }
-            else {
+	    this.beatLed = true;
+            } else {
                  this.beatLed= false;
                  }
-        }
-        this.jump2begin = function (){
+        };
+        this.jump2begin = function() {
             engine.setValue(this.group,"playposition",0);
             };
 
@@ -193,7 +190,7 @@ NumarkDJ2Go.control = function(key, midino, group) {
 //actually illuminate.
 NumarkDJ2Go.light = function(group, midino, deckID, controlID) {
 	this.midino = midino;
-	this.objStr= "NumarkDJ2Go.decks." + deckID + ".control." + controlID + ".light"
+	this.objStr= "NumarkDJ2Go.decks." + deckID + ".control." + controlID + ".light";
 	this.lit = false;
 	this.flashTimer= 0;
 	this.flashOnceTimer= 0;
@@ -210,45 +207,38 @@ NumarkDJ2Go.light = function(group, midino, deckID, controlID) {
 		this.flashOnceTimer = 0;
 	};
 	this.flashOff = function(relight) {
-		if (this.flashTimer !== 0)
-			{
+		if (this.flashTimer !== 0) {
 			engine.stopTimer(this.flashTimer);
 			this.flashTimer= 0;
-			};
-		if (this.flashOnceTimer !== 0)
-			{
+			}
+		if (this.flashOnceTimer !== 0) {
 			engine.stopTimer(this.flashOnceTimer);
 			this.flashOnceTimer= 0;
-			};
-		if (relight)
-			{
-			this.onOff(1);
 			}
-		else
-			{
+		if (relight) {
+			this.onOff(1);
+			} else {
 			this.onOff(0);
-			};
+			}
 	};
 	this.flashOn = function(flashNo) {
 		var relight = this.lit;
 		this.flashOff();
 		this.flashOnceOn(); //This is because the timer take 600 milisecs before first flash.
 		this.flashTimer = engine.beginTimer(600, this.objStr + ".flashOnceOn()");
-		if (flashNo)
-			{
+		if (flashNo) {
 			engine.beginTimer((flashNo * 600) -50, this.objStr + ".flashOff(" + relight + ")", true);
-			};
+			}
 	};
 };
 
 //Constructor for creating control objects
 NumarkDJ2Go.addControl = function(arrID, ID, controlObj, addLight) {
 	var arrAdd = this[arrID];
-	if (addLight)
-		{
+	if (addLight) {
 		//If the button can illuminate, a light object is created for it (see above).
 		controlObj.light = new NumarkDJ2Go.light(this.group, controlObj.midino, "D" + this.deckNum,ID);
-		};
+		}
 	arrAdd[ID] = controlObj;
 };
 
@@ -308,18 +298,14 @@ NumarkDJ2Go.decks.D2.addControl("control", "bendPlus", new NumarkDJ2Go.control("
        var backBut = NumarkDJ2Go.playlist.backBut;
        var selectKnob = NumarkDJ2Go.playlist.selectKnob;
        shiftBck=0;
-       if (shiftUsed==0)
-          {
+       if (shiftUsed==0) {
 
-          if (("dirMode" in selectKnob) && (selectKnob.dirMode == "Track"))
-             {
+          if (("dirMode" in selectKnob) && (selectKnob.dirMode == "Track")) {
              selectKnob.dirMode = "Playlist";
-             }
-             else
-                 {
+             } else {
                  backBut.onOff(1);
-                 };
-          };
+                 }
+          }
     };
 
     //Changes the selectKnob (below) dirMode attribute to 'track' if 'playlist'. If dirMode attribute
@@ -328,27 +314,22 @@ NumarkDJ2Go.decks.D2.addControl("control", "bendPlus", new NumarkDJ2Go.control("
        var enterBut = NumarkDJ2Go.playlist.enterBut;
        var selectKnob = NumarkDJ2Go.playlist.selectKnob;
        shiftEnt=0;
-       if (shiftUsed==0)
-          {
+       if (shiftUsed==0) {
 
-          if (("dirMode" in selectKnob) && (selectKnob.dirMode == "Track"))
-             {
+          if (("dirMode" in selectKnob) && (selectKnob.dirMode == "Track")) {
              enterBut.onOff(1);
-             }
-             else
-                 {
+             } else {
                  selectKnob.dirMode = "Track";
-                 };
-          };
+                 }
+          }
     };
 
 //Depending on the dirMode attribute, either scrolls up and down the directory tree or the tracklist.
 NumarkDJ2Go.selectKnob = function(channel, midino, value) {
 	var selectKnob = NumarkDJ2Go.playlist.selectKnob;
-	if (!("dirMode" in selectKnob))
-		{
+	if (!("dirMode" in selectKnob)) {
 		selectKnob.dirMode = "Playlist"; //Assumes playlist if back/enter buttons never been pressed.
-		};
+		}
 	selectKnob.key = (value == 0x7F)?"SelectPrev"+selectKnob.dirMode:"SelectNext"+selectKnob.dirMode;
 	selectKnob.onOff(1);
 };
@@ -357,21 +338,15 @@ NumarkDJ2Go.selectKnob = function(channel, midino, value) {
 //case starts track again from beginning, ignoring any cue points.
 NumarkDJ2Go.load = function(channel, midino, value, status, group) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (deck.control.play.checkOn())
-		{
-		if (deck.scratchMode)
-			{
+	if (deck.control.play.checkOn()) {
+		if (deck.scratchMode) {
 			deck.scratchMode = false;
-			}
-		else
-			{
+			} else {
 			deck.scratchMode = true;
-			};
-		}
-	else
-		{
+			}
+		} else {
 		deck.control.load.onOff(1);
-		};
+		}
 };
 
 //Turns on/off headphone monitor for the deck, but also turns off the headphone monitor for the other deck.
@@ -381,19 +356,16 @@ NumarkDJ2Go.pfl = function(channel, midino, value, status, group) {
 	   NumarkDJ2Go.flip(group,"flanger");
 	   shiftUsed=1;
 	   return;
-           }
-        else {
+           } else {
 	        var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	        if (deck.control.pfl.checkOn())
-		   {
+	        if (deck.control.pfl.checkOn()) {
 		   deck.control.pfl.onOff(0);
-		   }
-	         else {
+		   } else {
 		      NumarkDJ2Go.decks.D1.control.pfl.onOff(0);
 		      NumarkDJ2Go.decks.D2.control.pfl.onOff(0);
 		      deck.control.pfl.onOff(1);
-		      };
-             };
+		      }
+             }
         };
 
 
@@ -402,125 +374,103 @@ NumarkDJ2Go.pfl = function(channel, midino, value, status, group) {
 //Cue. Reacts to both status on and status off bytes (i.e. button held down and released).
 NumarkDJ2Go.cue = function(channel, midino, value, status, group) {
         var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-        if (shiftBck){
+        if (shiftBck) {
            deck.jump2begin();
            return;
-           }
-          else {
+           } else {
 	       //Need to disable the deck brake first, if it is applied.
-	       if (deck.braked)
-                  {
+	       if (deck.braked) {
 		  deck.brakeOff();
-		  };
-	       if (deck.loadedCheck())
-		   {
+		  }
+	       if (deck.loadedCheck()) {
 		   var onoff = (status == 0x90)?1:0;
 		   deck.control.cue.onOff(onoff);
-		   };
+		   }
               }
 };
 
 //Play. Does deck brake instead of pause if scratch mode selected.
 NumarkDJ2Go.play = function(channel, midino, value, status, group) {
-           if (status==0x80)
-                {
+           if (status==0x80) {
                 if (shiftBck) {
                               engine.setValue(group, "reverse", 0);
                               shiftUsed=1;
-                              };
-                }
-                else {
-                     if (shiftBck){
+                              }
+                } else {
+                     if (shiftBck) {
                                    engine.setValue(group, "reverse", 1);
                                    shiftUsed=1;
                                    return;
                                    }
 	               var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
 	               //Turns deck brake off if it is on.
-	               if (deck.braked)
-		              {
+	               if (deck.braked) {
 		              deck.brakeOff();
-		              };
-	                 if (deck.loadedCheck())
-                            {
-		            if (deck.control.play.checkOn())
-		               {
-		               if (deck.scratchMode)
-                                  {
+		              }
+	                 if (deck.loadedCheck()) {
+		            if (deck.control.play.checkOn()) {
+		               if (deck.scratchMode) {
 //    	               		deck.brakeOn(750);
-                                  };
+                                  }
 		               deck.control.play.onOff(0);
-		               }
-                               else {
+		               } else {
                 	            deck.control.play.onOff(1);
-                	            };
-	                     };
-	             };
+                	            }
+	                     }
+	             }
 };
 
 //Jog wheel. Scratches or pitchbends depending on whether scratch mode selected.
-NumarkDJ2Go.wheel = function (channel, midino, value, status, group) {
+NumarkDJ2Go.wheel = function(channel, midino, value, status, group) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	var forwards = (value == 0x7F)?false:true;
+	var forwards = value != 0x7F;
 	if (shiftEnt) {
 	   deck.scratchMode=1;
 	   shiftUsed=1;
-           };
-		if (deck.scratchMode)
-			{
-			if (deck.scratchTimer == 0)
-				{
+           }
+		if (deck.scratchMode) {
+			if (deck.scratchTimer == 0) {
 				//If no scratch timer (i.e. jog wheel not already being scratched), turns scratch mode on.
 				deck.scratchOn();
-				};
+				}
 			//Does scratching. Whether back or forward given in 'forwards' variable.
 			deck.scratch(forwards);
 			deck.scratchMode=0;
-			}
-		else
-			{
+			} else {
 			//Does pitchbend.
 			deck.pitchBend(forwards);
-			};
+			}
 };
 
 //Pitch bend down. This toggles off the pitch bend up and pitches down while the
 //button is held. Turns off when button released.
 NumarkDJ2Go.pitchBendMinus = function(channel, midino, value, status, group) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (!deck.control.bendPlus.checkOn())
-		{
-		if (status == 0x90)
-			{
-			deck.control.bendPlus.onOff(0)
-			deck.control.bendMinus.onOff(1)
+	if (!deck.control.bendPlus.checkOn()) {
+		if (status == 0x90) {
+			deck.control.bendPlus.onOff(0);
+			deck.control.bendMinus.onOff(1);
+			} else {
+			deck.control.bendMinus.onOff(0);
 			}
-		else
-			{
-			deck.control.bendMinus.onOff(0)
-			}
-	};
+	}
 };
 
 //Pitch bend up. This toggles off the pitch bend down and pitches up while the
 //button is held. Turns off when button released.
 NumarkDJ2Go.pitchBendPlus = function(channel, midino, value, status, group) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (!deck.control.bendMinus.checkOn())
-		{
-		if (status == 0x90)
-			{
-			deck.control.bendMinus.onOff(0)
-			deck.control.bendPlus.onOff(1)
+	if (!deck.control.bendMinus.checkOn()) {
+		if (status == 0x90) {
+			deck.control.bendMinus.onOff(0);
+			deck.control.bendPlus.onOff(1);
+			} else {
+			deck.control.bendPlus.onOff(0);
 			}
-		else
-			{
-			deck.control.bendPlus.onOff(0)
-			}
-	};
+	}
 };
 
-NumarkDJ2Go.sync =function (channel, midino, value, status, group) {
+NumarkDJ2Go.sync =function(channel, midino, value, status, group) {
         var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
 
         if (shiftEnt) {
@@ -528,14 +478,12 @@ NumarkDJ2Go.sync =function (channel, midino, value, status, group) {
            deck.control.beatTapCurPos.onOff(0);
 	   shiftUsed=1;
 	   return;
-           }
-           else if (shiftBck){
+           } else if (shiftBck) {
                    deck.control.bpmTap.onOff(1);
                    deck.control.bpmTap.onOff(0);
                    shiftUsed=1;
                    return;
-                   }
-           else {
+                   } else {
                 deck.control.sync.onOff(1);
                 deck.control.sync.onOff(0);
                 }
@@ -555,22 +503,19 @@ NumarkDJ2Go.sync =function (channel, midino, value, status, group) {
 //cue and play continue flashing, as track now in pause mode.
 NumarkDJ2Go.loadLights = function(value,group) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (value !== 0)
-		{
+	if (value !== 0) {
 		deck.control.play.light.onOff(0);
 		deck.control.sync.light.flashOn(2);
 		deck.control.pfl.light.flashOn(2);
 		deck.control.play.light.flashOn();
 		deck.control.cue.light.flashOn();
-		}
-	else
-		{
+		} else {
 		deck.control.play.light.flashOff();
 		deck.control.sync.light.flashOff();
 		deck.control.pfl.light.flashOff();
 		deck.control.play.light.flashOff();
 		deck.control.cue.light.flashOff();
-		};
+		}
 };
 
 //Headphone monitor lights.
@@ -582,38 +527,30 @@ NumarkDJ2Go.pflLights = function(value, group, key) {
 //Cue light. The play and cue lights behave the same way as they do with VirtualDJ.
 NumarkDJ2Go.cueLights = function(value, group, key) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (deck.loadedCheck())
-		{
-		if (value == 0)
-			{
+	if (deck.loadedCheck()) {
+		if (value == 0) {
 			deck.control.cue.light.flashOn();
 			deck.control.play.light.flashOn();
-			}
-		else
-			{
+			} else {
 			deck.control.cue.light.flashOff();
 			deck.control.play.light.flashOff(1);
-			};
-		};
+			}
+		}
 };
 
 //Play lights. If play paused, both cue and play flash. If play resumed, play button
 //lights up and cue goes off. This is how the buttons behave with VirtualDJ.
 NumarkDJ2Go.playLights = function(value, group, key) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
-	if (deck.loadedCheck())
-		{
-		if (value == 1)
-			{
+	if (deck.loadedCheck()) {
+		if (value == 1) {
 			deck.control.play.light.flashOff(1);
 			deck.control.cue.light.flashOff();
-			}
-		else
-			{
+			} else {
 			deck.control.play.light.flashOn();
 			deck.control.cue.light.flashOn();
-			};
-		};
+			}
+		}
 };
 
 //Mixxx's sync feature is not the same as VDJ, where syncing appears to
@@ -622,7 +559,7 @@ NumarkDJ2Go.playLights = function(value, group, key) {
 NumarkDJ2Go.syncLights = function(value, group, key) {
 	var deck = NumarkDJ2Go.decks["D" + group.substring(8,9)];
         deck.control.sync.light.flashOnceOn();
-}
+};
 
 
 // Loop by Coval
@@ -633,18 +570,18 @@ NumarkDJ2Go.groupToDeck = function(group) {
 	} else {
 		return matches[1];
 	}
-}
+};
 
 
 
 NumarkDJ2Go.loopIn = function(channel, control, value, status, group) {
         var deck = NumarkDJ2Go.groupToDeck(group);
 	if (value) {
-		if(NumarkDJ2Go.manualLooping[deck-1]) {
+		if (NumarkDJ2Go.manualLooping[deck-1]) {
 				// Cut loop to Half
 				var start = engine.getValue(group, "loop_start_position");
 				var end = engine.getValue(group, "loop_end_position");
-				if((start != -1) && (end != -1)) {
+				if ((start != -1) && (end != -1)) {
 					var len = (end - start) / 2;
 					engine.setValue(group, "loop_end_position", start + len);
 				}
@@ -652,14 +589,14 @@ NumarkDJ2Go.loopIn = function(channel, control, value, status, group) {
 			engine.setValue(group, "loop_in", 1);
 		}
 	}
-}  //loopIn
+};  //loopIn
 
 NumarkDJ2Go.loopOut = function(channel, control, value, status, group) {
         var deck = NumarkDJ2Go.groupToDeck(group);
 	if (value) {
 		var start = engine.getValue(group, "loop_start_position");
 		var end = engine.getValue(group, "loop_end_position");
-		if(NumarkDJ2Go.manualLooping[deck-1]) {
+		if (NumarkDJ2Go.manualLooping[deck-1]) {
 			// Set loop to current Bar (very approximative and would need to get fixed !!!)
 			var bar = NumarkDJ2Go.samplesPerBeat(group);
 			engine.setValue(group,"loop_in",1);

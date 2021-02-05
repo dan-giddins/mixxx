@@ -48,7 +48,7 @@ MC4000.jogWheelTicksPerRevolution = 605;
 /**
  * Initialization method for the MC4000 container class
  */
-MC4000.init = function () {
+MC4000.init = function() {
     // Decks
     MC4000.leftDeck = new MC4000.Deck(0);
     MC4000.rightDeck = new MC4000.Deck(1);
@@ -57,24 +57,24 @@ MC4000.init = function () {
     engine.connectControl("[Master]", "VuMeterL", "MC4000.OnVuMeterChangeL");
     engine.connectControl("[Master]", "VuMeterR", "MC4000.OnVuMeterChangeR");
     // Control all sampler levels simultaneously with the single knob on the mixer
-    MC4000.samplerLevel = function (channel, control, value, status, group) {
+    MC4000.samplerLevel = function(channel, control, value, status, group) {
         engine.setValue("[Sampler1]", "pregain", script.absoluteNonLin(value, 0, 1.0, 4.0));
         engine.setValue("[Sampler2]", "pregain", script.absoluteNonLin(value, 0, 1.0, 4.0));
         engine.setValue("[Sampler3]", "pregain", script.absoluteNonLin(value, 0, 1.0, 4.0));
         engine.setValue("[Sampler4]", "pregain", script.absoluteNonLin(value, 0, 1.0, 4.0));
-    }
+    };
     // Get the controller to send its current status (Sniffed from Serato with Snoize Midi Monitor spy function)
-    var byteArray = [ 0xF0, 0x00, 0x02, 0x0B, 0x7F, 0x01, 0x60, 0x00, 0x04, 0x04, 0x01, 0x00, 0x00, 0xF7 ];
+    var byteArray = [0xF0, 0x00, 0x02, 0x0B, 0x7F, 0x01, 0x60, 0x00, 0x04, 0x04, 0x01, 0x00, 0x00, 0xF7];
     midi.sendSysexMsg(byteArray,byteArray.length);
 };
 
-MC4000.shutdown = function () {};
+MC4000.shutdown = function() {};
 
 
 /**
  * Container class to hold the controls which are repeated on both decks
  */
-MC4000.Deck = function (channel) {
+MC4000.Deck = function(channel) {
     // Some state variables
     this.isVinylMode = true;
     this.midiChannel = channel;
@@ -86,7 +86,7 @@ MC4000.Deck = function (channel) {
     // Match pitch fader direction with controller
     engine.setValue(this.group, "rate_dir", -1);
     // Callback for touching the jog wheel platter
-    this.platterTouch = function (channel, control, value, status, group) {
+    this.platterTouch = function(channel, control, value, status, group) {
         if (this.isVinylMode) {
             if (value > 0) {
                 engine.scratchEnable(this.engineChannel, MC4000.jogWheelTicksPerRevolution,
@@ -95,13 +95,13 @@ MC4000.Deck = function (channel) {
                 engine.scratchDisable(this.engineChannel);
             }
         }
-    }
+    };
     // Callback for toggling the vinyl mode button
-    this.vinylModeToggle = function (channel, control, value, status, group) {
+    this.vinylModeToggle = function(channel, control, value, status, group) {
         if (value == 0) return;     // don't respond to note off messages
         this.isVinylMode = !this.isVinylMode;
         midi.sendShortMsg(0x90 + channel, 0x07, this.isVinylMode ? 0x7F: 0x00);
-    }
+    };
 
     // Rate range toggle button callback
     this.rateRange = function(midichan, control, value, status, group) {
@@ -118,7 +118,7 @@ MC4000.Deck = function (channel) {
     // The engine takes the average of the 25 sample buffer, divides by 10, and adds this to the rate at
     // which the song is playing (e.g. determined by the pitch fader). Since the effect of this depends on many factors
     // we can only really give an empirical senstivity which makes jog work "how we like it".
-    this.jogWheel = function (channel, control, value, status, group) {
+    this.jogWheel = function(channel, control, value, status, group) {
         var numTicks = (value < 0x40) ? value: (value - 0x80);
         if (engine.isScratching(this.engineChannel)) {
             engine.scratchTick(this.engineChannel, numTicks);
@@ -128,7 +128,7 @@ MC4000.Deck = function (channel) {
             var limit = MC4000.jogParams.maxJogValue;
             engine.setValue(group, "jog", Math.max(-limit, Math.min(limit, jogAbsolute)));
         }
-    }
+    };
 };
 
 /// Callback to set the FX wet/dry value
@@ -139,25 +139,25 @@ MC4000.fxWetDry = function(midichan, control, value, status, group) {
 };
 
 /// Callback to set the headphone split mode
-MC4000.headphoneSplit = function (channel, control, value, status, group) {
+MC4000.headphoneSplit = function(channel, control, value, status, group) {
     engine.setValue(group, "headSplit", Math.min(value, 1.0));
-}
+};
 
 /// Callback to set the left Vu Meter
 MC4000.OnVuMeterChangeL = function(value, group, control) {
     midi.sendShortMsg(0xBF, 0x44, value*0x7F);
-}
+};
 
 /// Callback to set the right Vu Meter
 MC4000.OnVuMeterChangeR = function(value, group, control) {
     midi.sendShortMsg(0xBF, 0x45, value*0x7F);
-}
+};
 
 /**
  * Return the next rate range which is greater than the currently set
  * rate range, or cycle back to the first rate range if at the last value
  */
-MC4000.getNextRateRange = function (currRateRange) {
+MC4000.getNextRateRange = function(currRateRange) {
     for (var i = 0; i < MC4000.rateRanges.length; i++) {
         if (MC4000.rateRanges[i] > currRateRange) {
             return MC4000.rateRanges[i];

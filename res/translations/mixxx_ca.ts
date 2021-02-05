@@ -3556,24 +3556,24 @@ last sound.</source>
         <translation>Modes d&apos;esvaïment de DJ automàtic
 
 Introducció completa + final:
-Reprodueix la introducció completa i el final. Utilitzeu la longitud 
-de la introducció o final com a crossfade, el que sigui més curt. Si 
-no es marca cap introducció ni final, utilitza el temps de crossfade 
+Reprodueix la introducció completa i el final. Utilitzeu la longitud
+de la introducció o final com a crossfade, el que sigui més curt. Si
+no es marca cap introducció ni final, utilitza el temps de crossfade
 seleccionat.
 
 Esvaeix a l&apos;inici del final:
-Comença a esvaïr en començar el final. Si el final és més llarg que 
-la introducció, talla&apos;l. Fes servir la longitud de la introducció o el final 
-com el temps de crossfade, el que sigui més curt. Si no hi ha cap 
+Comença a esvaïr en començar el final. Si el final és més llarg que
+la introducció, talla&apos;l. Fes servir la longitud de la introducció o el final
+com el temps de crossfade, el que sigui més curt. Si no hi ha cap
 introducció ni final marcats, utilitza el temps de crossfade seleccionat.
 
 Pista completa:
-Reprodueix tota la pista. Comença el crossfade quan falti el número 
-seleccionat de segons del final de la pista. Un temps negatiu de 
+Reprodueix tota la pista. Comença el crossfade quan falti el número
+seleccionat de segons del final de la pista. Un temps negatiu de
 crossfade afegirà silenci entre les pistes.
 
 Salta els silencis:
-Reprodueix tota la pista, tret del silenci de l&apos;inici i el final. Comença el 
+Reprodueix tota la pista, tret del silenci de l&apos;inici i el final. Comença el
 crossfade el nombre de segons seleccionat abans del darrer so.</translation>
     </message>
     <message>

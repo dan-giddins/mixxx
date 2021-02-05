@@ -26,10 +26,10 @@ NumarkNS7.Deck.scratchMode = false;
 NumarkNS7.Deck.rateRange = NumarkNS7.RateRanges[1];
 
 NumarkNS7.Deck.prototype.rateRangeHandler = function(value) {
-   if(value == ButtonState.pressed) {
+   if (value == ButtonState.pressed) {
       var i;
-      for(i=0; i < NumarkNS7.RateRanges.length; i++) {
-         if(NumarkNS7.RateRanges[i] == this.rateRange) {
+      for (i=0; i < NumarkNS7.RateRanges.length; i++) {
+         if (NumarkNS7.RateRanges[i] == this.rateRange) {
             break;
          }
       }
@@ -38,17 +38,17 @@ NumarkNS7.Deck.prototype.rateRangeHandler = function(value) {
       i++;
 
       //Wrap if needed
-      if(i == NumarkNS7.RateRanges.length) {
+      if (i == NumarkNS7.RateRanges.length) {
          i = 0;
       }
 
       this.rateRange = NumarkNS7.RateRanges[i];
    }
-}
+};
 
 NumarkNS7.Deck.prototype.scratchHandler = function(value) {
-   if(value == ButtonState.pressed) {
-      if(this.scratchMode) {
+   if (value == ButtonState.pressed) {
+      if (this.scratchMode) {
          this.scratchMode = false;
          this.Buttons.Scratch.setLed(LedState.on);
       } else {
@@ -56,37 +56,37 @@ NumarkNS7.Deck.prototype.scratchHandler = function(value) {
          this.Buttons.Scratch.setLed(LedState.on);
       }
    }
-}
+};
 
 NumarkNS7.Deck.prototype.jogMove = function(value) {
-   if(!isNaN(this.previousJogValue)) {
+   if (!isNaN(this.previousJogValue)) {
       var offset = value - this.previousJogValue;
 
-      if(offset > 63) {
+      if (offset > 63) {
          offset = offset - 128;
-      } else if(offset < -63) {
+      } else if (offset < -63) {
          offset = offset + 128;
       }
 
-      if(this.scratchMode) {
+      if (this.scratchMode) {
          engine.scratchTick(this.deckNumber, offset);
       } else {
          engine.setValue(this.group,"jog", offset);
       }
    }
    this.previousJogValue = value;
-}
+};
 
-NumarkNS7.Decks = {"Left":new NumarkNS7.Deck(1,"[Channel1]"), "Right":new NumarkNS7.Deck(2,"[Channel2]")};
-NumarkNS7.GroupToDeck = {"[Channel1]":"Left", "[Channel2]":"Right"};
+NumarkNS7.Decks = {"Left": new NumarkNS7.Deck(1,"[Channel1]"), "Right": new NumarkNS7.Deck(2,"[Channel2]")};
+NumarkNS7.GroupToDeck = {"[Channel1]": "Left", "[Channel2]": "Right"};
 
 NumarkNS7.GetDeck = function(group) {
    try {
       return NumarkNS7.Decks[NumarkNS7.GroupToDeck[group]];
-   } catch(ex) {
+   } catch (ex) {
       return null;
    }
-}
+};
 
 NumarkNS7.Decks.Left.addButton("RateRange", new Button(), "rateRangeHandler");
 NumarkNS7.Decks.Left.addButton("Scratch", new Button(), "scratchHandler");
@@ -98,14 +98,14 @@ NumarkNS7.Decks.Right.addButton("Scratch", new Button(), "scratchHandler");
 NumarkNS7.rate_range = function(channel, control, value, status, group) {
    var deck = NumarkNS7.GetDeck(group);
    deck.Buttons.RateRange.handleEvent(value);
-}
+};
 
 NumarkNS7.scratch = function(channel, control, value, status, group) {
    var deck = NumarkNS7.GetDeck(group);
    deck.Buttons.Scratch.handleEvent(value);
-}
+};
 
 NumarkNS7.jog_move = function(channel, control, value, status, group) {
    var deck = NumarkNS7.GetDeck(group);
    deck.jogMove(value);
-}
+};

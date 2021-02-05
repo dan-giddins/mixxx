@@ -9,13 +9,13 @@ DJCRMX2.decks = [];
 /* [ Function init ]
  * Initiates some global variables and assigns an ID. Required.
  */
-DJCRMX2.init = function (id) {
+DJCRMX2.init = function(id) {
     DJCRMX2.id = id;
     DJCRMX2.decks[1] = new DJCRMX2.Deck(1);
     DJCRMX2.decks[2] = new DJCRMX2.Deck(2);
     engine.setValue("[Microphone]", "enabled", 0);
     engine.setValue("[Microphone]", "talkover", 0);
-}
+};
 
 ////////////////////////////////////////////////////////////////////////
 // Decks                                                              //
@@ -27,7 +27,7 @@ DJCRMX2.Deck = function(number) {
     this.scratchTimer = 0;
 };
 
-DJCRMX2.Deck.prototype.wheelPress = function (value) {
+DJCRMX2.Deck.prototype.wheelPress = function(value) {
     if (this.scratchTimer != 0) {
         // The wheel was touched again, reset the timer.
         engine.stopTimer(this.scratchTimer);
@@ -61,7 +61,7 @@ DJCRMX2.Deck.prototype.wheelPress = function (value) {
                     100, "DJCRMX2.decks[" + this.number + "].finishWheelPress()", true);
         }
     }
-}
+};
 
 DJCRMX2.Deck.prototype.finishWheelPress = function() {
     this.scratchTimer = 0;
@@ -89,7 +89,7 @@ DJCRMX2.Deck.prototype.finishWheelPress = function() {
  * Pays attention to the current deck, checks scratching, affects the
  * song accordingly.
  */
-DJCRMX2.Deck.prototype.wheelTurn = function (value) {
+DJCRMX2.Deck.prototype.wheelTurn = function(value) {
     var newValue = 0;
     // Spinning backwards = 127 or less (less meaning faster)
     // Spinning forwards  = 1 or more (more meaning faster)
@@ -104,13 +104,13 @@ DJCRMX2.Deck.prototype.wheelTurn = function (value) {
     } else {
         engine.setValue(this.group, "jog", newValue);
     }
-}
+};
 
 /*  [ Function wheelPress ]
  * Detects whether a jog wheel is pressed or not and sets a specific
  * variable on and off accordingly.
  */
-DJCRMX2.wheelPress = function (channel, control, value, status, group) {
+DJCRMX2.wheelPress = function(channel, control, value, status, group) {
     var deck = 0;
     if (group == "[Channel1]") {
         deck = 1;
@@ -120,14 +120,14 @@ DJCRMX2.wheelPress = function (channel, control, value, status, group) {
         return;
     }
     DJCRMX2.decks[deck].wheelPress(value);
-}
+};
 
 
 /* [ Function wheelTurn ]
  * Pays attention to the current deck, checks scratching, affects the
  * song accordingly.
  */
-DJCRMX2.wheelTurn = function (channel, control, value, status, group) {
+DJCRMX2.wheelTurn = function(channel, control, value, status, group) {
     var deck = 0;
     if (group == "[Channel1]") {
         deck = 1;
@@ -137,10 +137,9 @@ DJCRMX2.wheelTurn = function (channel, control, value, status, group) {
         return;
     }
     DJCRMX2.decks[deck].wheelTurn(value);
-}
+};
 
-DJCRMX2.micSwitch = function (channel, control, value, status)
-{
+DJCRMX2.micSwitch = function(channel, control, value, status) {
     if (status == 0x90 && control == 0x48 && value == 0x7F) {
         engine.setValue("[Microphone]","enabled",1);
         engine.setValue("[Microphone]","talkover",1);
@@ -148,12 +147,12 @@ DJCRMX2.micSwitch = function (channel, control, value, status)
         engine.setValue("[Microphone]","enabled",0);
         engine.setValue("[Microphone]","talkover",0);
     }
-}
+};
 
 /* [ Function shutdown ] - Version 0.1.3
  * Sets variables down for shutoff.
  */
-DJCRMX2.shutdown = function (id) {
+DJCRMX2.shutdown = function(id) {
     engine.setValue("[Microphone]", "enabled", 0);
     engine.setValue("[Microphone]", "talkover", 0);
-}
+};

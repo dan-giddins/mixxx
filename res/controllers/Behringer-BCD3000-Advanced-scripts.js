@@ -1,10 +1,10 @@
-function BehringerBCD3000 () {}
+function BehringerBCD3000() {}
 
 //sensitivity setting
 BehringerBCD3000.UseAcceleration = true;
 BehringerBCD3000.JogSensitivity = 0.5;
 
-BehringerBCD3000.init = function (id) { // called when the device is opened & set up
+BehringerBCD3000.init = function(id) { // called when the device is opened & set up
 
     BehringerBCD3000.reset();
 
@@ -18,7 +18,7 @@ BehringerBCD3000.init = function (id) { // called when the device is opened & se
         midi.sendShortMsg(0xB0, 0x63, 0x0);
 };
 
-BehringerBCD3000.shutdown = function () {
+BehringerBCD3000.shutdown = function() {
 
     BehringerBCD3000.reset();
 
@@ -27,7 +27,7 @@ BehringerBCD3000.shutdown = function () {
         midi.sendShortMsg(0xB0, 0x63, 0x7F);
 };
 
-BehringerBCD3000.reset = function (id) {
+BehringerBCD3000.reset = function(id) {
 
     // Turn off all the lights
     for (i = 0; i <= 25; i++) {
@@ -46,7 +46,7 @@ BehringerBCD3000.reset = function (id) {
 
 };
 
-BehringerBCD3000.getDeck = function (group) {
+BehringerBCD3000.getDeck = function(group) {
     if (group == "[Channel1]")
         return 0;
     else if (group == "[Channel2]")
@@ -54,18 +54,18 @@ BehringerBCD3000.getDeck = function (group) {
 
     print("Invalid group : " + group);
     return -1; // error
-}
+};
 
-BehringerBCD3000.actionKey = function (value) {
+BehringerBCD3000.actionKey = function(value) {
     if (value)
-        midi.sendShortMsg(0xB0, 28, 0x7F)
+        midi.sendShortMsg(0xB0, 28, 0x7F);
 
-}
+};
 
 
 
 //Scratch, cue search and pitch bend function, browse
-BehringerBCD3000.jogWheel = function (channel, control, value, status, group) {
+BehringerBCD3000.jogWheel = function(channel, control, value, status, group) {
 
 
     deck = BehringerBCD3000.getDeck(group);
@@ -78,14 +78,14 @@ BehringerBCD3000.jogWheel = function (channel, control, value, status, group) {
         BehringerBCD3000.scratchTimer[deck] = engine.beginTimer(20, "BehringerBCD3000.stopScratch(" + deck + ")", true);
 
     } else if (BehringerBCD3000.onKey) {
-        if (value > 0x40){
+        if (value > 0x40) {
             engine.setValue("[Playlist]","SelectNextTrack",1);
         } else {
             engine.setValue("[Playlist]","SelectPrevTrack",1);
         }
 
     } else if (BehringerBCD3000.actionKey) {
-        if (value > 0x40){
+        if (value > 0x40) {
             engine.setValue("[Playlist]","SelectNextTrack",1);
         } else {
             engine.setValue("[Playlist]","SelectPrevTrack",1);
@@ -100,7 +100,7 @@ BehringerBCD3000.jogWheel = function (channel, control, value, status, group) {
 };
 
 //Scratch button function => set scratch flag
-BehringerBCD3000.scratchButton = function (channel, control, value, status, group) {
+BehringerBCD3000.scratchButton = function(channel, control, value, status, group) {
 
     deck = BehringerBCD3000.getDeck(group);
 
@@ -126,11 +126,11 @@ BehringerBCD3000.scratchButton = function (channel, control, value, status, grou
 BehringerBCD3000.stopScratch = function(deck) {
         BehringerBCD3000.scratchTimer[deck] = -1;
         engine.scratchDisable(deck + 1);
-}
+};
 
 
 //Set loop function
-BehringerBCD3000.loop = function (channel, control, value, status, group) {
+BehringerBCD3000.loop = function(channel, control, value, status, group) {
     if (value)
         action = "loop_in";
     else
@@ -139,9 +139,9 @@ BehringerBCD3000.loop = function (channel, control, value, status, group) {
 };
 
 //On button function
-BehringerBCD3000.On = function (channel, control, value, status, group) {
+BehringerBCD3000.On = function(channel, control, value, status, group) {
 
-    if (BehringerBCD3000.actionKey){
+    if (BehringerBCD3000.actionKey) {
         BehringerBCD3000.actionKey = false;
         midi.sendShortMsg(0xB0, 0x3, 0x00);
     }
@@ -155,12 +155,12 @@ BehringerBCD3000.On = function (channel, control, value, status, group) {
         // Turn off the On light
         midi.sendShortMsg(0xB0, 0x6, 0x00);
         engine.setValue("[Channel1]","LoadSelectedTrack",1);
-    };
+    }
 };
 
 //Action button function
-BehringerBCD3000.Action = function (channel, control, value, status, group) {
-    if (BehringerBCD3000.onKey){
+BehringerBCD3000.Action = function(channel, control, value, status, group) {
+    if (BehringerBCD3000.onKey) {
         BehringerBCD3000.onKey = false;
         midi.sendShortMsg(0xB0, 0x6, 0x00);
     }
@@ -180,7 +180,7 @@ BehringerBCD3000.Action = function (channel, control, value, status, group) {
 };
 
 //Key button function
-BehringerBCD3000.keykey = function (channel, control, value, status, group) {
+BehringerBCD3000.keykey = function(channel, control, value, status, group) {
     // toggle "alt" flag
     if (value) BehringerBCD3000.alt = !BehringerBCD3000.alt;
 

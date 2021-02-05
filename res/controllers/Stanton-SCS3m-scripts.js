@@ -152,9 +152,9 @@ SCS3M.Device = function() {
 
         function Pitch() {
             return Slider(either(0x00, 0x01), 7, {
-                left:   either(0x51, 0x54),
+                left: either(0x51, 0x54),
                 middle: either(0x52, 0x55),
-                right:  either(0x53, 0x56),
+                right: either(0x53, 0x56),
             });
         }
 
@@ -340,7 +340,7 @@ SCS3M.Agent = function(device) {
     // Returns whether the massage was sent
     // False is returned if the message was sent before.
     function send(message, force, extra) {
-        if (!message){
+        if (!message) {
             print("SCS3 warning: send function received invalid message");
             return; // :-(
         }

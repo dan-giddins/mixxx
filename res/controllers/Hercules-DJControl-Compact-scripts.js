@@ -33,18 +33,18 @@ HercDJCompact.shutdown = function() {
 HercDJCompact.controls = {
     // "name" is just for reference in the code.
     "inputs": {
-        0x30: { "name": "jog", "channel": 1, "group": "[Channel1]"},
-        0x31: { "name": "jog", "channel": 2, "group": "[Channel2]"},
-        0x37: { "name": "pitch", "channel": 1, "group": "[Channel1]"},
-        0x38: { "name": "pitch", "channel": 2, "group": "[Channel2]"},
+        0x30: {"name": "jog", "channel": 1, "group": "[Channel1]"},
+        0x31: {"name": "jog", "channel": 2, "group": "[Channel2]"},
+        0x37: {"name": "pitch", "channel": 1, "group": "[Channel1]"},
+        0x38: {"name": "pitch", "channel": 2, "group": "[Channel2]"},
     }
 };
 
-HercDJCompact.scratch = function (group, control, value, status) {
+HercDJCompact.scratch = function(group, control, value, status) {
     scratch = value > 0;
 };
 
-HercDJCompact.jog_wheel = function (group, control, value, status) {
+HercDJCompact.jog_wheel = function(group, control, value, status) {
     var input = HercDJCompact.controls.inputs[control];
     // If the high bit is 1, convert to a negative number
     if (value & 0x40) {
@@ -58,13 +58,12 @@ HercDJCompact.jog_wheel = function (group, control, value, status) {
             }
             if (!engine.getValue(input.group, "scratch2_enable")) {
                 engine.scratchEnable(input.channel, 256, 33+1/3, 1.0/8*(0.500), (1.0/8)*(0.500)/32);
-            }
-            else {
+            } else {
                 engine.scratchTick(input.channel, value);
             }
         }
 
-        if(engine.getValue(input.group, "scratch2_enable")) {
+        if (engine.getValue(input.group, "scratch2_enable")) {
             //when not moved for 200 msecs, probably we are not touching the wheel anymore
             scratch_timer[input.channel] =
                 engine.beginTimer(200, "HercDJCompact.jog_wheelhelper("+input.channel+")", true);
@@ -83,7 +82,7 @@ HercDJCompact.jog_wheelhelper = function(n) {
 };
 
 // Pitch is adjusted by holding down shift and turning the jog wheel.
-HercDJCompact.pitch = function (group, control, value, status) {
+HercDJCompact.pitch = function(group, control, value, status) {
     var input = HercDJCompact.controls.inputs[control];
     if (value & 0x40) {
         value = value - 0x80;

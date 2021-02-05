@@ -13,7 +13,7 @@ function PioneerCDJController() {
     this.version_minor = undefined;
     this.remain_mode = true;
 
-    this.controller.LEDColors = {on:1, off:0};
+    this.controller.LEDColors = {on: 1, off: 0};
     this.ButtonOutputCount = 22;
 
     this.registerInputPackets = function() {
@@ -67,7 +67,7 @@ function PioneerCDJController() {
         packet.addControl("hid","needle_search",18,"h");
         this.controller.registerInputPacket(packet);
 
-    }
+    };
 
     // Register output packets we send to the controller
     this.registerOutputPackets = function() {
@@ -156,8 +156,8 @@ function PioneerCDJController() {
         var offset = 2;
         // Register 2 bytes for each letter, I expect UTF-8 output
         packet = new HIDPacket("display", 0x2, undefined, [0x2]);
-        for (var i=0;i<textlines;i++) {
-            for (var c=0;c<chars;c++) {
+        for (var i=0; i<textlines; i++) {
+            for (var c=0; c<chars; c++) {
                 var name = "line_"+(i+1)+"letter_"+(c+1);
                 packet.addControl("hid",name,offset++,"H");
             }
@@ -170,15 +170,15 @@ function PioneerCDJController() {
         // anyway when implemented. When I know what data is sent, I
         // will add a helper function to actually do something with it!
         var waveform_packet_datalen = 400;
-        packet = new HIDPacket("waveform", 0x1, undefined, [0x2]);;
-        for (var i=0;i<waveform_packet_datalen;i++)
+        packet = new HIDPacket("waveform", 0x1, undefined, [0x2]);
+        for (var i=0; i<waveform_packet_datalen; i++)
             packet.addControl("hid","byte_"+i,i,"B");
         //this.controller.registerOutputPacket(packet);
 
-    }
+    };
 
     // Jog wheel seek event scaler
-    this.jogScaler = function(group,name,value) { return value/12; }
+    this.jogScaler = function(group,name,value) { return value/12; };
 
     // Jog wheel scratch event (ticks) scaler
     this.jogPositionDelta = function(group,name,value) {
@@ -186,15 +186,15 @@ function PioneerCDJController() {
         if (value>=8192)
             return 0;
         return value/3;
-    }
+    };
 
     // Pitch on CDJ sends -1000 to 1000, reset at 0, swap direction
-    this.pitchScaler = function(group,name,value) { return -(value/1000); }
+    this.pitchScaler = function(group,name,value) { return -(value/1000); };
 
     // Volume slider scaling for 0..1..5 scaling from 0-255
     this.volumeScaler = function(group,name,value) {
         return script.absoluteNonLin(value, 0, 1, 5, 0, 256);
-    }
+    };
 
     // Generic unsigned short to -1..0..1 range scaling
     this.plusMinus1Scaler = function(group,name,value) {
@@ -202,7 +202,7 @@ function PioneerCDJController() {
             return value/32768-1;
         else
             return (value-32768)/32768;
-    }
+    };
 
     // Generic wrapper call to initialize this functions methods
     this.initializeHIDController = function() {
@@ -240,7 +240,7 @@ function PioneerCDJController() {
         );
         controller.setOutput("hid","jog_vinyl_logo",1);
 
-        if ( PioneerCDJHID.id=="PIONEER CDJ-900" ||
+        if (PioneerCDJHID.id=="PIONEER CDJ-900" ||
              PioneerCDJHID.id=="PIONEER CDJ-2000") {
 
             //tracknumber frames/ms control 0x1
@@ -252,12 +252,12 @@ function PioneerCDJController() {
                 0x1|0x2|0x4|0x8|0x10|0x20|0x40|0x80
             );
 
-        } else if ( PioneerCDJHID.id=="PIONEER CDJ-850") {
+        } else if (PioneerCDJHID.id=="PIONEER CDJ-850") {
             controller.setOutput("hid","screen_flags",0x1|0x10|0x20|0x40|0x80);
         } else {
             HIDDebug("Unsupported CDJ device name: " +  PioneerCDJHID.id);
         }
-    }
+    };
 
 }
 
@@ -280,7 +280,7 @@ PioneerCDJHID.init = function(id) {
         beatloop_4: "8",  beatloop_4_shift: "0.5",    beatloop_4_hotcue: "3",
         beatloop_8: "4",  beatloop_8_shift: "0.25",   beatloop_8_hotcue: "2",
         beatloop_16: "2", beatloop_16_shift: "0.125", beatloop_16_hotcue: "1",
-    }
+    };
 
     // Call the HID packet parser initializers
     PioneerCDJHID.initializeHIDController();
@@ -295,7 +295,7 @@ PioneerCDJHID.init = function(id) {
     controller.scratchintervalsPerRev = 2048;
     controller.scratchAlpha = 1.0/6;
     controller.rampedScratchEnable = false;
-    controller.toggleButtons = [ "play", "quantize", "keylock", "pfl" ];
+    controller.toggleButtons = ["play", "quantize", "keylock", "pfl"];
 
     // Set deck switch local callbacks
     controller.disconnectDeck = PioneerCDJHID.disconnectDeck;
@@ -303,28 +303,28 @@ PioneerCDJHID.init = function(id) {
     PioneerCDJHID.connectDeck();
 
     HIDDebug("Pioneer CDJ Deck "+PioneerCDJHID.id+" initialized");
-}
+};
 
 // Device cleanup function
 PioneerCDJHID.shutdown = function() {
-}
+};
 
 PioneerCDJHID.enableScratchCallback = function(value) {
     HIDDebug("SCRATCH " + value);
     var controller = PioneerCDJHID.controller;
     controller.setOutput("hid","jog_touch_highlight",value);
 
-}
+};
 
 // Scaling of pregain (0-0xff) to gain value
-PioneerCDJHID.pregainScaler = function (group,name,value) {
+PioneerCDJHID.pregainScaler = function(group,name,value) {
     return script.absoluteNonLin(value,0,1,4,0,0xff);
-}
+};
 
 // Mandatory default handler for incoming packets
 PioneerCDJHID.incomingData = function(data,length) {
     PioneerCDJHID.controller.parsePacket(data,length);
-}
+};
 
 // Link virtual HID naming of input and Output controls to mixxx
 // Note: HID specification has more fields than we map here.
@@ -412,7 +412,7 @@ PioneerCDJHID.registerCallbacks = function() {
     controller.setCallback("control","hid","vinyl_speed_knob",PioneerCDJHID.touchrelease);
 
     HIDDebug("CDJ Controls And Callbacks Registered");
-}
+};
 
 // Callback to update LEDs from engine.connectControl
 PioneerCDJHID.updateLED = function(value,group,key) {
@@ -421,7 +421,7 @@ PioneerCDJHID.updateLED = function(value,group,key) {
         controller.setOutput("deck",key,controller.LEDColors.on,true);
     else
         controller.setOutput("deck",key,controller.LEDColors.off,true);
-}
+};
 
 // Switch active deck between 1 and 2
 PioneerCDJHID.switchDeck = function(field) {
@@ -430,7 +430,7 @@ PioneerCDJHID.switchDeck = function(field) {
         return;
     controller.switchDeck();
     HIDDebug("Active CDJ deck now " + controller.activeDeck);
-}
+};
 
 // Disconnect controls before deck during deck switching
 PioneerCDJHID.disconnectDeck = function() {
@@ -438,7 +438,7 @@ PioneerCDJHID.disconnectDeck = function() {
     var group = controller.resolveDeckGroup(controller.activeDeck);
     engine.connectControl(group,"duration","PioneerCDJHID.durationCallback",true);
     engine.connectControl(group,"playposition","PioneerCDJHID.positionCallback",true);
-}
+};
 
 // Connect controls during init and after deck during deck switching
 PioneerCDJHID.connectDeck = function() {
@@ -461,20 +461,20 @@ PioneerCDJHID.connectDeck = function() {
     PioneerCDJHID.setTime();
     controller.setOutput("hid","tracknumber",controller.activeDeck);
     output_packet.send();
-}
+};
 
 // Toggle CDJ 'remain/elapsed' track display mode
 PioneerCDJHID.timeMode = function(field) {
     var controller = PioneerCDJHID.controller;
     if (field.value==controller.buttonStates.released)
         return;
-    PioneerCDJHID.remain_mode = (PioneerCDJHID.remain_mode!=true) ? true : false;
+    PioneerCDJHID.remain_mode = (PioneerCDJHID.remain_mode!=true);
     if (PioneerCDJHID.remain_mode) {
         controller.setOutput("hid","remain",1);
     } else {
         controller.setOutput("hid","remain",0);
     }
-}
+};
 
 // Set internal track duration variable
 PioneerCDJHID.setDuration = function(value) {
@@ -486,7 +486,7 @@ PioneerCDJHID.setDuration = function(value) {
         );
     else
         PioneerCDJHID.track_length = value;
-}
+};
 
 // Set current bpm to packet
 PioneerCDJHID.setBPM = function(value) {
@@ -494,7 +494,7 @@ PioneerCDJHID.setBPM = function(value) {
     controller.setOutput("deck","bpm", Math.floor(engine.getValue(
         controller.resolveDeckGroup(controller.activeDeck), "bpm"
     )));
-}
+};
 
 // Set current rate to packet
 PioneerCDJHID.setRate = function(value) {
@@ -506,7 +506,7 @@ PioneerCDJHID.setRate = function(value) {
     controller.setOutput("hid","rate",
         100 * range * engine.getValue(group,"rate_dir") * engine.getValue(group,"rate")
     );
-}
+};
 
 // Set current time value to packet
 PioneerCDJHID.setTime = function(value) {
@@ -585,7 +585,7 @@ PioneerCDJHID.setTime = function(value) {
         controller.setOutput("hid","time_frames",frames);
 
     }
-}
+};
 
 // Control callback when track duration changes (new track is loaded)
 // Update all other outputs as side effect, because track changed
@@ -596,28 +596,28 @@ PioneerCDJHID.durationCallback = function(value,group,key) {
     PioneerCDJHID.setRate();
     PioneerCDJHID.setTime();
     output_packet.send();
-}
+};
 
 // Update current track location on CDJ display
 PioneerCDJHID.positionCallback = function(value,group,key) {
     var output_packet = PioneerCDJHID.controller.getOutputPacket("lights");
     PioneerCDJHID.setTime(value);
     output_packet.send();
-}
+};
 
 // Control callback to update track BPM value
 PioneerCDJHID.bpmCallback = function(value) {
     var output_packet = PioneerCDJHID.controller.getOutputPacket("lights");
     PioneerCDJHID.setBPM(value);
     output_packet.send();
-}
+};
 
 // Control callback to update track BPM value
 PioneerCDJHID.rateCallback = function(value) {
     var output_packet = PioneerCDJHID.controller.getOutputPacket("lights");
     PioneerCDJHID.setRate(value);
     output_packet.send();
-}
+};
 
 // HID callback for previous/next track buttons.
 PioneerCDJHID.track = function(field) {
@@ -656,7 +656,7 @@ PioneerCDJHID.track = function(field) {
         HIDDebug("track: Unknown track control field " + field.id);
         return;
     }
-}
+};
 
 PioneerCDJHID.needlesearch = function(field) {
     var controller = PioneerCDJHID.controller;
@@ -667,7 +667,7 @@ PioneerCDJHID.needlesearch = function(field) {
     engine.setValue(group,"play",false);
     engine.setValue(group,"playposition",value);
 
-}
+};
 
 PioneerCDJHID.hotcue = function(field) {
     var controller = PioneerCDJHID.controller;
@@ -693,7 +693,7 @@ PioneerCDJHID.hotcue = function(field) {
         controller.setOutput("hid",field.name+"_green",1);
     }
     engine.setValue(group,control,true);
-}
+};
 
 // Set given size beatloop or a hotcue, light LED for beatloop
 PioneerCDJHID.beatloop = function(field) {
@@ -711,7 +711,7 @@ PioneerCDJHID.beatloop = function(field) {
         size = PioneerCDJHID.beatLoopSizeMap[field.name+"_hotcue"];
         control = "hotcue_" + size + "_clear";
     } else if (controller.modifiers.get("beatloop_size")) {
-        size = PioneerCDJHID.beatLoopSizeMap[field.name+"_shift"] ;
+        size = PioneerCDJHID.beatLoopSizeMap[field.name+"_shift"];
         control = "beatloop_" + size + "_activate";
         engine.setValue(group,control,true);
     } else {
@@ -728,7 +728,7 @@ PioneerCDJHID.beatloop = function(field) {
     controller.setOutput("hid",field.name,controller.LEDColors.on);
     output_packet.send();
 
-}
+};
 
 // Exit current beatloop or manual loop, reset beatloop LEDs
 PioneerCDJHID.reloop_exit = function(field) {
@@ -750,31 +750,31 @@ PioneerCDJHID.reloop_exit = function(field) {
     controller.setOutput("hid","beatloop_2",controller.LEDColors.off);
     controller.setOutput("hid",field.name,controller.LEDColors.on);
     output_packet.send();
-}
+};
 
-PioneerCDJHID.resetrate = function (field) {
+PioneerCDJHID.resetrate = function(field) {
     var controller = PioneerCDJHID.controller;
     engine.setValue(
         controller.resolveDeckGroup(controller.activeDeck),
         "rate",
         0
-    )
-}
+    );
+};
 
 // Adjust deck touch/release rate: note, since mixxx doesn't yet have function
 // to adjust scratch2 ramp rate, we just have a stub waiting for this call
-PioneerCDJHID.touchrelease = function (field) {
+PioneerCDJHID.touchrelease = function(field) {
     var controller = PioneerCDJHID.controller;
     HIDDebug("TOUCH_RELEASE " + controller.activeDeck + " " + field.value);
-}
+};
 
 // Adjust pregain with deck mode knob
-PioneerCDJHID.pregain = function (field) {
+PioneerCDJHID.pregain = function(field) {
     var controller = PioneerCDJHID.controller;
     engine.setValue(
         controller.resolveDeckGroup(controller.activeDeck),
         "pregain",
         script.absoluteNonLin(field.value, 0, 1, 5, 0, 65536)
     );
-}
+};
 

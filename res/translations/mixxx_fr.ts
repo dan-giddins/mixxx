@@ -3482,7 +3482,7 @@ Raccourci : Maj + F11</translation>
         <source>Skip the next track in the Auto DJ queue
 
 Shortcut: Shift+F10</source>
-        <translation>Saute à la piste suivante dans la file Auto DJ 
+        <translation>Saute à la piste suivante dans la file Auto DJ
 
 Raccourci : Maj + F10</translation>
     </message>
@@ -3557,7 +3557,7 @@ last sound.</source>
         <translation>Mode d&apos;atténuation Auto DJ
 
 Intro + Outro complet:
-Jouez l&apos;Intro et l&apos;Outro complètement. Utilisez la longueur d&apos;Intro ou d&apos;Outro, le plus court des deux, 
+Jouez l&apos;Intro et l&apos;Outro complètement. Utilisez la longueur d&apos;Intro ou d&apos;Outro, le plus court des deux,
 pour la durée de transition. Si aucun Intro ou Outro n&apos;est marquée,
 utiliser la durée de transition sélectionné.
 
@@ -3653,7 +3653,7 @@ Si aucune sources de piste n&apos;est configurée, la piste est ajoutée à part
         <location filename="../../src/preferences/dialog/dlgprefbeatsdlg.ui" line="20"/>
         <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
-        <translation>Quand la détection rythmique est engagée, Mixx détecte le nombre de &quot;battement&quot; par minute et les &quot;battements&quot; de votre piste, 
+        <translation>Quand la détection rythmique est engagée, Mixx détecte le nombre de &quot;battement&quot; par minute et les &quot;battements&quot; de votre piste,
 Affiche automatiquement une grille de battement, et vous permet de synchroniser les pistes en utilisant leurs informations rythmiques.</translation>
     </message>
     <message>
@@ -3670,8 +3670,8 @@ Ceci peut accélérer la détection rythmique sur des ordinateurs lents mais peu
         <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
 Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
-        <translation>Convertis les &quot;battements&quot; détecté par l&apos;analyseur en une grille rythmique à tempo fixe. 
-Utilisez ce réglage si vos pistes ont un tempo constant (ex: la plupart de la musique électronique). 
+        <translation>Convertis les &quot;battements&quot; détecté par l&apos;analyseur en une grille rythmique à tempo fixe.
+Utilisez ce réglage si vos pistes ont un tempo constant (ex: la plupart de la musique électronique).
 Résulte souvent en de meilleures grilles rythmiques, mais ne marchera pas bien en cas de variation de tempo.</translation>
     </message>
     <message>
@@ -5131,19 +5131,19 @@ CUP mode:
 - Cue button while pause not at cue point = set cue point and play after release
 - Cue button while playing = go to cue point and play after release
 </source>
-        <translation>Mode Mixxx : 
-- Bouton repère pendant pause au point de repère = prévisualiser 
-- Bouton repère pendant pause hors point de repère = placer un point de repère 
-- Bouton repère pendant lecture = pause au repère 
-Mode Mixxx (sans clignotement) : 
+        <translation>Mode Mixxx :
+- Bouton repère pendant pause au point de repère = prévisualiser
+- Bouton repère pendant pause hors point de repère = placer un point de repère
+- Bouton repère pendant lecture = pause au repère
+Mode Mixxx (sans clignotement) :
 - Identique au mode Mixxx mais sans indicateurs clignotants
-Mode Pioneer : 
-- Identique au mode Mixxx avec un bouton lecture clignotant 
-Mode Denon : 
-- Bouton repère au point de repère = prévisualiser 
-- Bouton repère hors point de repère = pause au repère 
-- Lecture = placer un point de repère 
-Mode Numark : 
+Mode Pioneer :
+- Identique au mode Mixxx avec un bouton lecture clignotant
+Mode Denon :
+- Bouton repère au point de repère = prévisualiser
+- Bouton repère hors point de repère = pause au repère
+- Lecture = placer un point de repère
+Mode Numark :
 - Identique au mode Denom, mais sans le bouton de lecture clignotant
 Mode CUP :
 - Bouton repère pendant pause au point de repère = lancer la lecture lorsque le bouton est relâché
@@ -6196,7 +6196,7 @@ and allows you to pitch adjust them for harmonic mixing.</source>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefmodplugdlg.ui" line="393"/>
         <source>Module files are decoded at once and kept in RAM to allow for seeking and smooth operation in Mixxx. About 10MB of RAM are required for 1 minute of audio.</source>
-        <translation>Les fichiers de module sont décodés une seule fois et conservés en RAM pour permettre les recherches et des opérations fluides dans Mixxx. Environ 10Mo de RAM sont nécessaires pour 1 minute d&apos;audio.</translation>
+        <translation>Les fichiers de namespace sont décodés une seule fois et conservés en RAM pour permettre les recherches et des opérations fluides dans Mixxx. Environ 10Mo de RAM sont nécessaires pour 1 minute d&apos;audio.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefmodplugdlg.ui" line="425"/>
@@ -7662,8 +7662,8 @@ Sélectionner depuis les différents types d&apos;affichage de la forme d&apos;o
         <source>Converts beats detected by the analyzer into a fixed-tempo beatgrid.
 Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
-        <translation>Convertis les &quot;battements&quot; détecté par l&apos;analyseur en une grille rythmique à tempo fixe. 
-Utilisez ce réglage si vos pistes ont un tempo constant (ex: la plupart de la musique électronique). 
+        <translation>Convertis les &quot;battements&quot; détecté par l&apos;analyseur en une grille rythmique à tempo fixe.
+Utilisez ce réglage si vos pistes ont un tempo constant (ex: la plupart de la musique électronique).
 Résulte souvent en de meilleures grilles rythmiques, mais ne marchera pas bien en cas de variation de tempo.</translation>
     </message>
     <message>

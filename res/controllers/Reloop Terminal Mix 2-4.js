@@ -15,7 +15,7 @@ function TerminalMix() {}
 // Push the 'RANGE' button at the top edge of the pitch fader to
 // cycle through the following pitch ranges. Edit the array to choose
 // the ranges you need. For example '0.08' means +/-8%
-TerminalMix.pitchRanges = [ 0.08, 0.12, 0.25, 0.5, 1.0 ];
+TerminalMix.pitchRanges = [0.08, 0.12, 0.25, 0.5, 1.0];
 
 // ----------   Other global variables    ----------
 TerminalMix.timers = [];
@@ -32,7 +32,7 @@ TerminalMix.loopMovePressedR = false;
 
 // ----------   Functions   ----------
 
-TerminalMix.init = function (id,debug) {
+TerminalMix.init = function(id,debug) {
     TerminalMix.id = id;
 
     // Extinguish all LEDs
@@ -53,7 +53,7 @@ TerminalMix.init = function (id,debug) {
     TerminalMix.effectUnit13.knobs[2].midi = [0xB0, 0x04];
     TerminalMix.effectUnit13.knobs[3].midi = [0xB0, 0x05];
     TerminalMix.effectUnit13.dryWetKnob.midi = [0xB0, 0x06];
-    TerminalMix.effectUnit13.dryWetKnob.input = function (channel, control, value, status, group) {
+    TerminalMix.effectUnit13.dryWetKnob.input = function(channel, control, value, status, group) {
         if (value === 63) {
           this.inSetParameter(this.inGetParameter() - .07);
         } else if (value === 65) {
@@ -72,7 +72,7 @@ TerminalMix.init = function (id,debug) {
     TerminalMix.effectUnit24.knobs[2].midi = [0xB1, 0x04];
     TerminalMix.effectUnit24.knobs[3].midi = [0xB1, 0x05];
     TerminalMix.effectUnit24.dryWetKnob.midi = [0xB1, 0x06];
-    TerminalMix.effectUnit24.dryWetKnob.input = function (channel, control, value, status, group) {
+    TerminalMix.effectUnit24.dryWetKnob.input = function(channel, control, value, status, group) {
         if (value === 63) {
           this.inSetParameter(this.inGetParameter() - .07);
         } else if (value === 65) {
@@ -112,9 +112,9 @@ TerminalMix.init = function (id,debug) {
     }
 
     print ("Reloop TerminalMix: "+id+" initialized.");
-}
+};
 
-TerminalMix.shutdown = function () {
+TerminalMix.shutdown = function() {
     // Stop all timers
     for (var i=0; i<TerminalMix.timers.length; i++) {
         engine.stopTimer(TerminalMix.timers[i]);
@@ -126,33 +126,32 @@ TerminalMix.shutdown = function () {
         }
     }
     print ("Reloop TerminalMix: "+TerminalMix.id+" shut down.");
-}
+};
 
-TerminalMix.qtrSec = function () {
+TerminalMix.qtrSec = function() {
 
-}
+};
 
-TerminalMix.halfSec = function () {
+TerminalMix.halfSec = function() {
     TerminalMix.faderStartFlash();
     TerminalMix.samplerPlayFlash();
     TerminalMix.activeLoopFlash();
-}
+};
 
 // The button that enables/disables scratching
-TerminalMix.wheelTouch = function (channel, control, value, status, group) {
+TerminalMix.wheelTouch = function(channel, control, value, status, group) {
     var deck = script.deckFromGroup(group);
     if (value == 0x7F) {
         var alpha = 1.0/8;
         var beta = alpha/32;
         engine.scratchEnable(deck, 800, 33+1/3, alpha, beta);
-    }
-    else {    // If button up
+    } else {    // If button up
         engine.scratchDisable(deck);
     }
-}
+};
 
 // The wheel that actually controls the scratching
-TerminalMix.wheelTurn = function (channel, control, value, status, group) {
+TerminalMix.wheelTurn = function(channel, control, value, status, group) {
     var deck = script.deckFromGroup(group);
     var newValue=(value-64);
     // See if we're scratching. If not, do wheel jog.
@@ -163,22 +162,22 @@ TerminalMix.wheelTurn = function (channel, control, value, status, group) {
 
     // Register the movement
     engine.scratchTick(deck,newValue);
-}
+};
 
-TerminalMix.samplerVolume = function (channel, control, value) {
+TerminalMix.samplerVolume = function(channel, control, value) {
     // Link all sampler volume controls to the Sampler Volume knob
     for (var i=engine.getValue("[Master]","num_samplers"); i>=1; i--) {
         engine.setValue("[Sampler"+i+"]","pregain",
                         script.absoluteNonLin(value, 0.0, 1.0, 4.0));
     }
-}
+};
 
-TerminalMix.pitchSlider = function (channel, control, value, status, group) {
+TerminalMix.pitchSlider = function(channel, control, value, status, group) {
     // invert pitch slider (down=faster) so it matches the labels on controller
     engine.setValue(group,"rate",-script.midiPitch(control, value, status));
-}
+};
 
-TerminalMix.pitchRange = function (channel, control, value, status, group) {
+TerminalMix.pitchRange = function(channel, control, value, status, group) {
     midi.sendShortMsg(status,control,value); // Make button light or extinguish
     if (value<=0) return;
 
@@ -187,7 +186,7 @@ TerminalMix.pitchRange = function (channel, control, value, status, group) {
     var currentRange = Math.round(engine.getValue(group,"rateRange")*100)/100;
     var currentPitch = engine.getValue(group,"rate") * currentRange;
     var items = TerminalMix.pitchRanges.length;
-    for(i=0; i<items; i++) {
+    for (i=0; i<items; i++) {
         if (currentRange<TerminalMix.pitchRanges[i]) {
             engine.setValue(group,"rateRange",TerminalMix.pitchRanges[i]);
             engine.setValue(group,"rate",currentPitch/TerminalMix.pitchRanges[i]);
@@ -200,13 +199,13 @@ TerminalMix.pitchRange = function (channel, control, value, status, group) {
         engine.setValue(group,"rateRange",TerminalMix.pitchRanges[0]);
         engine.setValue(group,"rate",currentPitch/TerminalMix.pitchRanges[0]);
     }
-}
+};
 
-TerminalMix.crossfaderCurve = function (channel, control, value, status, group) {
+TerminalMix.crossfaderCurve = function(channel, control, value, status, group) {
     script.crossfaderCurve(value);
-}
+};
 
-TerminalMix.loopLengthPress = function (channel, control, value, status, group) {
+TerminalMix.loopLengthPress = function(channel, control, value, status, group) {
   if (value) {
     if (engine.getValue(group,"loop_enabled") === 0) {
       script.triggerControl(group,"beatloop_activate",100);
@@ -214,24 +213,23 @@ TerminalMix.loopLengthPress = function (channel, control, value, status, group) 
       script.triggerControl(group,"reloop_toggle",100);
     }
   }
-}
+};
 
-TerminalMix.shiftedLoopLengthPress = function (channel, control, value, status, group) {
+TerminalMix.shiftedLoopLengthPress = function(channel, control, value, status, group) {
   if (value) {
     script.triggerControl(group,"reloop_toggle",100);
   }
-}
+};
 
-TerminalMix.loopLengthTurn = function (channel, control, value, status, group) {
+TerminalMix.loopLengthTurn = function(channel, control, value, status, group) {
     if (value === 65) {
         script.triggerControl(group,"loop_double",100);
-    }
-    else if (value === 63) {
+    } else if (value === 63) {
         script.triggerControl(group,"loop_halve",100);
     }
-}
+};
 
-TerminalMix.loopMovePress = function (channel, control, value, status, group) {
+TerminalMix.loopMovePress = function(channel, control, value, status, group) {
   /* Press the Move encoder to switch between two layers:
   a turn knob to jump X beats back or forth, or move any active loop by Y beats
   b Press & turn to adjust the beatjump/loopmove size
@@ -253,9 +251,9 @@ TerminalMix.loopMovePress = function (channel, control, value, status, group) {
       TerminalMix.loopMovePressedR = false;
     }
   }
-}
+};
 
-TerminalMix.loopMoveTurn = function (channel, control, value, status, group) {
+TerminalMix.loopMoveTurn = function(channel, control, value, status, group) {
   if (channel === 1 || channel === 3) {
     /* If loopmove encoder is pressed while we turn it, we change beatjump_size */
     if (TerminalMix.loopMovePressedL) {
@@ -272,20 +270,19 @@ TerminalMix.loopMoveTurn = function (channel, control, value, status, group) {
       TerminalMix.loopMove(channel, control, value, status, group);
     }
   }
-}
+};
 
-TerminalMix.shiftedLoopMoveTurn = function (channel, control, value, status, group) {
+TerminalMix.shiftedLoopMoveTurn = function(channel, control, value, status, group) {
   if (value === 65) {
     script.triggerControl(group,"beatjump_forward",100);
-  }
-  else if (value === 63) {
+  } else if (value === 63) {
     script.triggerControl(group,"beatjump_backward",100);
   }
-}
+};
 
 
 
-TerminalMix.loopMove = function (channel, control, value, status, group) {
+TerminalMix.loopMove = function(channel, control, value, status, group) {
   /* Loop enabled */
   if (engine.getValue(group,"loop_enabled") === 1) {
     if (engine.getValue(group,"quantize") === 1) {
@@ -303,41 +300,39 @@ TerminalMix.loopMove = function (channel, control, value, status, group) {
     // jump by 'beatjump_size' beats
     if (value === 65) {
       script.triggerControl(group,"beatjump_forward",100);
-    }
-    else if (value === 63) {
+    } else if (value === 63) {
       script.triggerControl(group,"beatjump_backward",100);
     }
   }
-}
+};
 
-TerminalMix.setBeatjumpSize = function (channel, control, value, status, group) {
+TerminalMix.setBeatjumpSize = function(channel, control, value, status, group) {
     if (value === 65) {
       engine.setValue(group,"beatjump_size",engine.getValue(group,"beatjump_size")*2);
-    }
-    else if (value === 63) {
+    } else if (value === 63) {
       engine.setValue(group,"beatjump_size",engine.getValue(group,"beatjump_size")/2);
     }
-}
+};
 
-TerminalMix.cfAssignL = function (channel, control, value, status, group) {
+TerminalMix.cfAssignL = function(channel, control, value, status, group) {
     engine.setValue(group,"orientation",0);
-}
+};
 
-TerminalMix.cfAssignM = function (channel, control, value, status, group) {
+TerminalMix.cfAssignM = function(channel, control, value, status, group) {
     engine.setValue(group,"orientation",1);
-}
+};
 
-TerminalMix.cfAssignR = function (channel, control, value, status, group) {
+TerminalMix.cfAssignR = function(channel, control, value, status, group) {
     engine.setValue(group,"orientation",2);
-}
+};
 
-TerminalMix.faderStart = function (channel, control, value, status, group) {
+TerminalMix.faderStart = function(channel, control, value, status, group) {
     if (value<=0) return;
 
     TerminalMix.faderStart[group]=!TerminalMix.faderStart[group];
-}
+};
 
-TerminalMix.brake = function (channel, control, value, status, group) {
+TerminalMix.brake = function(channel, control, value, status, group) {
     // var1 Start brake effect on button press, don't care about button release.
     // Can be stopped by shortly tapping wheel (when it's in touch mode).
     if (value) {
@@ -347,9 +342,9 @@ TerminalMix.brake = function (channel, control, value, status, group) {
     /*if (value) {
         script.brake(channel, control, value, status, group);
     }	*/
-}
+};
 
-TerminalMix.faderStartFlash = function () {
+TerminalMix.faderStartFlash = function() {
     TerminalMix.state["fStartFlash"]=!TerminalMix.state["fStartFlash"];
 
     var value, group;
@@ -367,9 +362,9 @@ TerminalMix.faderStartFlash = function () {
         if (engine.getValue(group,"duration")>0 || value<=0) midi.sendShortMsg(0x90+i-1,0x32,value);
         midi.sendShortMsg(0x90+i-1,0x78,value); // Shifted
     }
-}
+};
 
-TerminalMix.samplerPlayFlash = function () {
+TerminalMix.samplerPlayFlash = function() {
     TerminalMix.state["sPlayFlash"]=!TerminalMix.state["sPlayFlash"];
 
     var value, group;
@@ -392,9 +387,9 @@ TerminalMix.samplerPlayFlash = function () {
             midi.sendShortMsg(0x90+j-1,0x62+i-1,value);  // Scissor on
         }
     }
-}
+};
 
-TerminalMix.activeLoopFlash = function () {
+TerminalMix.activeLoopFlash = function() {
     TerminalMix.state["loopFlash"]=!TerminalMix.state["loopFlash"];
 
     var value, group;
@@ -410,9 +405,9 @@ TerminalMix.activeLoopFlash = function () {
         midi.sendShortMsg(0x90+i-1,0x0C,value);
         midi.sendShortMsg(0x90+i-1,0x0D,value);
     }
-}
+};
 
-TerminalMix.channelFader = function (channel, control, value, status, group) {
+TerminalMix.channelFader = function(channel, control, value, status, group) {
     engine.setValue(group,"volume",script.absoluteLin(value,0,1));
 
     // Fader start logic
@@ -425,12 +420,12 @@ TerminalMix.channelFader = function (channel, control, value, status, group) {
     if (TerminalMix.lastFader[group]==0) engine.setValue(group,"play",1);
 
     TerminalMix.lastFader[group]=value;
-}
+};
 
 
 
 
-TerminalMix.crossFader = function (channel, control, value, status, group) {
+TerminalMix.crossFader = function(channel, control, value, status, group) {
     var cfValue = script.absoluteNonLin(value,-1,0,1);
     engine.setValue("[Master]","crossfader",cfValue);
 
@@ -486,22 +481,22 @@ TerminalMix.crossFader = function (channel, control, value, status, group) {
     }
 
     TerminalMix.lastFader["crossfader"] = cfValue;
-}
+};
 
 // Move cursor vertically with Trax knob, scroll with Shift pressed
-TerminalMix.traxKnobTurn = function (channel, control, value, status, group) {
+TerminalMix.traxKnobTurn = function(channel, control, value, status, group) {
   if (TerminalMix.shifted) {
       engine.setValue(group,"ScrollVertical", value-64);
     } else {
       engine.setValue(group,"MoveVertical", value-64);
     }
-}
+};
 
 // Move focus right between tracks table and side panel.
 // Shift moves the focus to the left. Right now there are only two possible
 // focus regions (panel + tracks table) so left/right have the same result,
 // but the redesigned Library yet to come may have more regions.
-TerminalMix.backButton = function (channel, control, value, status, group) {
+TerminalMix.backButton = function(channel, control, value, status, group) {
     if (value>0) {
       if (TerminalMix.shifted) {
       engine.setValue(group,"MoveFocus",-1);
@@ -509,10 +504,10 @@ TerminalMix.backButton = function (channel, control, value, status, group) {
       engine.setValue(group,"MoveFocus",1);
     }
   }
-}
+};
 
 // Left shift button
-TerminalMix.shiftButtonL = function (channel, control, value, status, group) {
+TerminalMix.shiftButtonL = function(channel, control, value, status, group) {
   if (value === 127) {
     TerminalMix.effectUnit13.shift();
     TerminalMix.effectUnit24.shift();
@@ -526,7 +521,7 @@ TerminalMix.shiftButtonL = function (channel, control, value, status, group) {
   }
 };
 // Right shift button
-TerminalMix.shiftButtonR = function (channel, control, value, status, group) {
+TerminalMix.shiftButtonR = function(channel, control, value, status, group) {
   if (value === 127) {
     TerminalMix.effectUnit13.shift();
     TerminalMix.effectUnit24.shift();
@@ -538,20 +533,20 @@ TerminalMix.shiftButtonR = function (channel, control, value, status, group) {
     TerminalMix.shifted = false;
     TerminalMix.shiftedR = false;
   }
-}
+};
 
 // ----------- LED Output functions -------------
 
-TerminalMix.tapLED = function (deck,value) {
+TerminalMix.tapLED = function(deck,value) {
     deck--;
     if (value>0) midi.sendShortMsg(0x90+deck,0x0A,0x7F);
     else midi.sendShortMsg(0x90+deck,0x0A,0);
-}
+};
 
-TerminalMix.tapLEDL = function (value) {
+TerminalMix.tapLEDL = function(value) {
     TerminalMix.tapLED(1,value);
-}
+};
 
-TerminalMix.tapLEDR = function (value) {
+TerminalMix.tapLEDR = function(value) {
     TerminalMix.tapLED(2,value);
-}
+};

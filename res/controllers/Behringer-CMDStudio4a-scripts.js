@@ -35,9 +35,9 @@ BehringerCMDStudio4a.fxAssignLastGroup = "";
 
 // ************************ Initialisation stuff. *****************************
 
-BehringerCMDStudio4a.vuMeterUpdate = function (value, group, control){
+BehringerCMDStudio4a.vuMeterUpdate = function(value, group, control) {
     value = (value*15)+48;
-    switch(control) {
+    switch (control) {
     case "VuMeterL":
         midi.sendShortMsg(0xB0, 0x7E, value);
         break;
@@ -45,9 +45,9 @@ BehringerCMDStudio4a.vuMeterUpdate = function (value, group, control){
         midi.sendShortMsg(0xB0, 0x7F, value);
         break;
     }
-}
+};
 
-BehringerCMDStudio4a.initLEDs = function () {
+BehringerCMDStudio4a.initLEDs = function() {
     // (re)Initialise any LEDs that are direcctly controlled by this script.
     // DEL buttons (one for each virtual deck).
     midi.sendShortMsg(0x90, 0x2A, 0x00);
@@ -59,15 +59,15 @@ BehringerCMDStudio4a.initLEDs = function () {
     midi.sendShortMsg(0x91, 0x36, 0x00);
     midi.sendShortMsg(0x92, 0x16, 0x00);
     midi.sendShortMsg(0x93, 0x36, 0x00);
-}
+};
 
-BehringerCMDStudio4a.init = function () {
+BehringerCMDStudio4a.init = function() {
     // Initialise anything that might not be in the correct state.
     BehringerCMDStudio4a.initLEDs();
     // Connect the VUMeters
     engine.connectControl("[Master]","VuMeterL","BehringerCMDStudio4a.vuMeterUpdate");
     engine.connectControl("[Master]","VuMeterR","BehringerCMDStudio4a.vuMeterUpdate");
-}
+};
 
 BehringerCMDStudio4a.shutdown = function() {
     // Leave the deck in a properly initialised state.
@@ -78,7 +78,7 @@ BehringerCMDStudio4a.shutdown = function() {
 // in done in init(), in fact if you try it throws an error.
 //  engine.connectControl("[Master]","VuMeterL","BehringerCMDStudio4a.vuMeterUpdate",true);
 //  engine.connectControl("[Master]","VuMeterR","BehringerCMDStudio4a.vuMeterUpdate",true);
-}
+};
 
 
 // *************************** Control Stuff. *********************************
@@ -89,7 +89,7 @@ BehringerCMDStudio4a.shutdown = function() {
 // XML (together with standard wheel/scratching functionality).
 
 // Function to deal with the DEL "shift/mode" buttons.
-BehringerCMDStudio4a.del = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.del = function(channel, control, value, status, group) {
     if (value == 127) {
         // Button pushed.
         BehringerCMDStudio4a.delPushed = true;
@@ -103,10 +103,10 @@ BehringerCMDStudio4a.del = function (channel, control, value, status, group) {
             midi.sendShortMsg(0x90 + channel, control, BehringerCMDStudio4a.delButtonState[channel] ? 0x01 : 0x00);
         }
     }
-}
+};
 
 // Function to deal with the play buttons, (because they have a DEL-mode behaviour).
-BehringerCMDStudio4a.play = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.play = function(channel, control, value, status, group) {
     if (BehringerCMDStudio4a.delButtonState[channel]) {
         // DEL-mode is active, do reverse-roll (slip).
         engine.setValue(group, "reverseroll", (value == 127) ? 1 : 0);
@@ -116,10 +116,10 @@ BehringerCMDStudio4a.play = function (channel, control, value, status, group) {
             script.toggleControl(group,"play");
         }
     }
-}
+};
 
 // Function to deal with the cue buttons, (because they have a DEL-mode behaviour).
-BehringerCMDStudio4a.cue = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.cue = function(channel, control, value, status, group) {
     if (BehringerCMDStudio4a.delButtonState[channel]) {
         // DEL-mode is active, do reverse play.
         engine.setValue(group, "reverse", (value == 127) ? 1 : 0);
@@ -127,16 +127,16 @@ BehringerCMDStudio4a.cue = function (channel, control, value, status, group) {
         // DEL-mode is not active so just cue.
         engine.setValue(group, "cue_default", (value == 127) ? 1 : 0);
     }
-}
+};
 
 // Function to deal with the scratch mode buttons.
-BehringerCMDStudio4a.scratch = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.scratch = function(channel, control, value, status, group) {
     BehringerCMDStudio4a.scratchButtonState[channel] = !BehringerCMDStudio4a.scratchButtonState[channel];
     midi.sendShortMsg(status, control, BehringerCMDStudio4a.scratchButtonState[channel] ? 0x01 : 0x00);
-}
+};
 
 // Function to deal with the FX Assign buttons, (because they also act as "shift" buttons).
-BehringerCMDStudio4a.fxAssign = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.fxAssign = function(channel, control, value, status, group) {
     // FX Assign buttons start at 0x52.
     var fxAssignButton = (control - 0x52) & 1;  // Either 0 or 1 depending on button (1 or 2).
     if (value == 127) {
@@ -144,9 +144,7 @@ BehringerCMDStudio4a.fxAssign = function (channel, control, value, status, group
         BehringerCMDStudio4a.fxAssignPushed = true;
         BehringerCMDStudio4a.fxAssignShiftUsed = false;
         BehringerCMDStudio4a.fxAssignLastGroup = group;
-    }
-    else
-    {
+    } else {
         // Button released.
         BehringerCMDStudio4a.fxAssignPushed = false;
         // Only toggle the effect on release if the "shift" function wasn't used.
@@ -154,10 +152,10 @@ BehringerCMDStudio4a.fxAssign = function (channel, control, value, status, group
             script.toggleControl(group,"group_[Channel"+(channel+1)+"]_enable");
         }
     }
-}
+};
 
 // Function to deal with the browse left/right buttons, (because they have an "FX Assign mode" behaviour).
-BehringerCMDStudio4a.browseLR = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.browseLR = function(channel, control, value, status, group) {
     if (BehringerCMDStudio4a.fxAssignPushed) {
         BehringerCMDStudio4a.fxAssignShiftUsed = true;
         if (control == 0x2) {
@@ -170,16 +168,16 @@ BehringerCMDStudio4a.browseLR = function (channel, control, value, status, group
     } else {
         if (control == 0x2) {
             // Left.
-            engine.setValue(group, "SelectPrevPlaylist",1)
+            engine.setValue(group, "SelectPrevPlaylist",1);
         } else {
             // Right.
-            engine.setValue(group, "SelectNextPlaylist",1)
+            engine.setValue(group, "SelectNextPlaylist",1);
         }
     }
-}
+};
 
 // Functions to deal with the hot-cue buttons, (because they have a DEL-mode behaviour).
-BehringerCMDStudio4a.hotcue = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.hotcue = function(channel, control, value, status, group) {
     // Translate the button to the actual hotcue.
     var hotcue = control-0x21;  // Hotcue buttons on left deck go from 0x22 to 0x29
     if (hotcue>8) {
@@ -219,10 +217,10 @@ BehringerCMDStudio4a.hotcue = function (channel, control, value, status, group) 
             engine.setValue(group, "hotcue_"+hotcue+"_activate", (value == 127) ? 1 : 0);
         }
     }
-}
+};
 
 // Functions to deal with the pitch inc/dec buttons, (because they have a DEL-mode behaviour).
-BehringerCMDStudio4a.pitch = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.pitch = function(channel, control, value, status, group) {
     // Work out the direction.
     var direction = ((control & 0x01) == 0) ? "down" : "up";
     // Work out the type (and join) by looking at the DEL button state.
@@ -243,13 +241,13 @@ BehringerCMDStudio4a.pitch = function (channel, control, value, status, group) {
         BehringerCMDStudio4a.pitchPushed[control & 0x01][channel] = false;
         engine.setValue(group, "rate_perm_"+direction, 0); // Keeps the UI in sync with the button state.
     }
-}
+};
 
 // Functions to deal with the wheel (i.e. scratcing and jog).
 // Why is there no (XML) support in Mixxx for this most basic of functions?
 // I suspect the vast majority of controller mappings use the same code
 // (provided in the Wiki).
-BehringerCMDStudio4a.wheelTouch = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.wheelTouch = function(channel, control, value, status, group) {
     channel = channel+1;
     if (value > 0) {
         // We're touching the wheel.
@@ -261,11 +259,11 @@ BehringerCMDStudio4a.wheelTouch = function (channel, control, value, status, gro
         engine.scratchDisable(channel);
     }
 };
-BehringerCMDStudio4a.wheelTurn = function (channel, control, value, status, group) {
+BehringerCMDStudio4a.wheelTurn = function(channel, control, value, status, group) {
     var deck = channel+1;
     var newValue = value-64;
-    if (BehringerCMDStudio4a.scratchButtonState[channel]){
-        if (engine.isScratching(deck)){
+    if (BehringerCMDStudio4a.scratchButtonState[channel]) {
+        if (engine.isScratching(deck)) {
             engine.scratchTick(deck,newValue);  // Scratch!
         }
     } else {

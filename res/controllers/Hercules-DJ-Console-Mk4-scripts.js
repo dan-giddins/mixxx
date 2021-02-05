@@ -1,4 +1,4 @@
-function HerculesMk4 () {}
+function HerculesMk4() {}
 
 //Hercules Mk4 scripts from Dj Kork.... enjoy them ;)
 
@@ -22,7 +22,7 @@ HerculesMk4.jogFastPosition=[0,0];
 
 
 
-HerculesMk4.init = function (id) {
+HerculesMk4.init = function(id) {
     // Switch off all LEDs
     for (var i=1; i<95; i++) midi.sendShortMsg(0x90, i, 0x00);
     // Switch-on the LEDs for improve the usability
@@ -31,32 +31,31 @@ HerculesMk4.init = function (id) {
     midi.sendShortMsg(0x90, 34, 0x7F);    // Cue deck B LED
 };
 
-HerculesMk4.shutdown = function (id) {
+HerculesMk4.shutdown = function(id) {
     // Switch off all LEDs
     for (var i=1; i<95; i++) midi.sendShortMsg(0x90, i, 0x00);
 };
 
 
 
-HerculesMk4.loadTrack = function (midino, control, value, status, group) {
+HerculesMk4.loadTrack = function(midino, control, value, status, group) {
     // Load the selected track in the corresponding deck only if the track is
     // paused
 
-    if(value && engine.getValue(group, "play") != 1) {
+    if (value && engine.getValue(group, "play") != 1) {
         engine.setValue(group, "LoadSelectedTrack", 1);
         engine.setValue(group, "rate", 0);
-        }
-    else engine.setValue(group, "LoadSelectedTrack", 0);
+        } else engine.setValue(group, "LoadSelectedTrack", 0);
 };
 
 
-HerculesMk4.scroll = function (midino, control, value, status, group) {
+HerculesMk4.scroll = function(midino, control, value, status, group) {
     // Button "Files": up 10 tracks
     // Button "Folder": down 10 tracks
     // This function scroll up or down 10 tracks on the playlist, like the mouse
     // scroll.
 
-    if(control == 0x2C && value == 0x7F) {
+    if (control == 0x2C && value == 0x7F) {
         engine.setValue("[Playlist]", "SelectPrevTrack", "1");
         engine.setValue("[Playlist]", "SelectPrevTrack", "1");
         engine.setValue("[Playlist]", "SelectPrevTrack", "1");
@@ -86,7 +85,7 @@ HerculesMk4.scroll = function (midino, control, value, status, group) {
 
 
 
-HerculesMk4.keyButton = function (midino, control, value, status, group) {
+HerculesMk4.keyButton = function(midino, control, value, status, group) {
     // Loop command for the first 4 Key, Hotcues command for the latest 4
 
     switch (control) {
@@ -113,37 +112,33 @@ HerculesMk4.keyButton = function (midino, control, value, status, group) {
             if (HerculesMk4.scratchButton == 1) {
                 //HerculesMk4.holdButton(group, value, "hotcue_1_set", "hotcue_1_clear");
                 engine.setValue(group, "hotcue_1_clear", value ? 1 : 0);
-            }
-            else engine.setValue(group, "hotcue_1_activate", value ? 1 : 0);
+            } else engine.setValue(group, "hotcue_1_activate", value ? 1 : 0);
             break;
 
         case 0x06: case 0x1A:    // K6
             if (HerculesMk4.scratchButton == 1) {
                 //HerculesMk4.holdButton(group, value, "hotcue_2_set", "hotcue_2_clear");
                 engine.setValue(group, "hotcue_2_clear", value ? 1 : 0);
-            }
-            else engine.setValue(group, "hotcue_2_activate", value ? 1 : 0);
+            } else engine.setValue(group, "hotcue_2_activate", value ? 1 : 0);
             break;
 
         case 0x07: case 0x1B:    // K7
             if (HerculesMk4.scratchButton == 1) {
                 //HerculesMk4.holdButton(group, value, "hotcue_3_set", "hotcue_3_clear");
                 engine.setValue(group, "hotcue_3_clear", value ? 1 : 0);
-            }
-            else engine.setValue(group, "hotcue_3_activate", value ? 1 : 0);
+            } else engine.setValue(group, "hotcue_3_activate", value ? 1 : 0);
             break;
 
         case 0x08: case 0x1C:    // K8
             if (HerculesMk4.scratchButton == 1) {
                 //HerculesMk4.holdButton(group, value, "hotcue_4_set", "hotcue_4_clear");
                 engine.setValue(group, "hotcue_4_clear", value ? 1 : 0);
-            }
-            else engine.setValue(group, "hotcue_4_activate", value ? 1 : 0);
+            } else engine.setValue(group, "hotcue_4_activate", value ? 1 : 0);
             break;
         }
 };
 
-HerculesMk4.knobIncrement = function (group, action, minValue, maxValue, centralValue, step, sign) {
+HerculesMk4.knobIncrement = function(group, action, minValue, maxValue, centralValue, step, sign) {
     // This function allows you to increment a non-linear value like the volume's knob
     // sign must be 1 for positive increment, -1 for negative increment
     var semiStep = step/2;
@@ -165,21 +160,21 @@ HerculesMk4.knobIncrement = function (group, action, minValue, maxValue, central
 };
 
 
-HerculesMk4.deck=function(group){
+HerculesMk4.deck=function(group) {
  //channel 1 -->deck 0
  //channel 2 -->deck 1
  return (group=="[Channel1]") ? 0 : 1;
-}
+};
 
-HerculesMk4.selectLed=function(group,led){
+HerculesMk4.selectLed=function(group,led) {
  //channel 1 -->led 0
  //channel 2 -->led + 20
  return (group=="[Channel1]") ? led : led+20;
-}
+};
 
 
 
-HerculesMk4.pitch = function (midino, control, value, status, group) {
+HerculesMk4.pitch = function(midino, control, value, status, group) {
     // Simple: pitch slider
 
 
@@ -187,8 +182,7 @@ HerculesMk4.pitch = function (midino, control, value, status, group) {
         var sign = (value == 0x01) ? 1 : -1;
         var newValue = HerculesMk4.knobIncrement(group, "pregain", 0, 4, 1, 60, sign);
         engine.setValue(group, "pregain", newValue);
-    }
-    else {
+    } else {
 
         var increment = 0.005 * HerculesMk4.sensitivityPitch[HerculesMk4.deck(group)];
         increment = (value == 0x01) ? increment : increment * -1;
@@ -197,11 +191,11 @@ HerculesMk4.pitch = function (midino, control, value, status, group) {
 };
 
 
-HerculesMk4.pfl = function (midino, control, value, status, group) {
+HerculesMk4.pfl = function(midino, control, value, status, group) {
 
-    if(value){
+    if (value) {
 
-        engine.setValue(group,"pfl",(engine.getValue(group,"pfl")) ? 0 :1 );
+        engine.setValue(group,"pfl",(engine.getValue(group,"pfl")) ? 0 :1);
 
         var pfl1=engine.getValue("[Channel1]","pfl");
         var pfl2=engine.getValue("[Channel2]","pfl");
@@ -209,60 +203,59 @@ HerculesMk4.pfl = function (midino, control, value, status, group) {
 
         var actualMixCue=engine.getValue("[Master]","headMix");
 
-        if(pfl1==0 && pfl2==0){
+        if (pfl1==0 && pfl2==0) {
             HerculesMk4.antiguoMixCue=actualMixCue;
             engine.setValue("[Master]","headMix",1);
-        }else{
-            if(actualMixCue==1){
+        } else {
+            if (actualMixCue==1) {
                 engine.setValue("[Master]","headMix",HerculesMk4.antiguoMixCue);
             }
-        };
-    };
+        }
+    }
 };
 
 
 
 
-HerculesMk4.pitchbend = function (midino, control, value, status, group) {
+HerculesMk4.pitchbend = function(midino, control, value, status, group) {
     // Pitch - : set pitch sensitivity
     // Pitch +:  set jog fast position
 
     //ignore when releasing the button
-    if(value==0x00) return;
+    if (value==0x00) return;
 
     if (control == 0x0B || control == 0x1F) { // Pitchbend +
         var newValue = (HerculesMk4.jogFastPosition[HerculesMk4.deck(group)]==1)? 0 : 1;
 
         HerculesMk4.jogFastPosition[HerculesMk4.deck(group)]=newValue;
 
-        if(newValue==1){
+        if (newValue==1) {
             midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,11), 0x7f);
-        }else{
+        } else {
             midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,11), 0x00);
         }
-    }
-    else { // Pitchbend -
+    } else { // Pitchbend -
         HerculesMk4.sensitivityPitch[HerculesMk4.deck(group)]=HerculesMk4.togglePitchSensitivity(group,HerculesMk4.sensitivityPitch[HerculesMk4.deck(group)]);
     }
 
 };
 
 
-HerculesMk4.togglePitchSensitivity=function (group,sensitivity) {
+HerculesMk4.togglePitchSensitivity=function(group,sensitivity) {
     sensitivity=sensitivity+2;
 
-    if(sensitivity>5){
+    if (sensitivity>5) {
         sensitivity=1;
     }
 
 
 
-    if(sensitivity==1){
+    if (sensitivity==1) {
         //pitch very fine
         midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,10), 0x00);    // minus led off
         midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,58), 0x7F);    // Blink minus led
 
-    } else if (sensitivity==3){
+    } else if (sensitivity==3) {
         //pitch fine
         midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,58), 0x00);    // Blink minus led off
         midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,10), 0x7F);    // minus led
@@ -273,18 +266,17 @@ HerculesMk4.togglePitchSensitivity=function (group,sensitivity) {
     }
 
     return sensitivity;
-}
-
-HerculesMk4.cue = function (midino, control, value, status, group) {
-    // Don't set Cue accidentally at the end of the song
-
-    if(engine.getValue(group, "playposition") <= 0.97) {
-        engine.setValue(group, "cue_default", value ? 1 : 0);
-    }
-    else     engine.setValue(group, "cue_preview", value ? 1 : 0);
 };
 
-HerculesMk4.scratch = function (midino, control, value, status, group) {
+HerculesMk4.cue = function(midino, control, value, status, group) {
+    // Don't set Cue accidentally at the end of the song
+
+    if (engine.getValue(group, "playposition") <= 0.97) {
+        engine.setValue(group, "cue_default", value ? 1 : 0);
+    } else     engine.setValue(group, "cue_preview", value ? 1 : 0);
+};
+
+HerculesMk4.scratch = function(midino, control, value, status, group) {
     // The "scratch" button is used like a shift button only for enable the scratch mode on the
     // deck A and/or B with the "sync" buttons
     if (value) {
@@ -292,34 +284,31 @@ HerculesMk4.scratch = function (midino, control, value, status, group) {
         //Switch-on the LEDs of Sync buttons while the "scratch" button is hold down
         midi.sendShortMsg(0x90, 18, 0x7F);
         midi.sendShortMsg(0x90, 38, 0x7F);
-        }
-    else {
+        } else {
         HerculesMk4.scratchButton = 0;
         midi.sendShortMsg(0x90, 18, 0x00);
         midi.sendShortMsg(0x90, 38, 0x00);
         }
 };
 
-HerculesMk4.sync = function (midino, control, value, status, group) {
+HerculesMk4.sync = function(midino, control, value, status, group) {
 
     if (HerculesMk4.scratchButton && value) { // If the "scratch" button is hold down
 
-        if(HerculesMk4.scratchMode[HerculesMk4.deck(group)]==0) {
+        if (HerculesMk4.scratchMode[HerculesMk4.deck(group)]==0) {
             engine.scratchEnable(HerculesMk4.deck(group)+1, 128, HerculesMk4.standardRpm, HerculesMk4.alpha, HerculesMk4.beta); // Enable the scratch mode on Deck A
             HerculesMk4.scratchMode[HerculesMk4.deck(group)] = 1;
             midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,66), 0x7F); // Blinks the sync led
-        }
-        else {
+        } else {
             engine.scratchDisable(HerculesMk4.deck(group)+1);
             HerculesMk4.scratchMode[HerculesMk4.deck(group)] = 0;
             midi.sendShortMsg(0x90, HerculesMk4.selectLed(group,66), 0x00); // Switch-off the sync led
         }
 
-    }
-    else engine.setValue(group, "beatsync", value ? 1 : 0);
+    } else engine.setValue(group, "beatsync", value ? 1 : 0);
 };
 
-HerculesMk4.jogWheel = function (midino, control, value, status, group) {
+HerculesMk4.jogWheel = function(midino, control, value, status, group) {
     // This function is called everytime the jog is moved
 
     var direction=(value == 0x01)? 1: -1;
@@ -328,16 +317,16 @@ HerculesMk4.jogWheel = function (midino, control, value, status, group) {
 
     var turboSeek=engine.getValue(group,"play")==0 && HerculesMk4.jogFastPosition[HerculesMk4.deck(group)]==1 && HerculesMk4.scratchMode[HerculesMk4.deck(group)]==0;
 
-    if(turboSeek) {
+    if (turboSeek) {
         var new_position = engine.getValue(group,"playposition")+ 0.008*direction;
-        if(new_position<0) new_position=0;
-        if(new_position>1) new_position=1;
+        if (new_position<0) new_position=0;
+        if (new_position>1) new_position=1;
 
         engine.setValue(group,"playposition",new_position);
     }
 
 
-    if( !turboSeek){
+    if (!turboSeek) {
         engine.setValue(group, "jog", direction);
     }
 };

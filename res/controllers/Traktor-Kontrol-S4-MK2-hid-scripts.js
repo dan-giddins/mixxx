@@ -47,21 +47,21 @@ TraktorS4MK2 = new function() {
   // other channels.  (The user may toggle channel quantize in the GUI)
   this.controller.master_quantize = false;
   // Previous values, used for calculating deltas for encoder knobs.
-  this.controller.prev_pregain = {"[Channel1]" : 0,
-                                 "[Channel2]" : 0,
-                                 "[Channel3]" : 0,
-                                 "[Channel4]" : 0};
+  this.controller.prev_pregain = {"[Channel1]": 0,
+                                 "[Channel2]": 0,
+                                 "[Channel3]": 0,
+                                 "[Channel4]": 0};
   this.controller.prev_browse = 0;
-  this.controller.prev_loopmove = {"deck1" : 0,
-                                   "deck2" : 0};
-  this.controller.prev_loopsize = {"deck1" : 0,
-                                   "deck2" : 0};
-  this.controller.shift_pressed = {"deck1" : false,
-                                   "deck2" : false};
-  this.controller.wheelTouchInertiaTimer = {"[Channel1]" : 0,
-                                            "[Channel2]" : 0,
-                                            "[Channel3]" : 0,
-                                            "[Channel4]" : 0};
+  this.controller.prev_loopmove = {"deck1": 0,
+                                   "deck2": 0};
+  this.controller.prev_loopsize = {"deck1": 0,
+                                   "deck2": 0};
+  this.controller.shift_pressed = {"deck1": false,
+                                   "deck2": false};
+  this.controller.wheelTouchInertiaTimer = {"[Channel1]": 0,
+                                            "[Channel2]": 0,
+                                            "[Channel3]": 0,
+                                            "[Channel4]": 0};
 
   // TODO: convert to Object()s for easier logic.
   this.controller.last_tick_val = [0, 0];
@@ -76,7 +76,7 @@ TraktorS4MK2 = new function() {
   this.controller.scratchBeta = this.controller.scratchAlpha / 8;
   this.controller.scratchRampOnEnable = true;
   this.controller.scratchRampOnDisable = true;
-}
+};
 
 TraktorS4MK2.registerInputPackets = function() {
   MessageShort = new HIDPacket("shortmessage", 0x01, this.shortMessageCallback);
@@ -169,7 +169,7 @@ TraktorS4MK2.registerInputPackets = function() {
 
 
   MessageShort.addControl("[Master]", "!quantize", 0x0A, "B", 0x08);
-  MessageShort.addControl("[Master]", "!snap", 0x0A, "B", 0x02)
+  MessageShort.addControl("[Master]", "!snap", 0x0A, "B", 0x02);
 
   MessageShort.setCallback("deck1", "!shift", this.shiftHandler);
   MessageShort.setCallback("deck2", "!shift", this.shiftHandler);
@@ -309,7 +309,7 @@ TraktorS4MK2.registerInputPackets = function() {
   this.controller.setScaler("rate", this.scalerSlider);
   this.controller.setScaler("mix", this.scalerParameter);
   this.controller.registerInputPacket(MessageLong);
-}
+};
 
 TraktorS4MK2.registerOutputPackets = function() {
   Output1 = new HIDPacket("output1", 0x80);
@@ -321,10 +321,10 @@ TraktorS4MK2.registerOutputPackets = function() {
   Output1.addOutput("[Channel3]", "track_samples", 0x08, "B");
   Output1.addOutput("[Channel4]", "track_samples", 0x20, "B");
 
-  var VuOffsets = {"[Channel1]" : 0x09,
-                   "[Channel2]" : 0x11,
-                   "[Channel3]" : 0x01,
-                   "[Channel4]" : 0x19};
+  var VuOffsets = {"[Channel1]": 0x09,
+                   "[Channel2]": 0x11,
+                   "[Channel3]": 0x01,
+                   "[Channel4]": 0x19};
   for (ch in VuOffsets) {
     for (i = 0; i < 0x06; i++) {
       Output1.addOutput(ch, "!" + "VuMeter" + i, VuOffsets[ch] + i, "B");
@@ -341,7 +341,7 @@ TraktorS4MK2.registerOutputPackets = function() {
   Output1.addOutput("[Master]", "!usblight", 0x2A, "B");
   Output1.addOutput("[Master]", "!quantize", 0x31, "B");
   Output1.addOutput("[InternalClock]", "sync_master", 0x30, "B");
-  Output1.addOutput("[Recording]", "status", 0x34, "B" );
+  Output1.addOutput("[Recording]", "status", 0x34, "B");
 
   this.controller.registerOutputPacket(Output1);
 
@@ -457,7 +457,7 @@ TraktorS4MK2.registerOutputPackets = function() {
   Output3.addOutput("[EffectRack1_EffectUnit2]", "show_parameters", 0x12, "B");
 
 
- for (i=0; i < 16; i++){
+ for (i=0; i < 16; i++) {
    Output3.addOutput("deck1", "!loopSize"+i, 0x1B+i, "B");
    Output3.addOutput("deck2", "!loopSize"+i, 0x2B+i, "B");
  }
@@ -502,7 +502,7 @@ TraktorS4MK2.registerOutputPackets = function() {
 
   TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit1]", "show_parameters", TraktorS4MK2.outputChannelCallback);
   TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit2]", "show_parameters", TraktorS4MK2.outputChannelCallback);
-  TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit1_Effect1]", "enabled", TraktorS4MK2.outputChannelCallback)
+  TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit1_Effect1]", "enabled", TraktorS4MK2.outputChannelCallback);
   TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit1_Effect2]", "enabled", TraktorS4MK2.outputChannelCallback);
   TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit1_Effect3]", "enabled", TraktorS4MK2.outputChannelCallback);
   TraktorS4MK2.linkChannelOutput("[EffectRack1_EffectUnit2_Effect1]", "enabled", TraktorS4MK2.outputChannelCallback);
@@ -546,7 +546,7 @@ TraktorS4MK2.registerOutputPackets = function() {
   engine.connectControl("[Channel3]", "beatloop_size", "TraktorS4MK2.onLoopSizeChanged");
   engine.connectControl("[Channel4]", "beatloop_size", "TraktorS4MK2.onLoopSizeChanged");
 
-}
+};
 
 TraktorS4MK2.linkDeckOutputs = function(key, callback) {
   // Linking outputs is a little tricky because the library doesn't quite do what I want.  But this
@@ -555,11 +555,11 @@ TraktorS4MK2.linkDeckOutputs = function(key, callback) {
   engine.connectControl("[Channel3]", key, callback);
   TraktorS4MK2.controller.linkOutput("deck2", key, "[Channel2]", key, callback);
   engine.connectControl("[Channel4]", key, callback);
-}
+};
 
 TraktorS4MK2.linkChannelOutput = function(group, key, callback) {
   TraktorS4MK2.controller.linkOutput(group, key, group, key, callback);
-}
+};
 
 TraktorS4MK2.lightGroup = function(packet, output_group_name, co_group_name) {
   var group_ob = packet.groups[output_group_name];
@@ -574,7 +574,7 @@ TraktorS4MK2.lightGroup = function(packet, output_group_name, co_group_name) {
     }
     // No callback, no light!
   }
-}
+};
 
 TraktorS4MK2.lightDeck = function(group) {
   // Freeze the lights while we do this update so we don't spam HID.
@@ -632,7 +632,7 @@ TraktorS4MK2.lightDeck = function(group) {
     var packet_ob = this.controller.OutputPackets[packet_name];
     packet_ob.send();
   }
-}
+};
 
 TraktorS4MK2.pointlessLightShow = function() {
   var packets = [Object(), Object(), Object()];
@@ -661,12 +661,12 @@ TraktorS4MK2.pointlessLightShow = function() {
       }
     }
   }
-}
+};
 
 TraktorS4MK2.init = function(id) {
-  TraktorS4MK2.pointlessLightShow()
-  TraktorS4MK2.registerInputPackets()
-  TraktorS4MK2.registerOutputPackets()
+  TraktorS4MK2.pointlessLightShow();
+  TraktorS4MK2.registerInputPackets();
+  TraktorS4MK2.registerOutputPackets();
 
   // Initialize master quantize based on the state of Channel1.  It's the best we can do for now
   // until we have controller preferences.
@@ -692,7 +692,7 @@ TraktorS4MK2.init = function(id) {
   TraktorS4MK2.lightDeck("[Channel2]");
 
   HIDDebug("TraktorS4MK2: done init");
-}
+};
 
 TraktorS4MK2.debugLights = function() {
   // Call this if you want to just send raw packets to the controller (good for figuring out what
@@ -737,7 +737,7 @@ TraktorS4MK2.debugLights = function() {
       controller.send(data[i], data[i].length, 0x80 + i);
     }
   }
-}
+};
 
 TraktorS4MK2.shutdown = function() {
   var packet_lengths = [53, 63, 61];
@@ -755,7 +755,7 @@ TraktorS4MK2.shutdown = function() {
     }
     controller.send(data, packet_length, 0);
   }
-}
+};
 
 // Called by Mixxx -- mandatory function to receive anything from HID
 TraktorS4MK2.incomingData = function(data, length) {
@@ -794,7 +794,7 @@ TraktorS4MK2.incomingData = function(data, length) {
     return;
   }
   HIDDebug("Traktor S4MK2: Unhandled packet size: " + length);
-}
+};
 
 // The short message handles buttons and jog wheels.
 TraktorS4MK2.shortMessageCallback = function(packet, data) {
@@ -810,7 +810,7 @@ TraktorS4MK2.shortMessageCallback = function(packet, data) {
 
     TraktorS4MK2.controller.processButton(field);
   }
-}
+};
 
 // There are no buttons handled by the long message, so this is a little simpler.  (Even though
 // this is very similar to the other handler, it's easier to keep them separate to know what's
@@ -823,7 +823,7 @@ TraktorS4MK2.longMessageCallback = function(packet, data) {
     field.group = group;
     TraktorS4MK2.controller.processControl(field);
   }
-}
+};
 
 // Utility function for converting mappings like "deck1.play" into "[ChannelX].play" based
 // on the state of the deck switches.
@@ -853,13 +853,13 @@ TraktorS4MK2.getGroupFromButton = function(name) {
     HIDDebug("Traktor S4MK2: Unrecognized packet group: " + splitted[0]);
     return "";
   }
-}
+};
 
 TraktorS4MK2.shiftHandler = function(field) {
   var group = field.id.split(".")[0];
   TraktorS4MK2.controller.shift_pressed[group] = field.value;
   TraktorS4MK2.outputCallback(field.value, field.group, "!shift");
-}
+};
 
 TraktorS4MK2.deckSwitchHandler = function(field) {
   if (field.value === 0) {
@@ -886,7 +886,7 @@ TraktorS4MK2.deckSwitchHandler = function(field) {
   } else {
     HIDDebug("Traktor S4MK2: Unrecognized packet group: " + field.group);
   }
-}
+};
 
 TraktorS4MK2.loadTrackHandler = function(field) {
   var splitted = field.id.split(".");
@@ -896,7 +896,7 @@ TraktorS4MK2.loadTrackHandler = function(field) {
   } else {
     engine.setValue(field.group, "LoadSelectedTrack", field.value);
   }
-}
+};
 
 TraktorS4MK2.syncEnabledHandler = function(field) {
   var now = Date.now();
@@ -930,7 +930,7 @@ TraktorS4MK2.syncEnabledHandler = function(field) {
       engine.setValue(field.group, "sync_enabled", 0);
     }
   }
-}
+};
 
 TraktorS4MK2.cueHandler = function(field) {
   var splitted = field.id.split(".");
@@ -950,7 +950,7 @@ TraktorS4MK2.cueHandler = function(field) {
   } else {
     engine.setValue(field.group, "cue_default", field.value);
   }
-}
+};
 
 TraktorS4MK2.playHandler = function(field) {
   if (field.value === 0) {
@@ -965,7 +965,7 @@ TraktorS4MK2.playHandler = function(field) {
     var playing = engine.getValue(field.group, "play");
     engine.setValue(field.group, "play", !playing);
   }
-}
+};
 
 TraktorS4MK2.previewDeckHandler = function(field) {
   if (field.value === 0) {
@@ -980,7 +980,7 @@ TraktorS4MK2.previewDeckHandler = function(field) {
   engine.setValue("[PreviewDeck1]", "LoadSelectedTrackAndPlay", 1);
   engine.setValue("[PreviewDeck1]", "LoadSelectedTrackAndPlay", 0);
   //}
-}
+};
 
 // Jog wheel touch code taken from VCI400.  It should be moved into common-hid-packet-parser.js
 TraktorS4MK2.jogTouchHandler = function(field) {
@@ -1006,7 +1006,7 @@ TraktorS4MK2.jogTouchHandler = function(field) {
           inertiaTime, "TraktorS4MK2.finishJogTouch(\"" + field.group + "\")", true);
     }
   }
-}
+};
 
 TraktorS4MK2.finishJogTouch = function(group) {
   TraktorS4MK2.controller.wheelTouchInertiaTimer[group] = 0;
@@ -1035,7 +1035,7 @@ TraktorS4MK2.finishJogTouch = function(group) {
               100, "TraktorS4MK2.finishJogTouch(\"" + group + "\")", true);
     }
   }
-}
+};
 
 TraktorS4MK2.jogMoveHandler = function(field) {
   var deltas = TraktorS4MK2.wheelDeltas(field.group, field.value);
@@ -1090,7 +1090,7 @@ TraktorS4MK2.wheelDeltas = function(group, value) {
   }
   //HIDDebug(group + " " + tickval + " " + prev_tick + " " + tick_delta);
   return [tick_delta, time_delta];
-}
+};
 
 TraktorS4MK2.scalerJog = function(tick_delta, time_delta) {
   // If it's playing nudge
@@ -1101,13 +1101,13 @@ TraktorS4MK2.scalerJog = function(tick_delta, time_delta) {
     // otherwise search normal speed
     if (TraktorS4MK2.controller.shift_pressed['deck1'] ||
         TraktorS4MK2.controller.shift_pressed['deck2']
-      ){
+      ) {
       return (tick_delta / time_delta) * 20.0;
     } else {
       return (tick_delta / time_delta) * 2.0;
     }
   }
-}
+};
 
 TraktorS4MK2.hotcueHandler = function(field) {
   var group = field.id.split(".")[0];
@@ -1117,7 +1117,7 @@ TraktorS4MK2.hotcueHandler = function(field) {
   } else {
     engine.setValue(field.group, "hotcue_" + buttonNumber + "_activate", field.value);
   }
-}
+};
 
 TraktorS4MK2.remixHandler = function(field) {
   var group = field.id.split(".")[0];
@@ -1131,13 +1131,13 @@ TraktorS4MK2.remixHandler = function(field) {
       buttonNumber = buttonNumber + 4;
     }
     if (TraktorS4MK2.controller.shift_pressed[group]) {
-      if (engine.getValue("[Sampler" + buttonNumber + "]", "play")){
+      if (engine.getValue("[Sampler" + buttonNumber + "]", "play")) {
         engine.setValue("[Sampler" + buttonNumber + "]", "start_stop", 1);
       } else {
         engine.setValue("[Sampler" + buttonNumber + "]", "eject", 1);
       }
     } else {
-      if (engine.getValue("[Sampler" + buttonNumber + "]", "track_loaded")){
+      if (engine.getValue("[Sampler" + buttonNumber + "]", "track_loaded")) {
         engine.setValue("[Sampler" + buttonNumber + "]", "cue_gotoandplay", 1);
       } else {
         engine.setValue("[Sampler" + buttonNumber + "]", "LoadSelectedTrack", 1);
@@ -1160,7 +1160,7 @@ TraktorS4MK2.remixHandler = function(field) {
     print ("Traktor S4 WARNING: Invalid RemixSlotButtonAction picked.  Must be either SAMPLES " +
            "or LOOPROLLS");
   }
-}
+};
 
 TraktorS4MK2.quantizeHandler = function(field) {
   if (field.value === 0) {
@@ -1172,7 +1172,7 @@ TraktorS4MK2.quantizeHandler = function(field) {
   engine.setValue("[Channel3]", "quantize", TraktorS4MK2.master_quantize);
   engine.setValue("[Channel4]", "quantize", TraktorS4MK2.master_quantize);
   TraktorS4MK2.controller.setOutput("[Master]", "!quantize", 0x7F * TraktorS4MK2.master_quantize, true);
-}
+};
 
 TraktorS4MK2.snapHandler = function(field) {
   if (field.value === 0) {
@@ -1180,10 +1180,10 @@ TraktorS4MK2.snapHandler = function(field) {
   }
   library_maximized = engine.getValue("[Master]", "maximize_library");
   engine.setValue("[Master]", "maximize_library", !library_maximized);
-}
+};
 
-TraktorS4MK2.FXButtonHandler = function(field){
-  if(field.value){
+TraktorS4MK2.FXButtonHandler = function(field) {
+  if (field.value) {
     if (
       TraktorS4MK2.controller.shift_pressed['deck1'] ||
       TraktorS4MK2.controller.shift_pressed['deck2']
@@ -1194,16 +1194,16 @@ TraktorS4MK2.FXButtonHandler = function(field){
     }
   }
   TraktorS4MK2.lightDeck(field.group);
-}
+};
 
-TraktorS4MK2.FXMetaHandler = function(field){
+TraktorS4MK2.FXMetaHandler = function(field) {
   engine.setValue(field.group, "meta", field.value / parseFloat(4096));
-}
+};
 
 
 TraktorS4MK2.outputFXCallback = function(value, group, key) {
   TraktorS4MK2.controller.setOutput(group, key, value * 0x7F, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.callbackPregain = function(field) {
   // TODO: common-hid-packet-parser looks like it should do deltas, but I can't get them to work.
@@ -1224,9 +1224,9 @@ TraktorS4MK2.callbackPregain = function(field) {
     TraktorS4MK2.controller.shift_pressed['deck1'] ||
     TraktorS4MK2.controller.shift_pressed['deck2']
   ) {
-    if (delta > 0){
+    if (delta > 0) {
         engine.setValue(group, 'beats_translate_later', true);
-    } else if (delta < 0){
+    } else if (delta < 0) {
         engine.setValue(group, 'beats_translate_earlier', true);
     }
   } else {
@@ -1234,12 +1234,12 @@ TraktorS4MK2.callbackPregain = function(field) {
     engine.setValue(group, "pregain", cur_pregain + delta);
   }
 
-}
+};
 
 TraktorS4MK2.callbackLoopMove = function(field) {
   // TODO: common-hid-packet-parser looks like it should do deltas, but I can't get them to work.
   var splitted = field.id.split(".");
-  var group = splitted[0]
+  var group = splitted[0];
   prev_loopmove = TraktorS4MK2.controller.prev_loopmove[group];
   TraktorS4MK2.controller.prev_loopmove[group] = field.value;
   var delta = 0;
@@ -1267,7 +1267,7 @@ TraktorS4MK2.callbackLoopMove = function(field) {
       script.triggerControl(field.group, "beatjump_backward");
     }
   }
-}
+};
 
 TraktorS4MK2.loopActivateHandler = function(field) {
   var splitted = field.id.split(".");
@@ -1277,7 +1277,7 @@ TraktorS4MK2.loopActivateHandler = function(field) {
   } else {
     engine.setValue(field.group, "reloop_toggle", field.value);
   }
-}
+};
 
 TraktorS4MK2.sendLoopSizeMessage = function(deck, firstChar, secondChar, firstDot, secondDot) {
   // display_num must be a string with two characters
@@ -1286,9 +1286,9 @@ TraktorS4MK2.sendLoopSizeMessage = function(deck, firstChar, secondChar, firstDo
   TraktorS4MK2.displayCharLoopCounter(deck, 1, secondChar);
   TraktorS4MK2.displayCharLoopDot(deck, 0, firstDot);
   TraktorS4MK2.displayCharLoopDot(deck, 1, secondDot);
-}
+};
 
-TraktorS4MK2.displayCharLoopCounter = function(deck, charPos, character){
+TraktorS4MK2.displayCharLoopCounter = function(deck, charPos, character) {
     // charPost is 0 or 1 for first or second character on the display
     // the display is placed like this:
     // o  -- 4 --
@@ -1323,7 +1323,7 @@ TraktorS4MK2.displayCharLoopCounter = function(deck, charPos, character){
     'b': [5,6,7,2,1],
     'c': [1,6,7],
     'u': [6,2,7],
-  }
+  };
 
   for (j = 0; j < 8; j++) {
     loop_key = 8*charPos + j;
@@ -1333,19 +1333,19 @@ TraktorS4MK2.displayCharLoopCounter = function(deck, charPos, character){
       !TraktorS4MK2.controller.freeze_lights
     );
   }
-}
+};
 
-TraktorS4MK2.displayCharLoopDot = function(deck, charPos, on){
+TraktorS4MK2.displayCharLoopDot = function(deck, charPos, on) {
   var key = "!loopSize" + 8*charPos;
   TraktorS4MK2.controller.setOutput(
     deck, key, on*0x7F,
     !TraktorS4MK2.controller.freeze_lights
   );
-}
+};
 
 TraktorS4MK2.callbackLoopSize = function(field) {
   var splitted = field.id.split(".");
-  var group = splitted[0]
+  var group = splitted[0];
   prev_loopsize = TraktorS4MK2.controller.prev_loopsize[group];
   TraktorS4MK2.controller.prev_loopsize[group] = field.value;
   var delta = 0;
@@ -1372,7 +1372,7 @@ TraktorS4MK2.callbackLoopSize = function(field) {
       script.triggerControl(field.group, "loop_halve");
     }
   }
-}
+};
 
 TraktorS4MK2.loopSetHandler = function(field) {
   var splitted = field.id.split(".");
@@ -1382,7 +1382,7 @@ TraktorS4MK2.loopSetHandler = function(field) {
   } else {
     engine.setValue(field.group, "beatloop_activate", field.value);
   }
-}
+};
 
 TraktorS4MK2.callbackBrowse = function(field) {
   // TODO: common-hid-packet-parser looks like it should do deltas, but I can't get them to work.
@@ -1403,15 +1403,14 @@ TraktorS4MK2.callbackBrowse = function(field) {
     TraktorS4MK2.controller.shift_pressed["deck2"]
   ) {
     engine.setValue("[Playlist]", "SelectPlaylist", delta);
-  }
-  else {
+  } else {
     engine.setValue("[Library]", "MoveVertical", delta);
   }
-}
+};
 
 TraktorS4MK2.scalerParameter = function(group, name, value) {
   return script.absoluteLin(value, 0, 1, 16, 4080);
-}
+};
 // Tell the HIDController script to use setParameter instead of setValue.
 TraktorS4MK2.scalerParameter.useSetParameter = true;
 
@@ -1421,11 +1420,11 @@ TraktorS4MK2.scalerVolume = function(group, name, value) {
   } else {
     return script.absoluteNonLin(value, 0, 0.25, 1, 16, 4080);
   }
-}
+};
 
 TraktorS4MK2.scalerSlider = function(group, name, value) {
   return script.absoluteLin(value, -1, 1, 16, 4080);
-}
+};
 
 TraktorS4MK2.resolveDeckIfActive = function(group) {
   var controller = TraktorS4MK2.controller;
@@ -1451,7 +1450,7 @@ TraktorS4MK2.resolveDeckIfActive = function(group) {
     return "deck2";
   }
   return undefined;
-}
+};
 
 TraktorS4MK2.outputChannelCallback = function(value,group,key) {
   var led_value = 0x19;
@@ -1459,7 +1458,7 @@ TraktorS4MK2.outputChannelCallback = function(value,group,key) {
     led_value = 0x7F;
   }
   TraktorS4MK2.controller.setOutput(group, key, led_value, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.outputChannelCallbackDark = function(value,group,key) {
   var led_value = 0x00;
@@ -1467,7 +1466,7 @@ TraktorS4MK2.outputChannelCallbackDark = function(value,group,key) {
     led_value = 0x7F;
   }
   TraktorS4MK2.controller.setOutput(group, key, led_value, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.outputCallback = function(value,group,key) {
   var deck_group = TraktorS4MK2.resolveDeckIfActive(group);
@@ -1480,7 +1479,7 @@ TraktorS4MK2.outputCallback = function(value,group,key) {
     led_value = 0x7F;
   }
   TraktorS4MK2.controller.setOutput(deck_group, key, led_value, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.outputCallbackLoop = function(value,group,key) {
   var deck_group = TraktorS4MK2.resolveDeckIfActive(group);
@@ -1493,7 +1492,7 @@ TraktorS4MK2.outputCallbackLoop = function(value,group,key) {
     led_value = 0x7F;
   }
   TraktorS4MK2.controller.setOutput(deck_group, key, led_value, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.outputCallbackDark = function(value,group,key) {
   var deck_group = TraktorS4MK2.resolveDeckIfActive(group);
@@ -1506,7 +1505,7 @@ TraktorS4MK2.outputCallbackDark = function(value,group,key) {
     led_value = 0x7F;
   }
   TraktorS4MK2.controller.setOutput(deck_group, key, led_value, !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.outputCueCallback = function(value, group, key) {
  var deck_group = TraktorS4MK2.resolveDeckIfActive(group);
@@ -1533,23 +1532,23 @@ TraktorS4MK2.outputCueCallback = function(value, group, key) {
   TraktorS4MK2.controller.setOutput(deck_group, key, RGB_value[0], false);
   TraktorS4MK2.controller.setOutput(deck_group, "!" + key + "_G", RGB_value[1], false);
   TraktorS4MK2.controller.setOutput(deck_group, "!" + key + "_B", RGB_value[2], !TraktorS4MK2.controller.freeze_lights);
-}
+};
 
 TraktorS4MK2.onVuMeterChanged = function(value, group, key) {
   // This handler is called a lot so it should be as fast as possible.
 
   // VU is drawn on 6 segments, the 7th indicates clip.
-  var VuOffsets = {"[Channel1]" : 0x09,
-                   "[Channel2]" : 0x11,
-                   "[Channel3]" : 0x01,
-                   "[Channel4]" : 0x19};
+  var VuOffsets = {"[Channel1]": 0x09,
+                   "[Channel2]": 0x11,
+                   "[Channel3]": 0x01,
+                   "[Channel4]": 0x19};
 
   // Figure out number of fully-illuminated segments.
   var scaledValue = value * 6.0;
   var fullIllumCount = Math.floor(scaledValue);
 
   // Figure out how much the partially-illuminated segment is illuminated.
-  var partialIllum = (scaledValue - fullIllumCount) * 0x7F
+  var partialIllum = (scaledValue - fullIllumCount) * 0x7F;
 
   for (i = 0; i < 6; i++) {
     var key = "!" + "VuMeter" + i;
@@ -1563,43 +1562,43 @@ TraktorS4MK2.onVuMeterChanged = function(value, group, key) {
     }
   }
   TraktorS4MK2.controller.OutputPackets["output1"].send();
-}
+};
 
 TraktorS4MK2.onLoopEnabledChanged = function(value, group, key) {
   TraktorS4MK2.outputCallbackLoop(value, group, "loop_in");
   TraktorS4MK2.outputCallbackLoop(value, group, "loop_out");
-}
+};
 
 TraktorS4MK2.onLoopSizeChanged = function(value, group, key) {
   var deck = TraktorS4MK2.resolveDeckIfActive(group);
   //deal with single digit values
-  if (value.toString().length === 1){
+  if (value.toString().length === 1) {
     TraktorS4MK2.sendLoopSizeMessage(deck, '', value, false, false);
   // values with two digits
-  } else if (value.toString().length === 2 ) {
+  } else if (value.toString().length === 2) {
     TraktorS4MK2.sendLoopSizeMessage(deck, value.toString().split("")[0], value.toString().split("")[1], false, false);
   // deal with fraction beats
   } else if (1 > value > 0) {
     var inverse_value = 1/value;
-    if (inverse_value % 1 === 0){
+    if (inverse_value % 1 === 0) {
       if (inverse_value.toString().length === 1) {
         TraktorS4MK2.sendLoopSizeMessage(deck, '', inverse_value, false, true);
-      } else if(inverse_value.toString().length === 2) {
+      } else if (inverse_value.toString().length === 2) {
         TraktorS4MK2.sendLoopSizeMessage(deck, inverse_value.toString().split("")[0], inverse_value.toString().split("")[1], false, true);
       }
     }
   // deal with larger Loops
-  } else if (value.toString().length > 2){
+  } else if (value.toString().length > 2) {
     TraktorS4MK2.sendLoopSizeMessage(deck, value.toString().split("")[0], value.toString().split("")[1], true, true);
   }
-}
+};
 
 TraktorS4MK2.loopSizeSet = function(group) {
   TraktorS4MK2.onLoopSizeChanged(engine.getValue(group, "beatloop_size"), group);
-}
+};
 
 TraktorS4MK2.onRecordingChanged = function(value, group, control) {
   TraktorS4MK2.outputChannelCallback(value, "[Recording]", "status");
   TraktorS4MK2.controller.setOutput("deck1", "!on_air", value*0x7F);
   TraktorS4MK2.controller.setOutput("deck2", "!on_air", value*0x7F);
-}
+};

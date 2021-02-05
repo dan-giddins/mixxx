@@ -48,7 +48,7 @@ KAOSSDJ.init = function(id, debugging) {
         ledChannel['knobsL'],
         ledChannel['knobsR'],
         ledChannel['master']
-    ]
+    ];
     for (var led = 0x00; led <= 0xFF; led++) {
         for (var i = 0; i < ledChannels.length; i++) {
             midi.sendShortMsg(ledChannels[i], led, ON);
@@ -73,7 +73,7 @@ KAOSSDJ.shutdown = function(id, debugging) {
 // ==== helper ====
 
 KAOSSDJ.getDeckIndexFromChannel = function(channel) {
-    return channel - 7
+    return channel - 7;
 };
 
 KAOSSDJ.getDeckByChannel = function(channel) {
@@ -96,7 +96,7 @@ KAOSSDJ.wheelTouch = function(channel, control, value, status, group) {
     var deck_playing = engine.getValue('[Channel' + deckNumber + ']', 'play_indicator');
 
     // If in scratch mode or not playing enable vinyl-like control
-    if (deck.jogWheelsInScratchMode || !deck_playing ) {
+    if (deck.jogWheelsInScratchMode || !deck_playing) {
         if (value === ON) {
             // Enable scratching on touch
             engine.scratchEnable(deckNumber, 128, 33 + 1 / 3, alpha, beta);
@@ -137,9 +137,9 @@ KAOSSDJ.wheelTurnShift = function(channel, control, value, status, group) {
         engine.scratchTick(deck.deckNumber, newValue);
     } else {
         // Move beatgrid
-        if(value === UP){
+        if (value === UP) {
             engine.setValue(deck.group, 'beats_translate_later', true);
-        } else if (value === DOWN){
+        } else if (value === DOWN) {
             engine.setValue(deck.group, 'beats_translate_earlier', true);
         }
     }
@@ -162,7 +162,7 @@ KAOSSDJ.browseKnob = function(channel, control, value, status, group) {
 
 KAOSSDJ.leftFxSwitch = function(channel, control, value, status, group) {
     var deck = KAOSSDJ.getDeckByChannel(channel);
-    if(value === ON) {
+    if (value === ON) {
         KAOSSDJ.updateDeckByChannel(channel, 'fx', true);
     } else {
         KAOSSDJ.updateDeckByChannel(channel, 'fx', false);
@@ -170,7 +170,7 @@ KAOSSDJ.leftFxSwitch = function(channel, control, value, status, group) {
 };
 
 KAOSSDJ.rightFxSwitch = function(channel, control, value, status, group) {
-    if(value === ON) {
+    if (value === ON) {
         KAOSSDJ.updateDeckByChannel(channel, 'fx', true);
     } else {
         KAOSSDJ.updateDeckByChannel(channel, 'fx', false);
@@ -179,9 +179,9 @@ KAOSSDJ.rightFxSwitch = function(channel, control, value, status, group) {
 
 KAOSSDJ.controllerFxTouchMoveVertical = function(channel, control, value, status, group) {
     var decks = KAOSSDJ.decks;
-    for(key in decks) {
+    for (key in decks) {
         var deck = decks[key];
-        if(deck.fx) {
+        if (deck.fx) {
             engine.setValue('[EffectRack1_EffectUnit'+deck.deckNumber +']', 'mix', value / 127);
         }
     }
@@ -189,9 +189,9 @@ KAOSSDJ.controllerFxTouchMoveVertical = function(channel, control, value, status
 
 KAOSSDJ.controllerFxTouchMoveHorizontal = function(channel, control, value, status, group) {
     var decks = KAOSSDJ.decks;
-    for(key in decks) {
+    for (key in decks) {
         var deck = decks[key];
-        if(deck.fx) {
+        if (deck.fx) {
             engine.setValue('[EffectRack1_EffectUnit'+deck.deckNumber +']', 'super1', value / 127);
         }
     }

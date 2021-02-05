@@ -53,9 +53,9 @@ MIDIFighter.control_map = {
 MIDIFighter.button_mappings = {
 };
 
-MIDIFighter.map_button = function (button, control_object) {
+MIDIFighter.map_button = function(button, control_object) {
     MIDIFighter.button_mappings[button] = control_object;
-}
+};
 
 MIDIFighter.init = function(id) {
     MIDIFighter.id = id;
@@ -81,13 +81,13 @@ MIDIFighter.init = function(id) {
     MIDIFighter.map_button(14, {'group': '[Channel4]', 'item': 'hotcue_2_activate'});
     MIDIFighter.map_button(15, {'group': '[Channel4]', 'item': 'hotcue_3_activate'});
     MIDIFighter.map_button(16, {'group': '[Channel4]', 'item': 'hotcue_4_activate'});
-}
+};
 
 MIDIFighter.shutdown = function() {
     print("MIDI Fighter " + MIDIFighter.id + " shutting down.");
-}
+};
 
-MIDIFighter.button_down = function (channel, control, value, status) {
+MIDIFighter.button_down = function(channel, control, value, status) {
     //print("Button down " + channel + " " + control + " " + value);
     var button_number = MIDIFighter.control_map[control];
     var button_name = 'button' + button_number;
@@ -100,9 +100,9 @@ MIDIFighter.button_down = function (channel, control, value, status) {
     } else if (button_name in MIDIFighter) {
         MIDIFighter[button_name](1);
     }
-}
+};
 
-MIDIFighter.button_up = function (channel, control, value, status) {
+MIDIFighter.button_up = function(channel, control, value, status) {
     //print("Button up " + channel + " " + control + " " + value);
     var button_number = MIDIFighter.control_map[control];
     var button_name = 'button' + button_number;
@@ -117,21 +117,21 @@ MIDIFighter.button_up = function (channel, control, value, status) {
     } else if (button_name in MIDIFighter) {
         MIDIFighter[button_name](0);
     }
-}
+};
 
 MIDIFighter.button1_down = function() {
     // Example, if no mapping is made for button 1 then this will be called when
     // button 1 is pressed.
-}
+};
 
 MIDIFighter.button1_up = function() {
     // Example, if no mapping is made for button 1 then this will be called when
     // button 1 is released.
-}
+};
 
 MIDIFighter.button1 = function() {
     // Example, if no mapping is given for button 1, and no button1_up or
     // button1_down method is defined, then this function will be called with
     // the argument 1 for the button being pressed and 0 for the button being
     // released.
-}
+};
