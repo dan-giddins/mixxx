@@ -26,22 +26,22 @@ TrakProDJ.deck2_scratch = {
 };
 
 TrakProDJ.ch1_buttons = {
-    0x01: { 'group': '[Channel1]', 'item': 'play' },
-    0x02: { 'group': '[Channel1]', 'item': 'cue_default' },
-    0x03: { 'group': '[Channel1]', 'item': 'beatsync' },
-    0x11: { 'group': '[Channel1]', 'item': 'pfl' },
-    0x17: { 'group': '[Channel1]', 'item': 'filterLowKill' },
-    0x18: { 'group': '[Channel1]', 'item': 'filterMidKill' },
-    0x19: { 'group': '[Channel1]', 'item': 'filterHighKill' },
+    0x01: {'group': '[Channel1]', 'item': 'play'},
+    0x02: {'group': '[Channel1]', 'item': 'cue_default'},
+    0x03: {'group': '[Channel1]', 'item': 'beatsync'},
+    0x11: {'group': '[Channel1]', 'item': 'pfl'},
+    0x17: {'group': '[Channel1]', 'item': 'filterLowKill'},
+    0x18: {'group': '[Channel1]', 'item': 'filterMidKill'},
+    0x19: {'group': '[Channel1]', 'item': 'filterHighKill'},
 };
 TrakProDJ.ch2_buttons = {
-    0x01: { 'group': '[Channel2]', 'item': 'play' },
-    0x02: { 'group': '[Channel2]', 'item': 'cue_default' },
-    0x03: { 'group': '[Channel2]', 'item': 'beatsync' },
-    0x11: { 'group': '[Channel2]', 'item': 'pfl' },
-    0x17: { 'group': '[Channel2]', 'item': 'filterLowKill' },
-    0x18: { 'group': '[Channel2]', 'item': 'filterMidKill' },
-    0x19: { 'group': '[Channel2]', 'item': 'filterHighKill' },
+    0x01: {'group': '[Channel2]', 'item': 'play'},
+    0x02: {'group': '[Channel2]', 'item': 'cue_default'},
+    0x03: {'group': '[Channel2]', 'item': 'beatsync'},
+    0x11: {'group': '[Channel2]', 'item': 'pfl'},
+    0x17: {'group': '[Channel2]', 'item': 'filterLowKill'},
+    0x18: {'group': '[Channel2]', 'item': 'filterMidKill'},
+    0x19: {'group': '[Channel2]', 'item': 'filterHighKill'},
 };
 
 TrakProDJ.init = function(id) {
@@ -53,8 +53,8 @@ TrakProDJ.shutdown = function(id) {};
 TrakProDJ.LoadSelectedTrack = function(channel, control, value, status, group) {
     if (channel != 7) {
         print("TrakProDJ.LoadSelectedTrack: Unknown channel: " + channel);
-        return
-    };
+        return;
+    }
     if (control == 0x1f) {
         var group = '[Channel1]';
     } else if (control == 0x20) {
@@ -73,22 +73,22 @@ TrakProDJ.browse = function(channel, control, value, status, group) {
     switch (channel) {
         case 2:
             ctrl = TrakProDJ.deck1_browse_controls.playlist;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck1_browse_controls.playlist = val;
             break;
         case 3:
             ctrl = TrakProDJ.deck1_browse_controls.track;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck1_browse_controls.track = val;
-            break
+            break;
         case 4:
             ctrl = TrakProDJ.deck2_browse_controls.playlist;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck2_browse_controls.playlist = val;
             break;
         case 5:
             ctrl = TrakProDJ.deck2_browse_controls.track;
-            if (ctrl == val) { return; };
+            if (ctrl == val) { return; }
             TrakProDJ.deck2_browse_controls.track = val;
             break;
         default:
@@ -105,11 +105,11 @@ TrakProDJ.browse = function(channel, control, value, status, group) {
     print(channel + ' old ' + ctrl + ' new ' + val);
     if (change==0) {
         return;
-    };
+    }
     if (channel==3 || channel==5) {
         if (change == -1) {
             engine.setValue('[Playlist]','SelectPrevTrack',true);
-        } else if (change == 1 ) {
+        } else if (change == 1) {
             engine.setValue('[Playlist]','SelectNextTrack',true);
         }
     }
@@ -118,7 +118,7 @@ TrakProDJ.browse = function(channel, control, value, status, group) {
     if (channel==2 || channel==4) {
         if (change == -1) {
             engine.setValue('[Playlist]','SelectPrevPlaylist',true);
-        } else if (change == 1 ) {
+        } else if (change == 1) {
             engine.setValue('[Playlist]','SelectNextPlaylist',true);
         }
     }
@@ -142,7 +142,7 @@ TrakProDJ.button = function(channel, control, value, status, group) {
 };
 
 TrakProDJ.hotcue = function(channel, control, value, status, group) {
-    if ( control != 0x1e ) {
+    if (control != 0x1e) {
         print ('Unknown hotcue control code ' + control);
         return;
     }
@@ -167,16 +167,16 @@ TrakProDJ.play_status = function() {
     if (engine.getValue('[Channel2]','play')==0) {
         TrakProDJ.jog_disable(2);
     }
-}
+};
 
 TrakProDJ.jog_enable = function(deck) {
     switch (deck) {
         case 1:
-            group = '[Channel1]'
+            group = '[Channel1]';
             ctrl = TrakProDJ.deck1_scratch;
             break;
         case 2:
-            group = '[Channel2]'
+            group = '[Channel2]';
             ctrl = TrakProDJ.deck2_scratch;
             break;
         default:
@@ -197,7 +197,7 @@ TrakProDJ.jog_enable = function(deck) {
     if (TrakProDJ.use_scratch) {
         engine.scratchEnable(deck,128,33+1/3,1.0/8,(1.0/8)/32);
     }
-}
+};
 
 TrakProDJ.jog_disable = function(deck) {
     switch (deck) {
@@ -206,7 +206,7 @@ TrakProDJ.jog_disable = function(deck) {
             ctrl = TrakProDJ.deck1_scratch;
             break;
         case 2:
-            group = '[Channel2]'
+            group = '[Channel2]';
             ctrl = TrakProDJ.deck2_scratch;
             break;
         default:
@@ -225,17 +225,17 @@ TrakProDJ.jog_disable = function(deck) {
     ctrl.value = false;
     ctrl.timer = false;
     ctrl.active = false;
-}
+};
 
 TrakProDJ.jog_rate_timer = function(deck) {
     if (TrakProDJ.use_scratch) { return; }
     switch (deck) {
         case 1:
-            group = '[Channel1]'
+            group = '[Channel1]';
             ctrl = TrakProDJ.deck1_scratch;
             break;
         case 2:
-            group = '[Channel2]'
+            group = '[Channel2]';
             ctrl = TrakProDJ.deck2_scratch;
             break;
         default:
@@ -248,7 +248,7 @@ TrakProDJ.jog_rate_timer = function(deck) {
     }
     print(group + ' reset rate bend');
     TrakProDJ.jog_disable(deck);
-}
+};
 
 TrakProDJ.jog_scratch_timer = function(deck) {
     if (!TrakProDJ.use_scratch) { return; }
@@ -271,7 +271,7 @@ TrakProDJ.jog_scratch_timer = function(deck) {
     }
     print(group + ' disable scratch');
     TrakProDJ.jog_disable(deck);
-}
+};
 
 TrakProDJ.jog = function(channel, control, value, status, group) {
     var val = control*128 + value;

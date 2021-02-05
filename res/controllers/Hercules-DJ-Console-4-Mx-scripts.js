@@ -213,10 +213,10 @@ Hercules4Mx.VuMeterR = {
     'lastvalue': 0
 };
 Hercules4Mx.previewOnDeck = {
-    '[Channel1]':false,
-    '[Channel2]':false,
-    '[Channel3]':false,
-    '[Channel4]':false
+    '[Channel1]': false,
+    '[Channel2]': false,
+    '[Channel3]': false,
+    '[Channel4]': false
 };
 // Amount of time in milliseconds to hold a button to trigger some actions.
 Hercules4Mx.KeyHoldTime = 500;
@@ -706,7 +706,7 @@ Hercules4Mx.onKillOrSourceChange4 = function(value, group, control) {
 //the controller internal state, but we can use it for other reasons while the user maintains it pressed.
 Hercules4Mx.pressEffectShift = function(midichan, control, value, status, group) {
     // I don't diferentiate between decks. I don't expect two shift buttons being pressed at the same time.
-    Hercules4Mx.shiftStatus.pressed = (value) ? true : false;
+    Hercules4Mx.shiftStatus.pressed = !!(value);
 };
 //Indicator of the shift effect state change. This happens always after shift is released
 //We control if we let it change or not
@@ -745,8 +745,8 @@ Hercules4Mx.stopButton = function(midichan, control, value, status, groupInitial
     var group = (Hercules4Mx.previewOnDeck[groupInitial] === true) ? '[PreviewDeck1]' : groupInitial;
     if (Hercules4Mx.shiftStatus.pressed || Hercules4Mx.shiftStatus.braking) { //Shifting: Do brake effect.
         var deck = script.deckFromGroup(group);
-        engine.brake(deck, value ? true : false);
-        Hercules4Mx.shiftStatus.braking = value ? true : false;
+        engine.brake(deck, !!value);
+        Hercules4Mx.shiftStatus.braking = !!value;
         //Tell shift button not to change state.
         Hercules4Mx.shiftStatus.used = true;
     } else if (value) { //Not shifting and pressed
@@ -773,7 +773,7 @@ Hercules4Mx.playButton = function(midichan, control, value, status, groupInitial
         } else {
             engine.setValue(group, "reverse", (value) ? 1 : 0);
         }
-        Hercules4Mx.shiftStatus.reversing = value ? true : false;
+        Hercules4Mx.shiftStatus.reversing = !!value;
         //Tell shift button not to change state.
         Hercules4Mx.shiftStatus.used = true;
     } else if (value) { //Not shifting and pressed
@@ -1186,7 +1186,7 @@ Hercules4Mx.effectKnob = function(midichan, control, value, status, group) {
         }
     } else if (Hercules4Mx.editModeStatus.mode === Hercules4Mx.editModes.pitchkeychanging) {
         fxGroup = "[Channel" + group.slice(-3).substr(0, 1) + "]";
-        if (direction > 0 ) {
+        if (direction > 0) {
             engine.setParameter(fxGroup, "pitch_adjust_up_small", 1);
             engine.setParameter(fxGroup, "pitch_adjust_up_small", 0);
         } else {
@@ -1195,12 +1195,11 @@ Hercules4Mx.effectKnob = function(midichan, control, value, status, group) {
         }
     } else {
         var val =  engine.getParameter(group, "super1") + step * direction;
-        if ( Hercules4Mx.shiftStatus.used === false) {
+        if (Hercules4Mx.shiftStatus.used === false) {
             //Let's round it properly.
             if (direction > 0 && val > 0.5 && val - step < 0.5) {
                 val = 0.5;
-            }
-            else if (direction < 0 && val < 0.5 && val + step > 0.5) {
+            } else if (direction < 0 && val < 0.5 && val + step > 0.5) {
                 val = 0.5;
             }
         }

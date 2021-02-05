@@ -35,10 +35,10 @@ VMS2.id = "";   // The ID for the particular device being controlled for use in 
 
 VMS2.numHotCues = 6;
 // Button control number to hot cue mapping
-VMS2.hotCues = { 0x12:1, 0x13:2, 0x14:3, 0x15:4, 0x17:5, 0x18:6,
-    0x34:1, 0x35:2, 0x36:3, 0x37:4, 0x39:5, 0x3A:6 };
+VMS2.hotCues = {0x12: 1, 0x13: 2, 0x14: 3, 0x15: 4, 0x17: 5, 0x18: 6,
+    0x34: 1, 0x35: 2, 0x36: 3, 0x37: 4, 0x39: 5, 0x3A: 6};
 
-VMS2.initControls = [   ["Channel", "hotcue_x_enabled"],
+VMS2.initControls = [["Channel", "hotcue_x_enabled"],
                      ["Channel", "quantize"],
                      ["Channel", "beatsync"],
                      ["Channel", "loop_in"],
@@ -55,7 +55,7 @@ VMS2.initControls = [   ["Channel", "hotcue_x_enabled"],
                      ["Channel", "rate_temp_down"],
         ];
 
-VMS2.init = function (id) {    // called when the MIDI device is opened & set up
+VMS2.init = function(id) {    // called when the MIDI device is opened & set up
     VMS2.id = id;   // Store the ID of this device for later use
     for (var i=12; i<=77; i++) midi.sendShortMsg(0x80,i,0x00);  // Extinquish all LEDs
 
@@ -89,7 +89,7 @@ VMS2.init = function (id) {    // called when the MIDI device is opened & set up
     print("American Audio "+VMS2.id+" initialized.");
 };
 
-VMS2.shutdown = function () {
+VMS2.shutdown = function() {
     for (var i=12; i<=77; i++) midi.sendShortMsg(0x80,i,0x00);  // Extinquish all LEDs
     print("American Audio "+VMS2.id+" shut down.");
 };
@@ -97,7 +97,7 @@ VMS2.shutdown = function () {
 VMS2.Button = Button;
 
 VMS2.Button.prototype.setLed = function(ledState) {
-    if(ledState === LedState.on) {
+    if (ledState === LedState.on) {
         midi.sendShortMsg(0x90,this.controlId,LedState.on);
     } else {
         midi.sendShortMsg(0x80,this.controlId,LedState.off);
@@ -116,7 +116,7 @@ VMS2.Deck.rangeIdx = 0;
 VMS2.Deck.playTimer = 0;
 
 VMS2.Deck.prototype.rateRangeHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         this.Buttons.RateRange.setLed(LedState.on);
         if (isNaN(this.rangeIdx)) {
             this.rangeIdx = 0;
@@ -132,7 +132,7 @@ VMS2.Deck.prototype.rateRangeHandler = function(value) {
 
 VMS2.Deck.prototype.pitchCenterHandler = function(value) {
     // Reset pitch only on entrance to center position
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         this.pitchLock = true;
         engine.setValue(this.group, "rate", 0);
     } else {
@@ -145,7 +145,7 @@ VMS2.Deck.prototype.pauseHandler = function(value) {
 };
 
 VMS2.Deck.prototype.jogTouchHandler = function(value) {
-    if((value === ButtonState.pressed) && this.scratchMode) {
+    if ((value === ButtonState.pressed) && this.scratchMode) {
         engine.scratchEnable(this.deckNumber, 3000, 45, 1.0/8, (1.0/8)/32);
     } else {
         engine.scratchDisable(this.deckNumber);
@@ -155,16 +155,16 @@ VMS2.Deck.prototype.jogTouchHandler = function(value) {
 VMS2.Deck.prototype.jogMove = function(lsbValue) {
     var jogValue = (this.jogMsb << 7) + lsbValue;
 
-    if(!isNaN(this.previousJogValue)) {
+    if (!isNaN(this.previousJogValue)) {
         var offset = jogValue - this.previousJogValue;
 
-        if(offset > 8192) {
+        if (offset > 8192) {
             offset = offset - 16384;
-        } else if(offset < -8192) {
+        } else if (offset < -8192) {
             offset = offset + 16384;
         }
 
-        if(this.scratchMode) {
+        if (this.scratchMode) {
             engine.scratchTick(this.deckNumber, offset);
         } else {
             engine.setValue(this.group,"jog", offset / 40.0);
@@ -174,7 +174,7 @@ VMS2.Deck.prototype.jogMove = function(lsbValue) {
 };
 
 VMS2.Deck.prototype.vinylButtonHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         this.vinylButton = true;
         this.hotCueDeleted = false;
     } else {
@@ -192,7 +192,7 @@ VMS2.Deck.prototype.vinylButtonHandler = function(value) {
 };
 
 VMS2.Deck.prototype.keyLockButtonHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         this.keylockButton = true;
         this.hotCueDeleted = false;
     } else {
@@ -210,9 +210,9 @@ VMS2.Deck.prototype.keyLockButtonHandler = function(value) {
 };
 
 VMS2.Deck.prototype.killHighHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         var filterStatus = engine.getValue(this.group, "filterHighKill");
-        if(filterStatus) {
+        if (filterStatus) {
             this.Buttons.KillHigh.setLed(LedState.off);
             engine.setValue(this.group, "filterHighKill", 0);
         } else {
@@ -223,9 +223,9 @@ VMS2.Deck.prototype.killHighHandler = function(value) {
 };
 
 VMS2.Deck.prototype.killMidHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         var filterStatus = engine.getValue(this.group, "filterMidKill");
-        if(filterStatus) {
+        if (filterStatus) {
             this.Buttons.KillMid.setLed(LedState.off);
             engine.setValue(this.group, "filterMidKill", 0);
         } else {
@@ -236,9 +236,9 @@ VMS2.Deck.prototype.killMidHandler = function(value) {
 };
 
 VMS2.Deck.prototype.killLowHandler = function(value) {
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         var filterStatus = engine.getValue(this.group, "filterLowKill");
-        if(filterStatus) {
+        if (filterStatus) {
             this.Buttons.KillLow.setLed(LedState.off);
             engine.setValue(this.group, "filterLowKill", 0);
         } else {
@@ -248,13 +248,13 @@ VMS2.Deck.prototype.killLowHandler = function(value) {
     }
 };
 
-VMS2.Decks = {"Left":new VMS2.Deck(1,"[Channel1]"), "Right":new VMS2.Deck(2,"[Channel2]")};
-VMS2.GroupToDeck = {"[Channel1]":"Left", "[Channel2]":"Right"};
+VMS2.Decks = {"Left": new VMS2.Deck(1,"[Channel1]"), "Right": new VMS2.Deck(2,"[Channel2]")};
+VMS2.GroupToDeck = {"[Channel1]": "Left", "[Channel2]": "Right"};
 
 VMS2.getDeck = function(group) {
     try {
         return VMS2.Decks[VMS2.GroupToDeck[group]];
-    } catch(ex) {
+    } catch (ex) {
         return null;
     }
 };
@@ -307,7 +307,7 @@ VMS2.playlightflash = function(group) {
 VMS2.playlight = function(value, group, control) {
     var deck = VMS2.getDeck(group);
 
-    if(isNaN(deck.playTimer)) {
+    if (isNaN(deck.playTimer)) {
          deck.playTimer = 0;
     }
 
@@ -377,7 +377,7 @@ VMS2.keylock = function(channel, control, value, status, group) {
 VMS2.hotCue = function(channel, control, value, status, group) {
     var deck = VMS2.getDeck(group);
     var hotCue = VMS2.hotCues[control];
-    if(value === ButtonState.pressed) {
+    if (value === ButtonState.pressed) {
         deck.hotCuePressed = true;
         if (deck.vinylButton || deck.keylockButton) {
             engine.setValue(group,"hotcue_"+hotCue+"_clear",1);
@@ -420,8 +420,7 @@ VMS2.switchSelect = function(channel, control, value, status, group) {
 VMS2.trackSelect = function(channel, control, value, status, group) {
     // This is an endless rotational knob. We save the last status in a static variable
     // so we can identify whether to scroll up or down in track list
-    if (!isNaN(VMS2.trackSelect.last_value))
-    {
+    if (!isNaN(VMS2.trackSelect.last_value)) {
         var direction = value - VMS2.trackSelect.last_value;
 
         // handle wraparound

@@ -1004,7 +1004,7 @@ SCS3D.Agent = function(device) {
                 var updater = Needle(slider.meter);
                 watchmulti({
                     loaded: [effectunit_effect, paramName+'_loaded'],
-                    value:  [effectunit_effect, paramName]
+                    value: [effectunit_effect, paramName]
                 }, function(param) {
                     if (param.loaded) {
                         updater(param.value);

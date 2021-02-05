@@ -1,14 +1,14 @@
-MP3e2 = Object()
+MP3e2 = Object();
 
 MP3e2.init = function(id) {
     HerculesMP3e2.init(id);
-}
+};
 
 // Debug switch. set to true to print debug log messages in console.
 var debug=false;
 
-var c1 = '[Channel1]'
-var c2 = '[Channel2]'
+var c1 = '[Channel1]';
+var c2 = '[Channel2]';
 
 MP3e2.incomingData = function(data, length) {
     if (debug)
@@ -121,11 +121,11 @@ MP3e2.incomingData = function(data, length) {
                 break;
         }
 
-        if (typeof(f) == 'string') {
+        if (typeof(f) === 'string') {
             engine.setValue(group, f, (value>0)?1:0);
         } else if (f) {
             f(0, midino, value, status, group);
         }
     }
-}
+};
 

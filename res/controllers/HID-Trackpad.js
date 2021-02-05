@@ -15,11 +15,11 @@ HIDTrackpad.init = function(id) {
     HIDTrackpad.registerScalers();
     HIDTrackpad.registerCallbacks();
     HIDDebug("HID Trackpad Initialized: " + HIDTrackpad.id);
-}
+};
 
 HIDTrackpad.shutdown = function() {
     HIDDebug("HID Trackpad Shutdown: " + HIDTrackpad.id);
-}
+};
 
 HIDTrackpad.incomingData = function(data,length) {
     var controller = HIDTrackpad.controller;
@@ -28,5 +28,5 @@ HIDTrackpad.incomingData = function(data,length) {
         return;
     }
     controller.parsePacket(data,length);
-}
+};
 

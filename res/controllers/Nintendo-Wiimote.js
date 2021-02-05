@@ -355,7 +355,7 @@ function WiimoteController() {
         packet.addControl("coreaccel_interleaved_2","ir_31",20,"B");
         packet.addControl("coreaccel_interleaved_2","ir_32",21,"B");
         this.controller.registerInputPacket(packet);
-    }
+    };
 
     this.registerOutputPackets = function() {
         packet = new HIDPacket("feedback", 0x11);
@@ -378,13 +378,13 @@ function WiimoteController() {
         packet = new HIDPacket("ircamerastate", 0x1a);
         packet.addControl("irstate","enabled",1,"B",0x4);
         this.controller.registerOutputPacket(packet);
-    }
+    };
 
     // No default scalers: all controls done with callbacks anyway
-    this.registerScalers = function() { }
+    this.registerScalers = function() { };
 
     // Register your own callbacks in caller by overriding this
-    this.registerCallbacks = function() { }
+    this.registerCallbacks = function() { };
 
 }
 
@@ -409,8 +409,8 @@ Wiimote.init = function(id) {
         controller.timers[timer_id] = engine.beginTimer(
             interval,
             "Wiimote.controller.autorepeatTimer()"
-        )
-    }
+        );
+    };
     controller.setOutput("state","rumble",0);
     controller.setOutput("state","led_1",0);
     controller.setOutput("state","led_2",0);
@@ -420,18 +420,18 @@ Wiimote.init = function(id) {
     Wiimote.selectInputMode(controller.defaultPacket);
     Wiimote.toggleLED(controller.activeDeck);
     HIDDebug("Wiimote controller initialized: " + Wiimote.id);
-}
+};
 
 // Mandatory function for mixxx controllers
 Wiimote.shutdown = function() {
     Wiimote.controller.close();
     HIDDebug("Wiimote controller shutdown: " + Wiimote.id);
-}
+};
 
 // Mandatory function to receive anything from HID
 Wiimote.incomingData = function(data,length) {
     Wiimote.controller.parsePacket(data,length);
-}
+};
 
 // Select callback mode based on packet type
 Wiimote.selectInputMode = function(mode) {
@@ -450,7 +450,7 @@ Wiimote.selectInputMode = function(mode) {
     callbacks(mode);
     controller.defaultPacket = mode;
     Wiimote.updateReportMode(packet.header[0]);
-}
+};
 
 Wiimote.updateReportMode = function(code,continuous) {
     var controller = Wiimote.controller;
@@ -462,11 +462,11 @@ Wiimote.updateReportMode = function(code,continuous) {
     if (code!=undefined)
         Wiimote.reportMode = code;
     if (continuous!=undefined)
-        Wiimote.continuosReporting = (continuous) ? true : false;
+        Wiimote.continuosReporting = !!(continuous);
     controller.setOutput("reportmode","continuous",(Wiimote.continuosReporting)?1:0);
     controller.setOutput("reportmode","code",Wiimote.reportMode);
     packet.send();
-}
+};
 
 // Register callbacks for default buttons output report
 Wiimote.buttons_Callbacks = function(packetname) {
@@ -528,7 +528,7 @@ Wiimote.coreaccel_Callbacks = function(packetname) {
     controller.setCallback(packetname,"coreaccel","accelerometer_x",Wiimote.accel);
     controller.setCallback(packetname,"coreaccel","accelerometer_y",Wiimote.accel);
     controller.setCallback(packetname,"coreaccel","accelerometer_z",Wiimote.accel);
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -541,7 +541,7 @@ Wiimote.coreaccel_ext8_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -578,12 +578,12 @@ Wiimote.coreaccel_ir12_Callbacks = function(packetname) {
     controller.setCallback(packetname,"coreaccel_ir12","accelerometer_y",Wiimote.accel);
     controller.setCallback(packetname,"coreaccel_ir12","accelerometer_z",Wiimote.accel);
 
-    for (var i=1;i<=12;i++) {
+    for (var i=1; i<=12; i++) {
         var control = "ir_"+i;
         controller.setCallback(packetname,"coreaccel_ir12",control,Wiimote.irdata);
     }
     Wiimote.infraredTracking(true);
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -596,7 +596,7 @@ Wiimote.corebuttons_ext19_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -609,7 +609,7 @@ Wiimote.coreaccel_ext16_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -622,7 +622,7 @@ Wiimote.corebuttons_ir10_ext9_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -635,7 +635,7 @@ Wiimote.coreaccel_ir10_ext6_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -648,7 +648,7 @@ Wiimote.ext_21_Callbacks = function(packetname) {
         return;
     }
     // TODO - if you wish to use this mode, fill in the controls as above
-}
+};
 
 // Register callbacks for buttons + accelerometer output report
 // with 8 bytes from extension module
@@ -663,7 +663,7 @@ Wiimote.coreaccel_interleaved_Callbacks = function(packetname) {
     // TODO - if you wish to use this mode, fill in the controls as above
     // Also you need to process both of the 2 interleaved packets yourself,
     // ask for help if you really think you want it
-}
+};
 
 Wiimote.infraredTracking = function(state) {
     var controller = Wiimote.controller;
@@ -675,7 +675,7 @@ Wiimote.infraredTracking = function(state) {
     packet = Wiimote.controller.getOutputPacket("ircamerastate");
     controller.setOutput("irstate","enabled",state);
     packet.send();
-}
+};
 
 // Light the LEDs to indicate which deck we are controlling
 Wiimote.toggleLED = function(deck) {
@@ -688,7 +688,7 @@ Wiimote.toggleLED = function(deck) {
     controller.setOutput("state","led_4",0);
     controller.setOutput("state",active_led,1);
     packet.send();
-}
+};
 
 Wiimote.rumble = function(rumble,milliseconds) {
     var controller = Wiimote.controller;
@@ -704,9 +704,9 @@ Wiimote.rumble = function(rumble,milliseconds) {
         );
     } else if ("rumble" in controller.timers) {
         engine.stopTimer(controller.timers["rumble"]);
-        delete controller.timers["rumble"]
+        delete controller.timers["rumble"];
     }
-}
+};
 
 Wiimote.seek_loop = function(field) {
     var controller = Wiimote.controller;
@@ -736,8 +736,7 @@ Wiimote.seek_loop = function(field) {
                 engine.setValue(group,"reloop_exit",value);
                 engine.setValue(group,"loop_in",false);
                 engine.setValue(group,"loop_out",false);
-            }
-            else
+            } else
                 engine.setValue(group,"loop_out",value);
         }
     }
@@ -751,12 +750,12 @@ Wiimote.select = function(field) {
         if (field.name=="arrow_up") {
             callback = function() {
                 engine.setValue("[Playlist]","SelectPrevTrack",true);
-            }
+            };
         }
         if (field.name=="arrow_down") {
             callback = function() {
                 engine.setValue("[Playlist]","SelectNextTrack",true);
-            }
+            };
         }
         controller.setAutoRepeat(controller.defaultPacket,field.name,callback,100);
     } else {
@@ -768,19 +767,19 @@ Wiimote.select = function(field) {
             return;
         if (field.name=="arrow_up") {
             callback = function(field) {
-                var group = Wiimote.controller.resolveDeckGroup(Wiimote.controller.activeDeck)
+                var group = Wiimote.controller.resolveDeckGroup(Wiimote.controller.activeDeck);
                 engine.setValue(group,"rate",engine.getValue(group,"rate")+0.02);
-            }
+            };
         }
         if (field.name=="arrow_down") {
             callback = function(field) {
-                var group = Wiimote.controller.resolveDeckGroup(Wiimote.controller.activeDeck)
+                var group = Wiimote.controller.resolveDeckGroup(Wiimote.controller.activeDeck);
                 engine.setValue(group,"rate",engine.getValue(group,"rate")-0.02);
-            }
+            };
         }
         controller.setAutoRepeat(controller.defaultPacket,field.name,callback,100);
     }
-}
+};
 
 // Call cue_default, or select deck if shift (bottom button) is pressed
 Wiimote.home = function(field) {
@@ -798,7 +797,7 @@ Wiimote.home = function(field) {
         controller.switchDeck();
         Wiimote.toggleLED(controller.activeDeck);
     }
-}
+};
 
 Wiimote.playcue = function(field) {
     var controller = Wiimote.controller;
@@ -817,7 +816,7 @@ Wiimote.playcue = function(field) {
             engine.setValue(group,"cue_default",true);
         }
     }
-}
+};
 
 Wiimote.jog = function(field) {
     var controller = Wiimote.controller;
@@ -866,7 +865,7 @@ Wiimote.jog = function(field) {
         }
         controller.setAutoRepeat(controller.defaultPacket,"button_plus",callback,20);
     }
-}
+};
 
 Wiimote.hotcue = function(field) {
     var controller = Wiimote.controller;
@@ -888,11 +887,11 @@ Wiimote.hotcue = function(field) {
         if (field.name=="button_2")
             engine.setValue(group,"hotcue_2_activate",true);
     }
-}
+};
 
 Wiimote.irdata = function(field) {
     HIDDebug(field.name + " DELTA " + field.delta);
-}
+};
 
 Wiimote.accel = function(field) {
     // Disabled until we do something useful this data
@@ -911,5 +910,5 @@ Wiimote.accel = function(field) {
     } else if (field.name == 'accelerometer_z') {
         HIDDebug(field.name + " DELTA " + field.delta);
     }
-}
+};
 

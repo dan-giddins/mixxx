@@ -1,4 +1,4 @@
-function BehringerBCD2000 () {}
+function BehringerBCD2000() {}
 BehringerBCD2000.debug = false;
 BehringerBCD2000.escratch = [false, false];
 
@@ -6,7 +6,7 @@ BehringerBCD2000.escratch = [false, false];
 BehringerBCD2000.UseAcceleration = true;
 BehringerBCD2000.JogSensitivity = 0.2;
 
-BehringerBCD2000.init = function (id) { // called when the device is opened & set up
+BehringerBCD2000.init = function(id) { // called when the device is opened & set up
 
    BehringerBCD2000.reset();
 
@@ -20,7 +20,7 @@ BehringerBCD2000.init = function (id) { // called when the device is opened & se
       midi.sendShortMsg(0xB0, 0x63, 0x0);
 };
 
-BehringerBCD2000.shutdown = function () {
+BehringerBCD2000.shutdown = function() {
 
    BehringerBCD2000.reset();
 
@@ -29,7 +29,7 @@ BehringerBCD2000.shutdown = function () {
       midi.sendShortMsg(0xB0, 0x63, 0x7F);
 };
 
-BehringerBCD2000.reset = function () {
+BehringerBCD2000.reset = function() {
 
    // Turn off all the lights
    for (i = 0; i <= 25; i++) {
@@ -38,7 +38,7 @@ BehringerBCD2000.reset = function () {
 
 };
 
-BehringerBCD2000.getDeck = function (group) {
+BehringerBCD2000.getDeck = function(group) {
    if (group == "[Channel1]")
       return 0;
    else if (group == "[Channel2]")
@@ -46,24 +46,18 @@ BehringerBCD2000.getDeck = function (group) {
 
    print("Invalid group : " + group);
    return -1; // error
-}
+};
 
 
 //Scratch, cue search and pitch bend function
-BehringerBCD2000.jogWheel = function (channel, control, value, status, group) {
+BehringerBCD2000.jogWheel = function(channel, control, value, status, group) {
 
 
    deck = BehringerBCD2000.getDeck(group);
 
    if (BehringerBCD2000.escratch[deck]) {
 
-if (value >= 65)
-
-{scratchValue = (value - 0x40);}
-
-else
-
-{scratchValue = (value - 0x41);}
+if (value >= 65) { scratchValue = (value - 0x40); } else { scratchValue = (value - 0x41); }
       engine.scratchTick(deck + 1, scratchValue);
 
       if (BehringerBCD2000.debug)
@@ -71,13 +65,7 @@ else
 
    } else {
 
-      if (value >= 65)
-
-{jogValue = (value - 0x40) * BehringerBCD2000.JogSensitivity;}
-
-else
-
-{jogValue = (value - 0x41) * BehringerBCD2000.JogSensitivity;}
+      if (value >= 65) { jogValue = (value - 0x40) * BehringerBCD2000.JogSensitivity; } else { jogValue = (value - 0x41) * BehringerBCD2000.JogSensitivity; }
       engine.setValue(group, "jog", jogValue);
 
       if (BehringerBCD2000.debug)
@@ -87,7 +75,7 @@ else
 };
 
 //Scratch button function
-BehringerBCD2000.scratchButton = function (channel, control, value, status, group) {
+BehringerBCD2000.scratchButton = function(channel, control, value, status, group) {
 
    if (value != 0x7F)
       return;
@@ -122,7 +110,7 @@ BehringerBCD2000.scratchButton = function (channel, control, value, status, grou
 };
 
 //Set loop function
-BehringerBCD2000.loop = function (channel, control, value, status, group) {
+BehringerBCD2000.loop = function(channel, control, value, status, group) {
    if (value)
       action = "loop_in";
    else

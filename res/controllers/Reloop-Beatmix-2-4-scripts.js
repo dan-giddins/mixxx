@@ -174,7 +174,7 @@ ReloopBeatmix24.connectControls = function() {
             "group_" + group + "_enable", 0);
         engine.setValue("[EffectRack1_EffectUnit2]",
             "group_" + group + "_enable", 0);
-        channelPlaying[group] = engine.getValue(group, "play") ? true : false;
+        channelPlaying[group] = !!engine.getValue(group, "play");
         JogBlinking[group] = false;
     }
 

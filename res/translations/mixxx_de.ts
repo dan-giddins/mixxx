@@ -3571,7 +3571,7 @@ Spiele den gesamten Titel. Beginne mit dem Überblenden ab der ausgewählten Anz
 Sekunden vor dem Ende des Titels. Eine negative Überblendzeit fügt
 Stille zwischen den Titeln hinzu.
 
-Stille überspringen: 
+Stille überspringen:
 Spiele den gesamten Titel mit Ausnahme der Stille an Anfang und Ende.
 Beginne mit dem Überblenden ab der ausgewählten Anzahl von Sekunden vor dem
 letzter Ton.</translation>
@@ -5192,7 +5192,7 @@ it will place it at the main cue point if the main cue point has been set previo
 This may be helpful for upgrading to Mixxx 2.3 from earlier versions.
 
 If this option is disabled, the intro start point is automatically placed at the first sound.</source>
-        <translation>Wenn der Analysator den Intro-Startpunkt automatisch platziert, 
+        <translation>Wenn der Analysator den Intro-Startpunkt automatisch platziert,
 wird er am Haupt-Cuepunkt platziert, wenn dieser zuvor festgelegt wurde.
 Dies kann hilfreich sein, um von früheren Versionen auf Mixxx 2.3 zu aktualisieren.
 

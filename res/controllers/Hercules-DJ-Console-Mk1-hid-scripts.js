@@ -11,14 +11,14 @@ HerculesMk1Hid.cache_in = [];
 HerculesMk1Hid.cache_out = [];
 HerculesMk1Hid.callbacks = [];
 HerculesMk1Hid.feedbacks = [];
-HerculesMk1Hid.layer = [ "fx", "fx" ]; // fx, hotcue, loop, kill
+HerculesMk1Hid.layer = ["fx", "fx"]; // fx, hotcue, loop, kill
 HerculesMk1Hid.tempo_scaling = 400;
 HerculesMk1Hid.beatjump_size = 8;
-HerculesMk1Hid.kills = [ { filterHighKill: 0, filterMidKill: 0, filterLowKill: 0 }, { filterHighKill: 0, filterMidKill: 0, filterLowKill: 0 } ];
-HerculesMk1Hid.loop_lengths = [ 0.25, 0.5, 1 ]; // edit to loop size needed
-HerculesMk1Hid.kill_order = [ "filterHighKill", "filterMidKill", "filterLowKill" ]; // edit if needed
-HerculesMk1Hid.scratch_enabled = { "[Channel1]": false, "[Channel2]": false };
-HerculesMk1Hid.jog_skip =  { "[Channel1]": true, "[Channel2]": true };
+HerculesMk1Hid.kills = [{filterHighKill: 0, filterMidKill: 0, filterLowKill: 0}, {filterHighKill: 0, filterMidKill: 0, filterLowKill: 0}];
+HerculesMk1Hid.loop_lengths = [0.25, 0.5, 1]; // edit to loop size needed
+HerculesMk1Hid.kill_order = ["filterHighKill", "filterMidKill", "filterLowKill"]; // edit if needed
+HerculesMk1Hid.scratch_enabled = {"[Channel1]": false, "[Channel2]": false};
+HerculesMk1Hid.jog_skip =  {"[Channel1]": true, "[Channel2]": true};
 HerculesMk1Hid.shift = false; // either autobeat button
 
 //
@@ -86,8 +86,7 @@ HerculesMk1Hid.init = function() {
     c.capture("pitchbend_down", "all", function(g, e, v) {
         if (engine.getValue(g, "play") == 0) {
             engine.setValue(g, "back", v > 0 ? 1 : 0);
-        }
-        else if (v > 0) {
+        } else if (v > 0) {
             engine.setValue(g, "jog", -3);
         }
     });
@@ -95,8 +94,7 @@ HerculesMk1Hid.init = function() {
     c.capture("pitchbend_up", "all", function(g, e, v) {
         if (engine.getValue(g, "play") == 0) {
             engine.setValue(g, "fwd", v > 0 ? 1 : 0);
-        }
-        else if (v > 0) {
+        } else if (v > 0) {
             engine.setValue(g, "jog", 3);
         }
     });
@@ -164,8 +162,7 @@ HerculesMk1Hid.init = function() {
 
         if (HerculesMk1Hid.scratch_enabled[g]) {
             engine.scratchEnable(parseInt(g.substring(8,9)), 64, 45, 0.125, 0.125/32);
-        }
-        else {
+        } else {
             engine.scratchDisable(parseInt(g.substring(8,9)));
         }
 
@@ -207,24 +204,26 @@ HerculesMk1Hid.init = function() {
     //
 
     c.capture("monitor_a", "all", function(g, e, v) {
-        if(v==1){
+        if (v==1) {
             var pflstatusa = engine.getValue("[Channel1]", "pfl");
             //print("pflstatusa " + pflstatusa);
-            if (pflstatusa == 1){
-            engine.setValue("[Channel1]", "pfl", 0);}
-            else {engine.setValue("[Channel1]", "pfl", 1);
+            if (pflstatusa == 1) {
+            engine.setValue("[Channel1]", "pfl", 0);
+} else {
+ engine.setValue("[Channel1]", "pfl", 1);
             }
         }
     });
 
 
     c.capture("monitor_b", "all", function(g, e, v) {
-        if(v==1){
+        if (v==1) {
             var pflstatusb = engine.getValue("[Channel2]", "pfl");
             //print("pflstatusb " + pflstatusb);
-            if (pflstatusb == 1){
-            engine.setValue("[Channel2]", "pfl", 0);}
-            else {engine.setValue("[Channel2]", "pfl", 1);
+            if (pflstatusb == 1) {
+            engine.setValue("[Channel2]", "pfl", 0);
+} else {
+ engine.setValue("[Channel2]", "pfl", 1);
             }
         }
     });
@@ -258,7 +257,7 @@ HerculesMk1Hid.init = function() {
 
     c.send("[Channel1]", "fx", 1);
     c.send("[Channel2]", "fx", 1);
-}
+};
 
 //
 // map the 6 buttons that control either effects, hotcues, loops or kills
@@ -299,7 +298,7 @@ HerculesMk1Hid.layer_btn = function(g, e, v) {
                 engine.setValue(g, HerculesMk1Hid.kill_order[btn-1], !engine.getValue(g, HerculesMk1Hid.kill_order[btn-1]));
             }
     }
-}
+};
 
 //
 // beatjump - will get out of sync if called while deck is playing
@@ -308,7 +307,7 @@ HerculesMk1Hid.layer_btn = function(g, e, v) {
 HerculesMk1Hid.beatjump = function(group, jump) {
     jump = jump * 120 / engine.getValue(group, "bpm") / engine.getValue(group, "track_samples") * engine.getValue(group, "track_samplerate");
     engine.setValue(group, "playposition", engine.getValue(group, "playposition") + jump);
-}
+};
 
 //
 // playlist scroll nex/previous with auto-repeat when held
@@ -320,14 +319,13 @@ HerculesMk1Hid.scroll_tracks = function(g, e, v) {
         if (!HerculesMk1Hid.scroll_timer) {
             HerculesMk1Hid.scroll_timer = engine.beginTimer(150, 'HerculesMk1Hid.scroll_tracks("[Playlist]","' + e + '",' + v + ')');
         }
-    }
-    else {
+    } else {
         if (HerculesMk1Hid.scroll_timer) {
             engine.stopTimer(HerculesMk1Hid.scroll_timer);
             HerculesMk1Hid.scroll_timer = null;
         }
     }
-}
+};
 
 //
 // eq kill status
@@ -349,7 +347,7 @@ HerculesMk1Hid.kill_status = function(g, e, v) {
             case 'filterLowKill': HerculesMk1Hid.send(g, "loop", !v);
         }
     }
-}
+};
 
 /*
 HerculesMk1Hid.scroll_tracks_joystick = function() {
@@ -370,53 +368,53 @@ HerculesMk1Hid.define_hid_format = function() {
 
     // deck 1
 
-    c.add_control(pid, "play", "[Channel1]", "button", 1, 0x80)
-    c.add_control(pid, "cue_default", "[Channel1]", "button", 2, 0x01)
-    c.add_control(pid, "track_previous_a", "[Channel1]", "button", 2, 0x04)
-    c.add_control(pid, "track_next_a", "[Channel1]", "button", 2, 0x08)
-    c.add_control(pid, "beatsync", "[Channel1]", "button", 2, 0x02)
-    c.add_control(pid, "pitchbend_down", "[Channel1]", "button", 3, 0x08)
-    c.add_control(pid, "pitchbend_up", "[Channel1]", "button", 3, 0x04)
-    c.add_control(pid, "load", "[Channel1]", "button", 4, 0x04)
-    c.add_control(pid, "beatlock", "[Channel1]", "button", 3, 0x20)
-    c.add_control(pid, "source", "[Channel1]", "button", 4, 0x10)
-    c.add_control(pid, "filterLow", "[Channel1]", "fader", 8, 0xff)
-    c.add_control(pid, "filterMid", "[Channel1]", "fader", 9, 0xff)
-    c.add_control(pid, "filterHigh", "[Channel1]", "fader", 10, 0xff)
-    c.add_control(pid, "volume", "[Channel1]", "fader", 12, 0xff)
-    c.add_control(pid, "rate", "[Channel1]", "encoder", 14, 0xff)
-    c.add_control(pid, "jog", "[Channel1]", "encoder", 16, 0xff)
-    c.add_control(pid, "layer_select", "[Channel1]", "button", 1, 0x40)
-    c.add_control(pid, "layer_btn1", "[Channel1]", "button", 2, 0x40)
-    c.add_control(pid, "layer_btn2", "[Channel1]", "button", 2, 0x20)
-    c.add_control(pid, "layer_btn3", "[Channel1]", "button", 2, 0x10)
+    c.add_control(pid, "play", "[Channel1]", "button", 1, 0x80);
+    c.add_control(pid, "cue_default", "[Channel1]", "button", 2, 0x01);
+    c.add_control(pid, "track_previous_a", "[Channel1]", "button", 2, 0x04);
+    c.add_control(pid, "track_next_a", "[Channel1]", "button", 2, 0x08);
+    c.add_control(pid, "beatsync", "[Channel1]", "button", 2, 0x02);
+    c.add_control(pid, "pitchbend_down", "[Channel1]", "button", 3, 0x08);
+    c.add_control(pid, "pitchbend_up", "[Channel1]", "button", 3, 0x04);
+    c.add_control(pid, "load", "[Channel1]", "button", 4, 0x04);
+    c.add_control(pid, "beatlock", "[Channel1]", "button", 3, 0x20);
+    c.add_control(pid, "source", "[Channel1]", "button", 4, 0x10);
+    c.add_control(pid, "filterLow", "[Channel1]", "fader", 8, 0xff);
+    c.add_control(pid, "filterMid", "[Channel1]", "fader", 9, 0xff);
+    c.add_control(pid, "filterHigh", "[Channel1]", "fader", 10, 0xff);
+    c.add_control(pid, "volume", "[Channel1]", "fader", 12, 0xff);
+    c.add_control(pid, "rate", "[Channel1]", "encoder", 14, 0xff);
+    c.add_control(pid, "jog", "[Channel1]", "encoder", 16, 0xff);
+    c.add_control(pid, "layer_select", "[Channel1]", "button", 1, 0x40);
+    c.add_control(pid, "layer_btn1", "[Channel1]", "button", 2, 0x40);
+    c.add_control(pid, "layer_btn2", "[Channel1]", "button", 2, 0x20);
+    c.add_control(pid, "layer_btn3", "[Channel1]", "button", 2, 0x10);
 
     // deck 2
 
-    c.add_control(pid, "play", "[Channel2]", "button", 1, 0x02)
-    c.add_control(pid, "cue_default", "[Channel2]", "button", 1, 0x04)
-    c.add_control(pid, "track_previous_b", "[Channel2]", "button", 1, 0x10)
-    c.add_control(pid, "track_next_b", "[Channel2]", "button", 1, 0x20)
-    c.add_control(pid, "beatsync", "[Channel2]", "button", 1, 0x08)
-    c.add_control(pid, "pitchbend_down", "[Channel2]", "button", 3, 0x80)
-    c.add_control(pid, "pitchbend_up", "[Channel2]", "button", 3, 0x40)
-    c.add_control(pid, "load", "[Channel2]", "button", 4, 0x08)
-    c.add_control(pid, "beatlock", "[Channel2]", "button", 4, 0x02)
-    c.add_control(pid, "source", "[Channel2]", "button", 4, 0x20)
-    c.add_control(pid, "filterLow", "[Channel2]", "fader", 5, 0xff)
-    c.add_control(pid, "filterMid", "[Channel2]", "fader", 6, 0xff)
-    c.add_control(pid, "filterHigh", "[Channel2]", "fader", 7, 0xff)
-    c.add_control(pid, "volume", "[Channel2]", "fader", 13, 0xff)
-    c.add_control(pid, "rate", "[Channel2]", "encoder", 15, 0xff)
-    c.add_control(pid, "jog", "[Channel2]", "encoder", 17, 0xff)
-    c.add_control(pid, "layer_select", "[Channel2]", "button", 1, 0x01)
-    c.add_control(pid, "layer_btn1", "[Channel2]", "button", 2, 0x80)
-    c.add_control(pid, "layer_btn2", "[Channel2]", "button", 3, 0x01)
-    c.add_control(pid, "layer_btn3", "[Channel2]", "button", 3, 0x02)
+    c.add_control(pid, "play", "[Channel2]", "button", 1, 0x02);
+    c.add_control(pid, "cue_default", "[Channel2]", "button", 1, 0x04);
+    c.add_control(pid, "track_previous_b", "[Channel2]", "button", 1, 0x10);
+    c.add_control(pid, "track_next_b", "[Channel2]", "button", 1, 0x20);
+    c.add_control(pid, "beatsync", "[Channel2]", "button", 1, 0x08);
+    c.add_control(pid, "pitchbend_down", "[Channel2]", "button", 3, 0x80);
+    c.add_control(pid, "pitchbend_up", "[Channel2]", "button", 3, 0x40);
+    c.add_control(pid, "load", "[Channel2]", "button", 4, 0x08);
+    c.add_control(pid, "beatlock", "[Channel2]", "button", 4, 0x02);
+    c.add_control(pid, "source", "[Channel2]", "button", 4, 0x20);
+    c.add_control(pid, "filterLow", "[Channel2]", "fader", 5, 0xff);
+    c.add_control(pid, "filterMid", "[Channel2]", "fader", 6, 0xff);
+    c.add_control(pid, "filterHigh", "[Channel2]", "fader", 7, 0xff);
+    c.add_control(pid, "volume", "[Channel2]", "fader", 13, 0xff);
+    c.add_control(pid, "rate", "[Channel2]", "encoder", 15, 0xff);
+    c.add_control(pid, "jog", "[Channel2]", "encoder", 17, 0xff);
+    c.add_control(pid, "layer_select", "[Channel2]", "button", 1, 0x01);
+    c.add_control(pid, "layer_btn1", "[Channel2]", "button", 2, 0x80);
+    c.add_control(pid, "layer_btn2", "[Channel2]", "button", 3, 0x01);
+    c.add_control(pid, "layer_btn3", "[Channel2]", "button", 3, 0x02);
 
     // master
 
-    c.add_control(pid, "crossfader", "[Master]", "fader", 11, 0xff)
+    c.add_control(pid, "crossfader", "[Master]", "fader", 11, 0xff);
     //c.add_control(pid, "joystick_x", "[Master]", "fader", 19, 0xff)
     //c.add_control(pid, "joystick_y", "[Master]", "fader", 20, 0xff)
 
@@ -430,7 +428,7 @@ HerculesMk1Hid.define_hid_format = function() {
     // define led feedback
 
     pid = 0;
-    c.cache_out[pid] = [ pid, 0x0, 0x0, 0x0 ];
+    c.cache_out[pid] = [pid, 0x0, 0x0, 0x0];
 
     c.add_control(pid, "play", "[Channel1]", "led", 2, 0x01); // blinking: 3, 0x2
     c.add_control(pid, "cue_default", "[Channel1]", "led", 2, 0x08);
@@ -448,7 +446,7 @@ HerculesMk1Hid.define_hid_format = function() {
     c.add_control(pid, "hotcue", "[Channel1]", "led", 1, 0x80);
     c.add_control(pid, "loop", "[Channel1]", "led", 2, 0x40);
     c.add_control(pid, "loop", "[Channel2]", "led", 2, 0x80);
-}
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // non-specific controller framework to allow hid packets to be defined and processed via
@@ -458,14 +456,13 @@ HerculesMk1Hid.define_hid_format = function() {
 HerculesMk1Hid.add_control = function(packetid, name, group, type, offset, mask) {
     if (type == "led") {
         HerculesMk1Hid.leds[group + name] = new HerculesMk1Hid.control(packetid, name, group, type, offset, mask);
-    }
-    else {
+    } else {
         if (HerculesMk1Hid.controls[offset] == undefined) {
             HerculesMk1Hid.controls[offset] = [];
         }
         HerculesMk1Hid.controls[offset].push(new HerculesMk1Hid.control(packetid, name, group, type, offset, mask));
     }
-}
+};
 
 //
 // bind a function to a modified controller value
@@ -473,12 +470,11 @@ HerculesMk1Hid.add_control = function(packetid, name, group, type, offset, mask)
 
 HerculesMk1Hid.capture = function(name, values, func) {
     if (HerculesMk1Hid.callbacks[name] == undefined) {
-        HerculesMk1Hid.callbacks[name] = [ [ values, func ] ];
+        HerculesMk1Hid.callbacks[name] = [[values, func]];
+    } else {
+        HerculesMk1Hid.callbacks[name].push([values, func]);
     }
-    else {
-        HerculesMk1Hid.callbacks[name].push([ values, func ]);
-    }
-}
+};
 
 //
 // bind a function to feedback from mixxx, callbacks accept args in same order as from capture()
@@ -490,7 +486,7 @@ HerculesMk1Hid.feedback = function(g, e, f) {
         HerculesMk1Hid.feedbacks[g + e] = [];
     }
     HerculesMk1Hid.feedbacks[g + e].push(f);
-}
+};
 
 //
 // controller feedback: send data to the controller by name and automatically send out the full hid packet needed
@@ -513,7 +509,7 @@ HerculesMk1Hid.send = function(g, e, v) {
         controller.send(this.cache_out[ctrl.packetid], this.cache_out[ctrl.packetid].length, 0);
         this.cache_out[ctrl.packetid] = this.cache_out[ctrl.packetid];
     }
-}
+};
 
 //
 // process incoming data from mixxx and call any callbacks
@@ -522,12 +518,12 @@ HerculesMk1Hid.send = function(g, e, v) {
 HerculesMk1Hid.feedbackData = function(v, g, e) {
     if (HerculesMk1Hid.feedbacks[g + e] != undefined) {
         for (func in HerculesMk1Hid.feedbacks[g + e]) {
-            if (typeof(HerculesMk1Hid.feedbacks[g + e][func]) == "function") {
+            if (typeof(HerculesMk1Hid.feedbacks[g + e][func]) === "function") {
                 HerculesMk1Hid.feedbacks[g + e][func](g, e, v);
             }
         }
     }
-}
+};
 
 //
 // a single hid control, store last known value and offset/mask to work out the new value from incoming data
@@ -549,15 +545,13 @@ HerculesMk1Hid.control = function(packetid, name, group, type, offset, mask) {
         value = (value & this.mask) >> this.bitshift;
         if (this.value == value) {
             return false;
-        }
-        else {
+        } else {
             // map to a relative value if it's an encoder, usually +1 or -1
             if (this.type == 'encoder') {
                 this.relative = value - this.value;
                 if (this.relative > 100) {
                     this.relative -= this.maxval;
-                }
-                else if (this.relative < -100) {
+                } else if (this.relative < -100) {
                     this.relative += this.maxval;
                 }
             }
@@ -569,13 +563,13 @@ HerculesMk1Hid.control = function(packetid, name, group, type, offset, mask) {
         mask = mask >> 1;
         this.bitshift++;
     }
-}
+};
 
 //
 // process incoming data and call any callbacks if their bound controls have changed
 //
 
-HerculesMk1Hid.incomingData = function (data, length) {
+HerculesMk1Hid.incomingData = function(data, length) {
 
     var c = HerculesMk1Hid;
     var packetid = data[0];
@@ -594,7 +588,7 @@ HerculesMk1Hid.incomingData = function (data, length) {
 
             for (key in c.controls[i]) {
                 var control = c.controls[i][key];
-                if (typeof(control) == 'object' && control.packetid == data[0] && control.changed(data[i])) {
+                if (typeof(control) === 'object' && control.packetid == data[0] && control.changed(data[i])) {
 
                     //
                     // we found a hid control that has changed value within that byte, check for callbacks
@@ -603,7 +597,7 @@ HerculesMk1Hid.incomingData = function (data, length) {
                     var callbacks = c.callbacks[control.name];
                     if (callbacks != undefined) {
                         for (var i=0; i<callbacks.length; i++) {
-                            if (typeof(callbacks[i][1]) == 'function') {
+                            if (typeof(callbacks[i][1]) === 'function') {
 
                                 //
                                 // check we need to call for this value change: all, press, release
@@ -629,4 +623,4 @@ HerculesMk1Hid.incomingData = function (data, length) {
 
     // store the new raw data
     c.cache_in[data[0]] = data;
-}
+};

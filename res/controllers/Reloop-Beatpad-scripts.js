@@ -204,7 +204,7 @@ function IsStereo(group) {
     if (d1==d2) {
         return false;
     } else {
-        if  ( (d1 < Math.floor(d2)) && (d1 < Math.ceil(d2)) ) {
+        if  ((d1 < Math.floor(d2)) && (d1 < Math.ceil(d2))) {
             return false;
         } else {
             return true;
@@ -213,7 +213,7 @@ function IsStereo(group) {
 }
 
 function TrackIsLoaded(group) {
-     return (engine.getValue(group, "track_samples") > 0) ? true : false;
+     return (engine.getValue(group, "track_samples") > 0);
 }
 
 function RealDuration(group) {
@@ -230,7 +230,7 @@ function RealDuration(group) {
             // it is mono
             return d2;
         } else {
-            if  ( (d1 > Math.floor(d2)) && (d1 < Math.ceil(d2)) ) {
+            if  ((d1 > Math.floor(d2)) && (d1 < Math.ceil(d2))) {
                 // It is mono
                 return d2;
             } else {
@@ -406,14 +406,14 @@ LED.prototype.flashOn = function(num_ms_on, value, num_ms_off, flashCount, relig
         // so we don't need this part  if flashcount=1
         // permanent timer
 
-        this.flashTimer = engine.beginTimer( num_ms_on + num_ms_off, function(){ myself.flashOnceOn(false); } );
+        this.flashTimer = engine.beginTimer(num_ms_on + num_ms_off, function() { myself.flashOnceOn(false); });
     }
     if (flashCount > 1) {
         // flashcount>0 , means temporary flash, first flash already done,
         // so we don't need this part  if flashcount=1
         // temporary timer. The end of this timer stops the permanent flashing
 
-        this.flashTimer2 = engine.beginTimer(flashCount * (num_ms_on + num_ms_off) - num_ms_off, function(){ myself.Stopflash(relight); }, true);
+        this.flashTimer2 = engine.beginTimer(flashCount * (num_ms_on + num_ms_off) - num_ms_off, function() { myself.Stopflash(relight); }, true);
     }
 };
 
@@ -468,7 +468,7 @@ LED.prototype.flashOnceOn = function(relight) {
     midi.sendShortMsg(this.control, this.midino, this.valueon);
     pauseScript(scriptpause);
     this.flashOnceDuration = this.num_ms_on;
-    this.flashOnceTimer = engine.beginTimer(this.num_ms_on - scriptpause, function(){ myself.flashOnceOff(relight); }, true);
+    this.flashOnceTimer = engine.beginTimer(this.num_ms_on - scriptpause, function() { myself.flashOnceOff(relight); }, true);
 };
 
 // private :call back function (called in flashOnceOn() )
@@ -531,7 +531,7 @@ SingleDoubleBtn.prototype.ButtonDown = function(channel, control, value, status,
 
         this.ButtonTimer =
             engine.beginTimer(this.DoublePressTimeOut,
-                              function(){ myself.ButtonDecide(); }, true);
+                              function() { myself.ButtonDecide(); }, true);
         this.ButtonCount = 1;
     } else { // 2nd press (before timer's out)
         engine.stopTimer(this.ButtonTimer);
@@ -591,7 +591,7 @@ LongShortBtn.prototype.ButtonAssertLongPress = function() {
     // let's take action of the long press
     // Make sure the callback is a function​ and exist
     if (typeof callback === "function") {
-        // Call it, since we have confirmed it is callable​
+        // Call it, since we have confirmed it is callable
         this.CallBackOKLongPress(this.channel, this.control, this.value, this.status, this.group, LONG_PRESS);
     }
 };
@@ -604,7 +604,7 @@ LongShortBtn.prototype.ButtonDown = function(channel, control, value, status, gr
     this.status = status;
     this.group = group;
     this.ButtonLongPress = false;
-    this.ButtonLongPressTimer = engine.beginTimer(this.LongPressThreshold, function(){ myself.ButtonAssertLongPress(); }, true);
+    this.ButtonLongPressTimer = engine.beginTimer(this.LongPressThreshold, function() { myself.ButtonAssertLongPress(); }, true);
 };
 
 LongShortBtn.prototype.ButtonUp = function() {
@@ -703,11 +703,11 @@ LongShortDoubleBtn.prototype.ButtonDown = function(channel, control, value, stat
         this.ButtonLongPress = false;
         this.ButtonLongPressTimer =
             engine.beginTimer(this.LongPressThreshold,
-                              function(){ myself.ButtonAssertLongPress(); },
+                              function() { myself.ButtonAssertLongPress(); },
                               true);
         this.ButtonTimer =
             engine.beginTimer(this.DoublePressTimeOut,
-                              function(){ myself.ButtonAssert1Press(); },
+                              function() { myself.ButtonAssert1Press(); },
                               true);
     } else if (this.ButtonCount == 1) { // 2nd press (before short timer's out)
         // stop timers...
@@ -723,7 +723,7 @@ LongShortDoubleBtn.prototype.ButtonDown = function(channel, control, value, stat
         // "stopTimer(timer)/timer=0"
         if (this.ButtonTimer !== 0) {
             engine.stopTimer(this.ButtonTimer);
-            this.ButtonTimer = 0 ;
+            this.ButtonTimer = 0;
         }
 
         // 2nd press
@@ -794,7 +794,7 @@ LongShortDoubleBtn.prototype.ButtonDecide = function() {
 //      quickly without taking into account the direction of the wheel.
 //      Here I am trying to stick with the reloop explanation :
 //      it is the "as it is supposed to be done"
-var AutoCut = function (deckNum) {
+var AutoCut = function(deckNum) {
     this.deckNum = deckNum;
     this.timer = 0;
     this.delay = 20;
@@ -843,7 +843,7 @@ AutoCut.prototype.Off = function() {
 // Your controller is a "Model B" controller for scratching,
 // if it centers on 0x40 (64)
 // See http://www.mixxx.org/wiki/doku.php/midi_scripting#scratching
-var Jogger = function (group, deckNum, model) {
+var Jogger = function(group, deckNum, model) {
     this.deckNum = deckNum;
     this.group = group;
     this.wheelTouchInertiaTimer = 0;
@@ -873,7 +873,7 @@ Jogger.prototype.finishWheelTouch = function() {
             // Check again soon.
             this.wheelTouchInertiaTimer =
                 engine.beginTimer(100,
-                                function(){ myself.finishWheelTouch(); },
+                                function() { myself.finishWheelTouch(); },
                                 true);
         }
     }
@@ -907,7 +907,7 @@ Jogger.prototype.onWheelTouch = function(value,Do_iCut) {
         } else { // If button up
             this.wheelTouchInertiaTimer =
                 engine.beginTimer(inertiaTime,
-                                function(){ myself.finishWheelTouch(); },
+                                function() { myself.finishWheelTouch(); },
                                 true);
         }
     }
@@ -1086,7 +1086,7 @@ ReloopBeatpad.rgbLEDs.prototype.onOff = function(showname, value) {
         this.layers.show6.activate = false;
     }
 
-    this.activateshow(showname, (value) ? true : false);
+    this.activateshow(showname, !!(value));
 };
 
 // public : make a rgb light flashing
@@ -1110,15 +1110,15 @@ ReloopBeatpad.rgbLEDs.prototype.flashOn = function(num_ms_on, RGBColor, num_ms_o
         // flashcount>0 , means temporary flash, first flash already done,
         // so we don't need this part  if flashcount=1
         // permanent timer
-        this.flashTimer = engine.beginTimer( num_ms_on + num_ms_off,
-                                    function(){ myself.flashOnceOn(true); } );
+        this.flashTimer = engine.beginTimer(num_ms_on + num_ms_off,
+                                    function() { myself.flashOnceOn(true); });
     }
     if (flashCount > 1) {
         // flashcount>0 , means temporary flash, first flash already done,
         // so we don't need this part  if flashcount=1
         // temporary timer. The end of this timer stops the permanent flashing
 
-        this.flashTimer2 = engine.beginTimer(flashCount * (num_ms_on + num_ms_off) - num_ms_off, function(){ myself.Stopflash(); }, true);
+        this.flashTimer2 = engine.beginTimer(flashCount * (num_ms_on + num_ms_off) - num_ms_off, function() { myself.Stopflash(); }, true);
     }
 };
 
@@ -1165,7 +1165,7 @@ ReloopBeatpad.rgbLEDs.prototype.flashOnceOn = function(relight) {
     this.layers.show5.activate = true;
     var pausecount = this.activateshow("show6", true);
     this.flashOnceDuration = this.num_ms_on;
-    this.flashOnceTimer = engine.beginTimer(this.flashDuration - scriptpause * pausecount,  function(){ myself.flashOnceOff(relight); }, true);
+    this.flashOnceTimer = engine.beginTimer(this.flashDuration - scriptpause * pausecount,  function() { myself.flashOnceOff(relight); }, true);
 };
 
 // private :call back function (called in flashOnceOn() )
@@ -1411,7 +1411,7 @@ ReloopBeatpad.control = function(key, control, midino, group) {
 
 ReloopBeatpad.control.prototype.onOff = function(value, light) {
     engine.setValue(this.group, this.key, value);
-    if ((typeof light !== "undefined") && (typeof this.led != "undefined")) {
+    if ((typeof light !== "undefined") && (typeof this.led !== "undefined")) {
         this.led.onOff(light);
     }
 };
@@ -1626,7 +1626,7 @@ ReloopBeatpad.initobjects = function() {
 
 ReloopBeatpad.initButtonsObjects = function() {
     var i;
-    for(i=1;i<=2;i++) {
+    for (i=1; i<=2; i++) {
         ReloopBeatpad.decks["D"+i].LoadButtonControl =
             new LongShortBtn(ReloopBeatpad.OnLoadButton);
         ReloopBeatpad.decks["D"+i].SyncButtonControl =
@@ -2578,7 +2578,7 @@ ReloopBeatpad.OnPlaypositionChange = function(value, group, control) {
                 } else {
                     if (deck.JogScratchStatus) { // Spinny
                         var revolutions = value * RealDuration(group) / 1.8; //33+1/3 rev/mn=1.8 s/rev
-                        var needle = intpart( (revolutions - intpart(revolutions)) * 24);
+                        var needle = intpart((revolutions - intpart(revolutions)) * 24);
                         ledindex = Math.floor(needle) + 1;
                         deck.leds.RimRed.onOff(ledindex);
                     } else if (deck.JogSeekStatus) { // Track position
@@ -2703,7 +2703,7 @@ ReloopBeatpad.InboundSysex = function(data, length) {
     //for testing
     var s = "";
     var i;
-    for(i=0; i<length; i++) {
+    for (i=0; i<length; i++) {
         s = s + ("00"+data[i].toString(16)).substr(-2);
     }
     /******************************************************************

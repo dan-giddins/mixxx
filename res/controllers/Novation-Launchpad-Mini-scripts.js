@@ -5,8 +5,7 @@
 /****************************************************************/
 
 //Common helpers
-colorCode = function()
-{
+colorCode = function() {
     return {
         black: 4,
 
@@ -24,7 +23,7 @@ colorCode = function()
         hi_yellow: 50 + 4,
         lo_yellow: 33 + 4,
 
-    }
+    };
 };
 //Define one Key
 Key = Object;
@@ -34,48 +33,42 @@ Key.prototype.y = -1;
 Key.prototype.page = -1;
 Key.prototype.pressed = false;
 
-Key.prototype.init = function(page, x, y)
-{
+Key.prototype.init = function(page, x, y) {
     this.x = x;
     this.y = y;
     this.page = page;
     //print("Key created");
-}
+};
 
-Key.prototype.setColor = function(color)
-{
+Key.prototype.setColor = function(color) {
     //First line is special
     this.color = colorCode()[color];
     this.draw();
 };
 
-Key.prototype.draw = function()
-{
-    if ( this.page != NLM.page ) return;
-    if ( this.y == 8 ) {
+Key.prototype.draw = function() {
+    if (this.page != NLM.page) return;
+    if (this.y == 8) {
         midi.sendShortMsg(0xb0, this.x + 0x68, this.color);
         return;
     }
     midi.sendShortMsg(0x90, this.x+this.y*16, this.color);
     //midi.sendShortMsg(0xb0, 0x0, 0x28); //Enable buffer cycling
-}
+};
 
-Key.prototype.onPush = function()
-{
-}
+Key.prototype.onPush = function() {
+};
 
-Key.prototype.onRelease = function()
-{
-}
+Key.prototype.onRelease = function() {
+};
 
-Key.prototype.callback = function()
-{
+Key.prototype.callback = function() {
     if (this.pressed) {
         this.onPush();
     } else {
         this.onRelease();
     }
-}
+};
 
 function PushKey(colordef, colorpush) {
     var that = new Key;
@@ -85,15 +78,13 @@ function PushKey(colordef, colorpush) {
     that.colordef = colordef;
     that.colorpush = colorpush;
 
-    that.onPush = function()
-    {
+    that.onPush = function() {
         this.setColor(this.colorpush);
-    }
+    };
 
-    that.onRelease = function()
-    {
+    that.onRelease = function() {
         this.setColor(this.colordef);
-    }
+    };
 
     return that;
 }
@@ -102,24 +93,22 @@ function PushKeyBin(colordef, colorpush, group, control, pushval) {
     var that = PushKey(colordef, colorpush);
 
     that.onPushOrig = that.onPush;
-    that.onPush = function()
-    {
+    that.onPush = function() {
         engine.setValue(group, control, pushval);
         this.onPushOrig();
-    }
+    };
     return that;
 }
 
 function PageSelectKey() {
     var that = new Key;
 
-    that.onPush = function()
-    {
+    that.onPush = function() {
         NLM.btns[NLM.page][8][NLM.page].setColor("black");
         NLM.page = this.y;
         NLM.btns[NLM.page][8][NLM.page].setColor("hi_amber");
         NLM.drawPage();
-    }
+    };
     return that;
 }
 
@@ -127,18 +116,16 @@ function ShiftKey() {
     var that = PushKey("lo_green", "hi_yellow");
 
     that.onPushOrig = that.onPush;
-    that.onPush = function()
-    {
+    that.onPush = function() {
         NLM.shiftstate = this.pressed;
         this.onPushOrig();
-    }
+    };
 
     that.onReleaseOrig = that.onRelease;
-    that.onRelease = function()
-    {
+    that.onRelease = function() {
         NLM.shiftstate = this.pressed;
         this.onReleaseOrig();
-    }
+    };
 
     return that;
 }
@@ -161,11 +148,11 @@ function HotCueKey(ctrl, deck, hotcue) {
         } else {
             this.setColor("lo_red");
         }
-    }
+    };
 
     that.conEvent = function() {
         engine.connectControl(this.group, this.state, this.setled);
-    }
+    };
 
     that.setled();
     that.conEvent();
@@ -184,7 +171,7 @@ function HotCueKey(ctrl, deck, hotcue) {
         }
 
         this.setled();
-    }
+    };
 
     return that;
 }
@@ -203,25 +190,23 @@ function PlayKey(ctrl, deck) {
         } else {
             this.setColor("hi_yellow");
         }
-    }
+    };
 
     that.conEvent = function() {
         engine.connectControl(this.group, this.state, this.setled);
-    }
+    };
 
     that.setled();
     that.conEvent();
 
-    that.onPush = function()
-    {
+    that.onPush = function() {
         engine.setValue(this.group, this.ctrl, engine.getValue(this.group, this.ctrl) == 1 ? 0 : 1);
         this.setled();
-    }
+    };
 
-    that.onRelease = function()
-    {
+    that.onRelease = function() {
         this.setled();
-    }
+    };
 
     return that;
 }
@@ -240,25 +225,23 @@ function LoopKey(deck, loop) {
         LoopKey.mode = 0;
     }
 
-    LoopKey.setMode = function(mode)
-    {
+    LoopKey.setMode = function(mode) {
         LoopKey.mode = mode;
         if (mode == 1) {
-            LoopKey.keys.forEach(function(e) { e.setColor("hi_orange");} );
+            LoopKey.keys.forEach(function(e) { e.setColor("hi_orange"); });
         }
         if (mode == 0) {
-            LoopKey.keys.forEach(function(e) { e.setColor("hi_yellow");} );
+            LoopKey.keys.forEach(function(e) { e.setColor("hi_yellow"); });
         }
-    }
+    };
 
-    that.callback = function()
-    {
+    that.callback = function() {
         if (LoopKey.mode == 0) {
              if (this.pressed) {
                 engine.setValue(this.group, this.ctrl0, 1);
                 this.setColor("hi_green");
             } else {
-                if ( engine.getValue(this.group, this.state) == 1) {
+                if (engine.getValue(this.group, this.state) == 1) {
                     engine.setValue(this.group, this.ctrl0, 1);
                 }
                 this.setColor("hi_yellow");
@@ -272,7 +255,7 @@ function LoopKey(deck, loop) {
                 this.setColor("hi_orange");
             }
         }
-    }
+    };
 
     LoopKey.keys.push(that);
     return that;
@@ -282,8 +265,7 @@ function LoopModeKey() {
     var that = new Key();
     that.setColor("lo_yellow");
 
-    that.callback = function()
-    {
+    that.callback = function() {
         if (this.pressed) {
             if (LoopKey.mode == 0) {
                 LoopKey.setMode(1);
@@ -293,7 +275,7 @@ function LoopModeKey() {
                 this.setColor("lo_yellow");
             }
         }
-    }
+    };
 
     return that;
 }
@@ -306,11 +288,10 @@ function LoadKey(ctrl, channel) {
 
     that.onPushOrig = that.onPush;
 
-    that.onPush = function()
-    {
+    that.onPush = function() {
         engine.setValue(this.group, this.control, 1);
         this.onPushOrig();
-    }
+    };
 
     that.event = function() {
         if (engine.getValue(this.group, "play")) {
@@ -319,11 +300,11 @@ function LoadKey(ctrl, channel) {
             this.colordef = "hi_green";
         }
         this.setColor(this.colordef);
-    }
+    };
 
     that.conEvent = function() {
         engine.connectControl(this.group, "play", this.event);
-    }
+    };
 
     that.conEvent();
     return that;
@@ -335,23 +316,22 @@ function ZoomKey(dir) {
     that.dir  = dir;
 
     that.onPushOrig = that.onPush;
-    that.onPush = function()
-    {
-        if ( ZoomKey.zoom < 6 && this.dir == "+" ) {
+    that.onPush = function() {
+        if (ZoomKey.zoom < 6 && this.dir == "+") {
             ZoomKey.zoom++;
         }
-        if ( ZoomKey.zoom > 1 && this.dir == "-") {
+        if (ZoomKey.zoom > 1 && this.dir == "-") {
             ZoomKey.zoom--;
         }
 
-        for ( ch = 1 ; ch <= NLM.numofdecks ; ch++ ) {
+        for (ch = 1; ch <= NLM.numofdecks; ch++) {
             //print("Zoom:" + ZoomKey.zoom);
             var group = "[Channel" + ch + "]";
             engine.setValue(group, "waveform_zoom", ZoomKey.zoom);
         }
 
         this.onPushOrig();
-    }
+    };
 
     return that;
 }
@@ -363,31 +343,28 @@ function SeekKey(ch, pos) {
     that.pos  = 0.125 * pos;
     that.grp = "[Channel"+ ch + "]";
 
-    that.setled = function()
-    {
+    that.setled = function() {
         if (engine.getValue(this.grp, "playposition") >= this.pos) {
             this.setColor("hi_red");
         } else {
             this.setColor("lo_green");
         }
-    }
+    };
 
-    that.conEvent = function()
-    {
+    that.conEvent = function() {
         engine.connectControl(this.grp, "beat_active", this.setled);
-    }
+    };
 
     that.conEvent();
 
-    that.onPush = function()
-    {
+    that.onPush = function() {
         engine.setValue(this.grp, "playposition", this.pos);
         SeekKey.keys[ch].forEach(function(e) { e.setled(); });
-    }
+    };
 
     that.setled();
 
-    if ( SeekKey.keys[ch] == undefined ) SeekKey.keys[ch] = new Array();
+    if (SeekKey.keys[ch] == undefined) SeekKey.keys[ch] = new Array();
     SeekKey.keys[ch][pos] = that;
     return that;
 }
@@ -396,8 +373,7 @@ SeekKey.keys = new Array();
 //Define the controller
 
 NLM = new Controller();
-NLM.init = function()
-{
+NLM.init = function() {
         NLM.page = 0;
         NLM.shiftstate = false;
         NLM.numofdecks = engine.getValue("[Master]", "num_decks");
@@ -413,11 +389,11 @@ NLM.init = function()
         //print("=============================");
         //Setup btnstate which is for phy. state
         NLM.btns = new Array();
-        for ( page = 0; page < 8 ; page++ ) {
+        for (page = 0; page < 8; page++) {
             NLM.btns[page] = new Array();
-            for ( x = 0 ; x < 9 ; x++ ) {
+            for (x = 0; x < 9; x++) {
                 NLM.btns[page][x] = new Array();
-                for ( y = 0 ; y < 9 ; y++ ) {
+                for (y = 0; y < 9; y++) {
                     var tmp = new Key;
                     if (x == 8) {
                         tmp = PageSelectKey();
@@ -450,15 +426,15 @@ NLM.init = function()
 
         // ============== PAGE A ===============
         //Set ChX CueButtons
-        for ( deck = 1; deck <= NLM.numofdecks; deck++ ) {
-            for ( hc = 1 ; hc < 9 ; hc++ ) {
+        for (deck = 1; deck <= NLM.numofdecks; deck++) {
+            for (hc = 1; hc < 9; hc++) {
                 x = hc-1;
                 y = (deck-1)*2+1;
                 NLM.setupBtn(0,x,y, HotCueKey("Channel", deck, hc));
             }
         }
 
-        for ( deck = 1; deck <= NLM.numofdecks; deck++ ) {
+        for (deck = 1; deck <= NLM.numofdecks; deck++) {
             y = (deck-1)*2;
             //Set Chx PlayButton
             NLM.setupBtn(0,0,y, PlayKey("Channel", deck));
@@ -508,8 +484,8 @@ NLM.init = function()
         // ============== PAGE B ===============
 
         //SeekButtons
-        for(i = 0 ; i < 8 ; i++) {
-            for ( ch = 1 ; ch <= NLM.numofdecks; ch++ ) {
+        for (i = 0; i < 8; i++) {
+            for (ch = 1; ch <= NLM.numofdecks; ch++) {
                 NLM.setupBtn(1,i,ch*2-1, SeekKey(ch, i));
             }
         }
@@ -517,10 +493,10 @@ NLM.init = function()
         // ============== PAGE C ===============
 
         // Add Sampler playbuttons
-        for(var channel = 1 ; channel < 9 ; channel++) {
+        for (var channel = 1; channel < 9; channel++) {
             NLM.setupBtn(2, 0, channel-1, PlayKey("Sampler", channel));
             NLM.setupBtn(2, 1, channel-1, PushKeyBin("hi_orange", "hi_red", "[Sampler" + channel + "]", "beatsync", 1));
-            for(i = 1 ; i < 5 ; i++) {
+            for (i = 1; i < 5; i++) {
                 NLM.setupBtn(2, 3+i, channel-1, HotCueKey("Sampler", channel, i));
             }
         }
@@ -531,19 +507,16 @@ NLM.init = function()
         this.drawPage();
 };
 
-NLM.setupBtn = function(page, x, y, btn)
-{
+NLM.setupBtn = function(page, x, y, btn) {
     NLM.btns[page][x][y] = btn;
     NLM.btns[page][x][y].init(page, x, y);
-}
+};
 
-NLM.shutdown = function()
-{
+NLM.shutdown = function() {
 
 };
 
-NLM.incomingData = function(channel, control, value, status, group)
-{
+NLM.incomingData = function(channel, control, value, status, group) {
         //print("Incoming data");
         //print("cha: " + channel);
         //print("con: " + control);
@@ -557,24 +530,24 @@ NLM.incomingData = function(channel, control, value, status, group)
         //Translate midi btn into index
         var y = Math.floor(control / 16);
         var x = control - y * 16;
-        if ( y == 6 && x > 8 ) {
+        if (y == 6 && x > 8) {
             y = 8;
             x -= 8;
         }
-        if ( y == 6 && x == 8 && status == 176 ) {
+        if (y == 6 && x == 8 && status == 176) {
             y = 8; x = 0;
         }
 
-        print( "COO: " + NLM.page + ":" + x + ":" + y);
+        print("COO: " + NLM.page + ":" + x + ":" + y);
         NLM.btns[NLM.page][x][y].pressed = pressed;
         NLM.btns[NLM.page][x][y].callback();
 };
 
 NLM.drawPage = function() {
-    for ( x = 0 ; x < 9 ; x++ ) {
-        for ( y = 0 ; y < 9 ; y++ ) {
+    for (x = 0; x < 9; x++) {
+        for (y = 0; y < 9; y++) {
             NLM.btns[NLM.page][x][y].draw();
         }
     }
-}
+};
 

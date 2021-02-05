@@ -1,4 +1,4 @@
-VestaxVCI1003DEX = new function() {}
+VestaxVCI1003DEX = new function() {};
 
 var active_deck;	//"[ChannelN]"
 var active_deck_number;  //N
@@ -8,55 +8,49 @@ var currentCue2;
 
 // timer for loop leds start
 
-VestaxVCI1003DEX.loopLeds = function () {
+VestaxVCI1003DEX.loopLeds = function() {
 
 var looping = engine.getValue(active_deck,"loop_enabled");
 var startposition = engine.getValue(active_deck,"loop_start_position");
 var endposition = engine.getValue(active_deck,"loop_end_position");
 
 
-if (startposition != -1){
+if (startposition != -1) {
 midi.sendShortMsg(0x90,0x62,0x7F);/*loop in button led on*/
-}
-else{midi.sendShortMsg(0x80,0x62,0x7F);/*loop in button led off*/}
+} else { midi.sendShortMsg(0x80,0x62,0x7F);/*loop in button led off*/ }
 
-if (endposition != -1 && (startposition<endposition) ){
+if (endposition != -1 && (startposition<endposition)) {
 midi.sendShortMsg(0x90,0x63,0x7F);/*loop out button led on*/
-}
-else{midi.sendShortMsg(0x80,0x63,0x7F);/*loop out button led off*/}
+} else { midi.sendShortMsg(0x80,0x63,0x7F);/*loop out button led off*/ }
 
-if(looping){
+if (looping) {
 midi.sendShortMsg(0x90,0x62,0x7F);// loop in button led on
 midi.sendShortMsg(0x90,0x63,0x7F);// loop out button led on
 midi.sendShortMsg(0x90,0x64,0x7F);// reloop/exit button led on
-}
-else{midi.sendShortMsg(0x80,0x64,0x7F);/* reloop/exit button led off*/}
+} else { midi.sendShortMsg(0x80,0x64,0x7F);/* reloop/exit button led off*/ }
 
-if(looping==0 && startposition != -1 && endposition != -1)
-{
+if (looping==0 && startposition != -1 && endposition != -1) {
 midi.sendShortMsg(0x80,0x64,0x7F);// reloop/exit button led off
 }
 
-}
+};
 
-engine.beginTimer(150, "VestaxVCI1003DEX.loopLeds()",false)
+engine.beginTimer(150, "VestaxVCI1003DEX.loopLeds()",false);
 //timer for loop leds end
 
 
 //sync led trigger start
-VestaxVCI1003DEX.leftSyncLed = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.leftSyncLed = function(channel, control, value, status, group) {
 var activebeat=engine.getValue("[Channel1]","beat_active");
-if (activebeat)
-{midi.sendShortMsg(0x90,0x46,0x7F);}// left sync button led on
-else {midi.sendShortMsg(0x80,0x46,0x7F);}// left sync button led of
-}
+if (activebeat) { midi.sendShortMsg(0x90,0x46,0x7F); }// left sync button led on
+else { midi.sendShortMsg(0x80,0x46,0x7F); }// left sync button led of
+};
 
-VestaxVCI1003DEX.rightSyncLed = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.rightSyncLed = function(channel, control, value, status, group) {
 var activebeat=engine.getValue("[Channel2]","beat_active");
-if (activebeat)
-{midi.sendShortMsg(0x90,0x47,0x7F);}// left sync button led on
-else {midi.sendShortMsg(0x80,0x47,0x7F);}// left sync button led of
-}
+if (activebeat) { midi.sendShortMsg(0x90,0x47,0x7F); }// left sync button led on
+else { midi.sendShortMsg(0x80,0x47,0x7F); }// left sync button led of
+};
 
 engine.connectControl("[Channel1]","beat_active","VestaxVCI1003DEX.leftSyncLed");
 engine.connectControl("[Channel2]","beat_active","VestaxVCI1003DEX.rightSyncLed");
@@ -67,74 +61,74 @@ engine.connectControl("[Channel2]","beat_active","VestaxVCI1003DEX.rightSyncLed"
 //Mapping functions
 
 
-VestaxVCI1003DEX.selectDeck1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.selectDeck1 = function(channel, control, value, status, group) {
 active_deck="[Channel1]";
 active_deck_number=1;
 midi.sendShortMsg(0x90,0x67,0x7F);// deck- button led on
 midi.sendShortMsg(0x80,0x68,0x7F);// deck+ button led off
-}
+};
 
-VestaxVCI1003DEX.selectDeck2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.selectDeck2 = function(channel, control, value, status, group) {
 active_deck="[Channel2]";
 active_deck_number=2;
 midi.sendShortMsg(0x80,0x67,0x7F);// deck- button led off
 midi.sendShortMsg(0x90,0x68,0x7F);// deck+ button led on
-}
+};
 
 
 // loop options start
-VestaxVCI1003DEX.loopin = function (channel, control, value, status, group) {if(value==0x7F)   {engine.setValue(active_deck,"loop_in",1);}}
+VestaxVCI1003DEX.loopin = function(channel, control, value, status, group) { if (value==0x7F)   { engine.setValue(active_deck,"loop_in",1); } };
 
-VestaxVCI1003DEX.loopout = function (channel, control, value, status, group) {if(value==0x7F)   {engine.setValue(active_deck,"loop_out",1);}}
+VestaxVCI1003DEX.loopout = function(channel, control, value, status, group) { if (value==0x7F)   { engine.setValue(active_deck,"loop_out",1); } };
 
-VestaxVCI1003DEX.reloop_exit = function (channel, control, value, status, group) {if(value==0x7F)   {engine.setValue(active_deck,"reloop_exit",1);}}
+VestaxVCI1003DEX.reloop_exit = function(channel, control, value, status, group) { if (value==0x7F)   { engine.setValue(active_deck,"reloop_exit",1); } };
 
-VestaxVCI1003DEX.loopMinus = function (channel, control, value, status, group) {if (value == 0x7F){engine.setValue(active_deck,"loop_halve",1);}}
-VestaxVCI1003DEX.loopPlus = function (channel, control, value, status, group) {if (value == 0x7F){engine.setValue(active_deck,"loop_double",1);}}
+VestaxVCI1003DEX.loopMinus = function(channel, control, value, status, group) { if (value == 0x7F) { engine.setValue(active_deck,"loop_halve",1); } };
+VestaxVCI1003DEX.loopPlus = function(channel, control, value, status, group) { if (value == 0x7F) { engine.setValue(active_deck,"loop_double",1); } };
 
 // loop options end
 
 // deck specific buttons start
 
-VestaxVCI1003DEX.jog_touch1 = function (channel, control, value, status, group) {
-if(value=0x7F){engine.scratchEnable("[Channel1]", 128*3, 45, 1.0/8, (1.0/8)/32);}
-if(value==0)  {engine.scratchDisable("[Channel1]");}
-}
+VestaxVCI1003DEX.jog_touch1 = function(channel, control, value, status, group) {
+if (value=0x7F) { engine.scratchEnable("[Channel1]", 128*3, 45, 1.0/8, (1.0/8)/32); }
+if (value==0)  { engine.scratchDisable("[Channel1]"); }
+};
 
-VestaxVCI1003DEX.jog_touch2 = function (channel, control, value, status, group) {
-if(value=0x7F){engine.scratchEnable("[Channel1]", 128*3, 45, 1.0/8, (1.0/8)/32);}
-if(value==0)  {engine.scratchDisable("[Channel1]");}
-}
+VestaxVCI1003DEX.jog_touch2 = function(channel, control, value, status, group) {
+if (value=0x7F) { engine.scratchEnable("[Channel1]", 128*3, 45, 1.0/8, (1.0/8)/32); }
+if (value==0)  { engine.scratchDisable("[Channel1]"); }
+};
 
-VestaxVCI1003DEX.jog_wheel1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.jog_wheel1 = function(channel, control, value, status, group) {
    // 41 > 7F: CW Slow > Fast ???
    // 3F > 0 : CCW Slow > Fast ???
    var jogValue = value - 0x40; // -64 to +63, - = CCW, + = CW
    engine.setValue("[Channel1]","jog", jogValue/16);
-}
+};
 
-VestaxVCI1003DEX.jog_wheel2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.jog_wheel2 = function(channel, control, value, status, group) {
    // 41 > 7F: CW Slow > Fast ???
    // 3F > 0 : CCW Slow > Fast ???
    var jogValue = value - 0x40; // -64 to +63, - = CCW, + = CW
    engine.setValue("[Channel2]","jog", jogValue/16);
-}
+};
 
-VestaxVCI1003DEX.jog_wheel_seek1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.jog_wheel_seek1 = function(channel, control, value, status, group) {
    // 41 > 7F: CW Slow > Fast ???
    // 3F > 0 : CCW Slow > Fast ???
    var jogValue = value - 0x40; // -64 to +63, - = CCW, + = CW
    engine.setValue("[Channel1]","jog", jogValue);
-}
+};
 
-VestaxVCI1003DEX.jog_wheel_seek2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.jog_wheel_seek2 = function(channel, control, value, status, group) {
    // 41 > 7F: CW Slow > Fast ???
    // 3F > 0 : CCW Slow > Fast ???
    var jogValue = value - 0x40; // -64 to +63, - = CCW, + = CW
    engine.setValue("[Channel2]","jog", jogValue);
-}
+};
 
-VestaxVCI1003DEX.play1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.play1 = function(channel, control, value, status, group) {
 
     var currentlyPlaying = engine.getValue("[Channel1]","play");
     if (currentlyPlaying == 1 && value == 0x7F) {    // If currently playing
@@ -151,9 +145,9 @@ VestaxVCI1003DEX.play1 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x80,0x32,0x7F);    // Turn off the Play LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.play2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.play2 = function(channel, control, value, status, group) {
 
     var currentlyPlaying = engine.getValue("[Channel2]","play");
     if (currentlyPlaying == 1 && value == 0x7F) {    // If currently playing
@@ -170,9 +164,9 @@ VestaxVCI1003DEX.play2 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x80,0x36,0x7F);    // Turn off the Play LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.pfl1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.pfl1 = function(channel, control, value, status, group) {
 
 
     var currentlyPfling = engine.getValue("[Channel1]","pfl");
@@ -185,9 +179,9 @@ VestaxVCI1003DEX.pfl1 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x90,0x48,0x7F);    // Turn on the Pfl LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.pfl2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.pfl2 = function(channel, control, value, status, group) {
 
     var currentlyPfling = engine.getValue("[Channel2]","pfl");
     if (currentlyPfling == 1 && value == 0x7F) {    // If currently Pfling
@@ -199,9 +193,9 @@ VestaxVCI1003DEX.pfl2 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x90,0x49,0x7F);    // Turn on the Pfl LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.flanger1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.flanger1 = function(channel, control, value, status, group) {
 
     var currentlyFlanging = engine.getValue("[Channel1]","flanger");
     if (currentlyFlanging == 1 && value == 0x7F) {    // If currently Flanging
@@ -213,8 +207,8 @@ VestaxVCI1003DEX.flanger1 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x90,0x4A,0x7F);    // Turn on the flanger LED
     }
 
-}
-VestaxVCI1003DEX.flanger2 = function (channel, control, value, status, group) {
+};
+VestaxVCI1003DEX.flanger2 = function(channel, control, value, status, group) {
 
     var currentlyFlanging = engine.getValue("[Channel2]","flanger");
     if (currentlyFlanging == 1 && value == 0x7F) {    // If currently Flanging
@@ -226,95 +220,95 @@ VestaxVCI1003DEX.flanger2 = function (channel, control, value, status, group) {
         midi.sendShortMsg(0x90,0x4B,0x7F);    // Turn on the flanger LED
     }
 
-}
+};
 
 
-VestaxVCI1003DEX.autoloop1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.autoloop1 = function(channel, control, value, status, group) {
 
-if (value == 0x7F){
+if (value == 0x7F) {
 	engine.setValue("[Channel1]","beatloop_4_toggle",1);
 	midi.sendShortMsg(0x90,0x35,0x7F);// right autoloop button led on does not work wtf
 }
 
-}
+};
 
-VestaxVCI1003DEX.autoloop2 = function (channel, control, value, status, group) {
-if (value == 0x7F){
+VestaxVCI1003DEX.autoloop2 = function(channel, control, value, status, group) {
+if (value == 0x7F) {
 	engine.setValue("[Channel2]","beatloop_4_toggle",1);
 	midi.sendShortMsg(0x90,0x39,0x7F);// right autoloop button led on does not work wtf
 }
 
-}
+};
 
-VestaxVCI1003DEX.keylock1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.keylock1 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
 			var keylocked = engine.getValue("[Channel1]","keylock");
-			if(keylocked == 0) 	{
+			if (keylocked == 0) 	{
 						engine.setValue("[Channel1]","keylock",1);
 						midi.sendShortMsg(0x90,0x42,0x7F);// left pitchmode button led on
 						}
-			if(keylocked == 1) 	{
+			if (keylocked == 1) 	{
 						engine.setValue("[Channel1]","keylock",0);
 						midi.sendShortMsg(0x80,0x42,0x7F);// left pitchmode button led off
 						}
 			}
 
-}
+};
 
-VestaxVCI1003DEX.keylock2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.keylock2 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
 			var keylocked = engine.getValue("[Channel2]","keylock");
-			if(keylocked == 0) 	{
+			if (keylocked == 0) 	{
 						engine.setValue("[Channel2]","keylock",1);
 						midi.sendShortMsg(0x90,0x43,0x7F);// left pitchmode button led on
 						}
-			if(keylocked == 1) 	{
+			if (keylocked == 1) 	{
 						engine.setValue("[Channel2]","keylock",0);
 						midi.sendShortMsg(0x80,0x43,0x7F);// left pitchmode button led off
 						}
 			}
 
-}
+};
 
-VestaxVCI1003DEX.reverse1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.reverse1 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
 			var reversed = engine.getValue("[Channel1]","reverse");
-			if(reversed == 0) 	{
+			if (reversed == 0) 	{
 						engine.setValue("[Channel1]","reverse",1);
 						midi.sendShortMsg(0x90,0x44,0x7F);// left reverse button led on
 						}
-			if(reversed == 1) 	{
+			if (reversed == 1) 	{
 						engine.setValue("[Channel1]","reverse",0);
 						midi.sendShortMsg(0x80,0x44,0x7F);// left reverse button led off
 						}
 			}
 
-}
+};
 
-VestaxVCI1003DEX.reverse2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.reverse2 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
 			var reversed = engine.getValue("[Channel2]","reverse");
-			if(reversed == 0) 	{
+			if (reversed == 0) 	{
 						engine.setValue("[Channel2]","reverse",1);
 						midi.sendShortMsg(0x90,0x45,0x7F);// left reverse button led on
 						}
-			if(reversed == 1) 	{
+			if (reversed == 1) 	{
 						engine.setValue("[Channel2]","reverse",0);
 						midi.sendShortMsg(0x80,0x45,0x7F);// left reverse button led off
 						}
 			}
 
-}
+};
 
-VestaxVCI1003DEX.cue1 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.cue1 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
@@ -324,18 +318,17 @@ if (value == 0x7F)      {
 			var cue3 = engine.getValue("[Channel1]","hotcue_3_enabled");
 			var cue4 = engine.getValue("[Channel1]","hotcue_4_enabled");
 
-			if(localCurrentCue==1 && cue1==1) 	{engine.setValue("[Channel1]","hotcue_1_goto",1);}
-			if(localCurrentCue==2 && cue2==1) 	{engine.setValue("[Channel1]","hotcue_2_goto",1);}
-			if(localCurrentCue==3 && cue3==1) 	{engine.setValue("[Channel1]","hotcue_3_goto",1);}
-			if(localCurrentCue==4 && cue4==1) 	{engine.setValue("[Channel1]","hotcue_4_goto",1);}
+			if (localCurrentCue==1 && cue1==1) 	{ engine.setValue("[Channel1]","hotcue_1_goto",1); }
+			if (localCurrentCue==2 && cue2==1) 	{ engine.setValue("[Channel1]","hotcue_2_goto",1); }
+			if (localCurrentCue==3 && cue3==1) 	{ engine.setValue("[Channel1]","hotcue_3_goto",1); }
+			if (localCurrentCue==4 && cue4==1) 	{ engine.setValue("[Channel1]","hotcue_4_goto",1); }
 
-			if (localCurrentCue+1 <= 4){currentCue1+=1;}
-			else {currentCue1=1;}
+			if (localCurrentCue+1 <= 4) { currentCue1+=1; } else { currentCue1=1; }
 			}
 
-}
+};
 
-VestaxVCI1003DEX.cue2 = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.cue2 = function(channel, control, value, status, group) {
 
 
 if (value == 0x7F)      {
@@ -345,21 +338,20 @@ if (value == 0x7F)      {
 			var cue3 = engine.getValue("[Channel2]","hotcue_3_enabled");
 			var cue4 = engine.getValue("[Channel2]","hotcue_4_enabled");
 
-			if(localCurrentCue==1 && cue1==1) 	{engine.setValue("[Channel2]","hotcue_1_goto",1);}
-			if(localCurrentCue==2 && cue2==1) 	{engine.setValue("[Channel2]","hotcue_2_goto",1);}
-			if(localCurrentCue==3 && cue3==1) 	{engine.setValue("[Channel2]","hotcue_3_goto",1);}
-			if(localCurrentCue==4 && cue4==1) 	{engine.setValue("[Channel2]","hotcue_4_goto",1);}
+			if (localCurrentCue==1 && cue1==1) 	{ engine.setValue("[Channel2]","hotcue_1_goto",1); }
+			if (localCurrentCue==2 && cue2==1) 	{ engine.setValue("[Channel2]","hotcue_2_goto",1); }
+			if (localCurrentCue==3 && cue3==1) 	{ engine.setValue("[Channel2]","hotcue_3_goto",1); }
+			if (localCurrentCue==4 && cue4==1) 	{ engine.setValue("[Channel2]","hotcue_4_goto",1); }
 
-			if (localCurrentCue+1 <= 4){currentCue2+=1;}
-			else {currentCue2=1;}
+			if (localCurrentCue+1 <= 4) { currentCue2+=1; } else { currentCue2=1; }
 			}
 
 
-}
+};
 
 //sampler play buttons start
 
-VestaxVCI1003DEX.sampler1play = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.sampler1play = function(channel, control, value, status, group) {
 
     var currentlyPlaying = engine.getValue("[Sampler1]","play");
     if (currentlyPlaying == 1 && value == 0x7F) {    // If currently playing
@@ -376,9 +368,9 @@ VestaxVCI1003DEX.sampler1play = function (channel, control, value, status, group
         midi.sendShortMsg(0x80,0x54,0x7F);    // Turn off the Play LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.sampler2play = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.sampler2play = function(channel, control, value, status, group) {
 
     var currentlyPlaying = engine.getValue("[Sampler2]","play");
     if (currentlyPlaying == 1 && value == 0x7F) {    // If currently playing
@@ -395,9 +387,9 @@ VestaxVCI1003DEX.sampler2play = function (channel, control, value, status, group
         midi.sendShortMsg(0x80,0x57,0x7F);    // Turn off the Play LED
     }
 
-}
+};
 
-VestaxVCI1003DEX.sampler3play = function (channel, control, value, status, group) {
+VestaxVCI1003DEX.sampler3play = function(channel, control, value, status, group) {
 
     var currentlyPlaying = engine.getValue("[Sampler3]","play");
     if (currentlyPlaying == 1 && value == 0x7F) {    // If currently playing
@@ -415,25 +407,25 @@ VestaxVCI1003DEX.sampler3play = function (channel, control, value, status, group
     }
 
 
-}
+};
 
 //sampler play buttons end
 
 //middle position of the knobs to an extra midi signal.
-VestaxVCI1003DEX.pregainreset1 = function (channel, control, value, status, group) {engine.setValue("[Channel1]","pregain",1.0);}
-VestaxVCI1003DEX.filterHighreset1 = function (channel, control, value, status, group) {engine.setValue("[Channel1]","filterHigh",1.0);}
-VestaxVCI1003DEX.filterMidreset1 = function (channel, control, value, status, group) {engine.setValue("[Channel1]","filterMid",1.0);}
-VestaxVCI1003DEX.filterLowreset1 = function (channel, control, value, status, group) {engine.setValue("[Channel1]","filterLow",1.0);}
-VestaxVCI1003DEX.pregainreset2 = function (channel, control, value, status, group) {engine.setValue("[Channel2]","pregain",1.0);}
-VestaxVCI1003DEX.filterHighreset2 = function (channel, control, value, status, group) {engine.setValue("[Channel2]","filterHigh",1.0);}
-VestaxVCI1003DEX.filterMidreset2 = function (channel, control, value, status, group) {engine.setValue("[Channel2]","filterMid",1.0);}
-VestaxVCI1003DEX.filterLowreset2 = function (channel, control, value, status, group) {engine.setValue("[Channel2]","filterLow",1.0);}
+VestaxVCI1003DEX.pregainreset1 = function(channel, control, value, status, group) { engine.setValue("[Channel1]","pregain",1.0); };
+VestaxVCI1003DEX.filterHighreset1 = function(channel, control, value, status, group) { engine.setValue("[Channel1]","filterHigh",1.0); };
+VestaxVCI1003DEX.filterMidreset1 = function(channel, control, value, status, group) { engine.setValue("[Channel1]","filterMid",1.0); };
+VestaxVCI1003DEX.filterLowreset1 = function(channel, control, value, status, group) { engine.setValue("[Channel1]","filterLow",1.0); };
+VestaxVCI1003DEX.pregainreset2 = function(channel, control, value, status, group) { engine.setValue("[Channel2]","pregain",1.0); };
+VestaxVCI1003DEX.filterHighreset2 = function(channel, control, value, status, group) { engine.setValue("[Channel2]","filterHigh",1.0); };
+VestaxVCI1003DEX.filterMidreset2 = function(channel, control, value, status, group) { engine.setValue("[Channel2]","filterMid",1.0); };
+VestaxVCI1003DEX.filterLowreset2 = function(channel, control, value, status, group) { engine.setValue("[Channel2]","filterLow",1.0); };
 
 // deck specific buttons end
 
-VestaxVCI1003DEX.init = function (id) {
+VestaxVCI1003DEX.init = function(id) {
 active_deck="[Channel1]";
-active_deck_number=1
+active_deck_number=1;
 midi.sendShortMsg(0x90,0x67,0x7F);// deck- button led on
 midi.sendShortMsg(0x80,0x68,0x7F);// deck+ button led off
 
@@ -602,4 +594,4 @@ midi.sendShortMsg(0x90,0x46,0x7F);// left sync button led on
 midi.sendShortMsg(0x80,0x47,0x7F);// right sync button led off
 midi.sendShortMsg(0x90,0x47,0x7F);// right sync button led on
 */
-}
+};

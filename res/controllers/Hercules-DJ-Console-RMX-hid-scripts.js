@@ -161,27 +161,27 @@ RMX.init = function() {
     engine.setValue(g, e, (v-128)/128);
   });
 
-  var print_unhandled_button = function(g,e,v) { print("Unhandled button");};
+  var print_unhandled_button = function(g,e,v) { print("Unhandled button"); };
 
   c.capture("keypad1","all", function(g, e, v) {
-    engine.setValue(g,"hotcue_1_activate",v)
-  } );
+    engine.setValue(g,"hotcue_1_activate",v);
+  });
   c.capture("keypad2","all", function(g, e, v) {
-    engine.setValue(g,"hotcue_2_activate",v)
-  } );
+    engine.setValue(g,"hotcue_2_activate",v);
+  });
   c.capture("keypad3","all", function(g, e, v) {
-    engine.setValue(g,"hotcue_3_activate",v)
-  } );
+    engine.setValue(g,"hotcue_3_activate",v);
+  });
   c.capture("keypad4","all", function(g, e, v) {
-    engine.setValue(g,"hotcue_4_activate",v)
-  } );
+    engine.setValue(g,"hotcue_4_activate",v);
+  });
 
   c.capture("keypad5","all", function(g, e, v) {
-    engine.setValue(g,"loop_in",v)
-  } );
+    engine.setValue(g,"loop_in",v);
+  });
   c.capture("keypad6","all", function(g, e, v) {
-    engine.setValue(g,"loop_out",v)
-  } );
+    engine.setValue(g,"loop_out",v);
+  });
 
   var filterKill = function(g, e, v) {
     engine.setValue(g, e, !engine.getValue(g, e));
@@ -202,19 +202,23 @@ RMX.init = function() {
   c.feedback("[Channel2]", "beatsync",    pipe);
 
   c.feedback("[Channel1]", "keylock",
-    function(g, e, v) { c.send(g, "beatlock", v);
+    function(g, e, v) {
+ c.send(g, "beatlock", v);
   });
 
   c.feedback("[Channel2]", "keylock",
-    function(g, e, v) { c.send(g, "beatlock", v);
+    function(g, e, v) {
+ c.send(g, "beatlock", v);
   });
 
   c.feedback("[Channel1]", "pfl",
-    function(g, e, v) { c.send(g, "headphone_cue", v);
+    function(g, e, v) {
+ c.send(g, "headphone_cue", v);
   });
 
   c.feedback("[Channel2]", "pfl",
-    function(g, e, v) { c.send(g, "headphone_cue", v);
+    function(g, e, v) {
+ c.send(g, "headphone_cue", v);
   });
 
 };
@@ -231,8 +235,7 @@ RMX.scroll_tracks = function(g, e, v) {
       var callback = 'RMX.scroll_tracks("[Playlist]","' + e + '",' + v + ')';
       RMX.scroll_timer = engine.beginTimer(150, callback);
     }
-  }
-  else {
+  } else {
     if (RMX.scroll_timer) {
       engine.stopTimer(RMX.scroll_timer);
       RMX.scroll_timer = null;
@@ -270,7 +273,7 @@ RMX.jog = function(g, e, v, ctrl) {
       RMX.scratching[g] = true;
       var ScratchRPM;
 
-      if(engine.getValue(g,"play")) {
+      if (engine.getValue(g,"play")) {
         ScratchRPM = 45;
       } else {
         ScratchRPM = 80;
@@ -401,7 +404,7 @@ RMX.define_hid_format = function() {
   // define led feedback
 
   pid = 0x00;
-  c.cache_out[pid] = [ pid, 0x0, 0x0, 0x0 ];
+  c.cache_out[pid] = [pid, 0x0, 0x0, 0x0];
 
   c.add_control(pid, "scratch",       "[Master]",   "led", 1, 0x01); // blinking: 3, 0x2
   c.add_control(pid, "play",          "[Channel1]", "led", 1, 0x02); // blinking: 3, 0x2
@@ -431,8 +434,7 @@ RMX.add_control = function(packetid, name, group, type, offset, mask) {
   if (type == "led") {
     RMX.leds[group + name] =
       new RMX.control(packetid, name, group, type, offset, mask);
-  }
-  else {
+  } else {
     if (RMX.controls[offset] === undefined) {
       RMX.controls[offset] = [];
     }
@@ -446,10 +448,9 @@ RMX.add_control = function(packetid, name, group, type, offset, mask) {
 
 RMX.capture = function(name, values, func) {
   if (RMX.callbacks[name] === undefined) {
-    RMX.callbacks[name] = [ [ values, func ] ];
-  }
-  else {
-    RMX.callbacks[name].push([ values, func ]);
+    RMX.callbacks[name] = [[values, func]];
+  } else {
+    RMX.callbacks[name].push([values, func]);
   }
 };
 
@@ -488,7 +489,7 @@ RMX.send = function(g, e, v) {
 RMX.feedbackData = function(v, g, e) {
   if (RMX.feedbacks[g + e] !== undefined) {
     for (var func in RMX.feedbacks[g + e]) {
-      if (typeof(RMX.feedbacks[g + e][func]) == "function") {
+      if (typeof(RMX.feedbacks[g + e][func]) === "function") {
         RMX.feedbacks[g + e][func](g, e, v);
       }
     }
@@ -514,15 +515,13 @@ RMX.control = function(packetid, name, group, type, offset, mask) {
     value = (value & this.mask) >> this.bitshift;
     if (this.value == value) {
       return false;
-    }
-    else {
+    } else {
       // map to a relative value if it's an encoder, usually +1 or -1
       if (this.type == 'encoder') {
         this.relative = value - this.value;
         if (this.relative > 100) {
           this.relative -= this.maxval;
-        }
-        else if (this.relative < -100) {
+        } else if (this.relative < -100) {
           this.relative += this.maxval;
         }
       }
@@ -539,7 +538,7 @@ RMX.control = function(packetid, name, group, type, offset, mask) {
 // process incoming data and call any callbacks if their bound controls have
 // changed
 
-RMX.incomingData = function (data, length) {
+RMX.incomingData = function(data, length) {
 
   var c = RMX;
   var packetid = data[0];
@@ -556,9 +555,9 @@ RMX.incomingData = function (data, length) {
 
       for (var key in c.controls[i]) {
         var control = c.controls[i][key];
-        if (typeof(control) == 'object' &&
+        if (typeof(control) === 'object' &&
             control.packetid == data[0] &&
-            control.changed(data[i]) ) {
+            control.changed(data[i])) {
 
           // we found a hid control that has changed value within that byte,
           // check for callbacks
@@ -569,7 +568,7 @@ RMX.incomingData = function (data, length) {
 
               var cb = callbacks[j][1];
 
-              if (typeof(cb) == 'function') {
+              if (typeof(cb) === 'function') {
 
                 // check we need to call for this value change:
                 // all, press, release
@@ -577,7 +576,7 @@ RMX.incomingData = function (data, length) {
                 var all     = v == "all";
                 var press   = v == "press"   && control.value  >  0;
                 var release = v == "release" && control.value === 0;
-                if ( all || press || release ) {
+                if (all || press || release) {
                   // call a callback function for this control
                   cb(control.group, control.name, control.value, control);
                 }

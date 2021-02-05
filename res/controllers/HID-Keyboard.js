@@ -13,11 +13,11 @@ HIDKeyboard.init = function(id) {
     HIDKeyboard.registerScalers();
     HIDKeyboard.registerCallbacks();
     HIDDebug("HID Keyboard Initialized: " + HIDKeyboard.id);
-}
+};
 
 HIDKeyboard.shutdown = function() {
     HIDDebug("HID Keyboard Shutdown: " + HIDKeyboard.id);
-}
+};
 
 HIDKeyboard.incomingData = function(data,length) {
     var controller = HIDKeyboard.controller;
@@ -26,5 +26,5 @@ HIDKeyboard.incomingData = function(data,length) {
         return;
     }
     controller.parsePacket(data,length);
-}
+};
 

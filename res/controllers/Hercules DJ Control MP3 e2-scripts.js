@@ -119,13 +119,13 @@ HerculesMP3e2.connectControl = function(deck, remove) {
     if (debug) {
         print("*** " + (remove === true) ? "Disable" : "Enable" + " soft takeover for [EqualizerRack1_[Channel" + deck + "]_Effect1].parameter[1-3]");
     }
-    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter1", (remove === true) ? false : true);
-    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter2", (remove === true) ? false : true);
-    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter3", (remove === true) ? false : true);
+    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter1", remove !== true);
+    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter2", remove !== true);
+    engine.softTakeover("[EqualizerRack1_[Channel" + deck + "]_Effect1]", "parameter3", remove !== true);
     if (debug) {
         print("*** " + (remove === true) ? "Disable" : "Enable" + " soft takeover for [Channel" + deck + "].volume");
     }
-    engine.softTakeover("[Channel" + deck + "]", "volume", (remove === true) ? false : true);
+    engine.softTakeover("[Channel" + deck + "]", "volume", remove !== true);
 };
 
 // This function prints its argument values for debug purposes
@@ -649,29 +649,25 @@ HerculesMP3e2.wheelOnOff = function() {
     // Wheel Deck A / Channel 1
     if (wheelMove[0]) {
         engine.scratchEnable(1, 128, standardRpm, alpha, beta);
-    }
-    else engine.scratchDisable(1);
+    } else engine.scratchDisable(1);
     wheelMove[0] = 0;
 
     //Wheel Deck B / Channel 2
     if (wheelMove[1]) {
         engine.scratchEnable(2, 128, standardRpm, alpha, beta);
-    }
-    else engine.scratchDisable(2);
+    } else engine.scratchDisable(2);
     wheelMove[1] = 0;
 
     // Wheel Deck A / Channel 3
     if (wheelMove[2]) {
         engine.scratchEnable(3, 128, standardRpm, alpha, beta);
-    }
-    else engine.scratchDisable(3);
+    } else engine.scratchDisable(3);
     wheelMove[2] = 0;
 
     //Wheel Deck B / Channel 4
     if (wheelMove[3]) {
         engine.scratchEnable(4, 128, standardRpm, alpha, beta);
-    }
-    else engine.scratchDisable(4);
+    } else engine.scratchDisable(4);
     wheelMove[3] = 0;
 };
 
@@ -874,7 +870,7 @@ HerculesMP3e2.wind = function(midino, control, value, status, group) {
             if (debug) {
                 print("**** BRAKE deck " + (control == 0x0D ? deckA.toString() : deckB.toString()) + " : " + (value ? "true" : "false"));
             }
-            engine.brake(control == 0x0D ? deckA : deckB, value ? true : false);
+            engine.brake(control == 0x0D ? deckA : deckB, !!value);
         } else if (superButtonHold == 1) {
             if (value) {
                 newValue = HerculesMP3e2.knobIncrement(deck, "pregain", 0, 4, 1, 20, 1);
@@ -888,7 +884,7 @@ HerculesMP3e2.wind = function(midino, control, value, status, group) {
             if (debug) {
                 print("**** SPINBACK deck " + (control == 0x0C ? deckA.toString() : deckB.toString()) + " : " + (value ? "true" : "false"));
             }
-            engine.spinback(control == 0x0C ? deckA : deckB, value ? true : false);
+            engine.spinback(control == 0x0C ? deckA : deckB, !!value);
         } else if (superButtonHold == 1) {
             if (value) {
                 newValue = HerculesMP3e2.knobIncrement(deck, "pregain", 0, 4, 1, 20, -1);

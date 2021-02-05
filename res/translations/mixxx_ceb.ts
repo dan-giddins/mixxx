@@ -723,7 +723,7 @@
             </translation>
         </message>
         <message>
-            <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks, 
+            <source>When beat detection is enabled, Mixxx detects the beats per minute and beats of your tracks,
 automatically shows a beat-grid for them, and allows you to synchronize tracks using their beat information.</source>
             <translation type="unfinished">
             </translation>
@@ -754,21 +754,21 @@ automatically shows a beat-grid for them, and allows you to synchronize tracks u
             </translation>
         </message>
         <message>
-            <source>Enable fast beat detection. 
-If activated Mixxx only analyzes the first minute of a track for beat information. 
+            <source>Enable fast beat detection.
+If activated Mixxx only analyzes the first minute of a track for beat information.
 This can speed up beat detection on slower computers but may result in lower quality beatgrids.</source>
             <translation type="unfinished">
             </translation>
         </message>
         <message>
-            <source>Converts beats detected by the analyser into a fixed-tempo beatgrid. 
-Use this setting if your tracks have a constant tempo (e.g. most electronic music). 
+            <source>Converts beats detected by the analyser into a fixed-tempo beatgrid.
+Use this setting if your tracks have a constant tempo (e.g. most electronic music).
 Often results in higher quality beatgrids, but will not do well on tracks that have tempo shifts.</source>
             <translation type="unfinished">
             </translation>
         </message>
         <message>
-            <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids 
+            <source>Attempts to correct the phase (first beat) of fixed-tempo beatgrids
 by analyzing the beats to discard outliers.</source>
             <translation type="unfinished">
             </translation>

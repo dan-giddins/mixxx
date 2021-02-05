@@ -71,8 +71,8 @@ var MidiFighterTwister = {
         }
 
         // Initialize BPM LED
-        midi.sendShortMsg(cc, 0x00, 64)
-        midi.sendShortMsg(cc, 0x03, 64)
+        midi.sendShortMsg(cc, 0x00, 64);
+        midi.sendShortMsg(cc, 0x03, 64);
     },
     shutdown: function() {
         for (var i = 0; i < MidiFighterTwister.connections.length; i++) {
@@ -82,4 +82,4 @@ var MidiFighterTwister = {
     resetSuperKnob: function(channel, control, value, status, group) {
         engine.setValue(group, "super1", 0.5);
     },
-}
+};

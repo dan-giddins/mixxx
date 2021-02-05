@@ -1,4 +1,4 @@
-function HerculesMk2 () {}
+function HerculesMk2() {}
 
 HerculesMk2.ledOn = 0x7F;
 HerculesMk2.ledOff = 0x00;
@@ -16,58 +16,58 @@ HerculesMk2.buttons123used = {"[Channel1]": false, "[Channel1]": false};
 // should directed to each group without thinking about specific controls
 // to allow for easy rebinding.
 
-HerculesMk2.cueLastDate1 = {"[Channel1]": 0, "[Channel2]" : 0};
-HerculesMk2.cueLastDate2 = {"[Channel1]": 0, "[Channel2]" : 0};
-HerculesMk2.cueLastDate3 = {"[Channel1]": 0, "[Channel2]" : 0};
+HerculesMk2.cueLastDate1 = {"[Channel1]": 0, "[Channel2]": 0};
+HerculesMk2.cueLastDate2 = {"[Channel1]": 0, "[Channel2]": 0};
+HerculesMk2.cueLastDate3 = {"[Channel1]": 0, "[Channel2]": 0};
 HerculesMk2.cueLongTime = 500;
 
 HerculesMk2.controls = {
     "inputs": {
-    0x09: { "channel": 1, "name": "cue", "type": "button" },
-    0x03: { "channel": 2, "name": "cue", "type": "button" },
-    0x08: { "channel": 1, "name": "play", "type": "button" },
-    0x02: { "channel": 2, "name": "play", "type": "button" },
-    0x07: { "channel": 1, "name": "fx select", "type": "button",
-        "mode": 0 },
-    0x01: { "channel": 2, "name": "fx select", "type": "button",
-        "mode": 0 },
-    0x0F: { "channel": 1, "name": "fx 1", "type": "button", "used": false },
-    0x10: { "channel": 2, "name": "fx 1", "type": "button", "used": false },
-    0x0E: { "channel": 1, "name": "fx 2", "type": "button", "used": false },
-    0x11: { "channel": 2, "name": "fx 2", "type": "button", "used": false },
-    0x0D: { "channel": 1, "name": "fx 3", "type": "button", "used": false },
-    0x12: { "channel": 2, "name": "fx 3", "type": "button", "used": false },
-    0x1B: { "channel": 1, "name": "mouse", "type": "button" },
-    0x1C: { "channel": 2, "name": "mouse", "type": "button" },
-    0x34: { "channel": 1, "name": "pitch", "type": "pot" },
-    0x35: { "channel": 2, "name": "pitch", "type": "pot" },
-    0x36: { "channel": 1, "name": "wheel", "type": "pot" },
-    0x37: { "channel": 2, "name": "wheel", "type": "pot" }
+    0x09: {"channel": 1, "name": "cue", "type": "button"},
+    0x03: {"channel": 2, "name": "cue", "type": "button"},
+    0x08: {"channel": 1, "name": "play", "type": "button"},
+    0x02: {"channel": 2, "name": "play", "type": "button"},
+    0x07: {"channel": 1, "name": "fx select", "type": "button",
+        "mode": 0},
+    0x01: {"channel": 2, "name": "fx select", "type": "button",
+        "mode": 0},
+    0x0F: {"channel": 1, "name": "fx 1", "type": "button", "used": false},
+    0x10: {"channel": 2, "name": "fx 1", "type": "button", "used": false},
+    0x0E: {"channel": 1, "name": "fx 2", "type": "button", "used": false},
+    0x11: {"channel": 2, "name": "fx 2", "type": "button", "used": false},
+    0x0D: {"channel": 1, "name": "fx 3", "type": "button", "used": false},
+    0x12: {"channel": 2, "name": "fx 3", "type": "button", "used": false},
+    0x1B: {"channel": 1, "name": "mouse", "type": "button"},
+    0x1C: {"channel": 2, "name": "mouse", "type": "button"},
+    0x34: {"channel": 1, "name": "pitch", "type": "pot"},
+    0x35: {"channel": 2, "name": "pitch", "type": "pot"},
+    0x36: {"channel": 1, "name": "wheel", "type": "pot"},
+    0x37: {"channel": 2, "name": "wheel", "type": "pot"}
     },
     "outputs": {
-    0x0F: { "channel": 1, "name": "fx mode", "type": "led" },
-    0x10: { "channel": 2, "name": "fx mode", "type": "led" },
-    0x0E: { "channel": 1, "name": "cue mode", "type": "led" },
-    0x11: { "channel": 2, "name": "cue mode", "type": "led" },
-    0x0D: { "channel": 1, "name": "loop mode", "type": "led" },
-    0x12: { "channel": 2, "name": "loop mode", "type": "led" },
-    0x16: { "channel": 1, "name": "master tempo", "type": "led" },
-    0x1A: { "channel": 2, "name": "master tempo", "type": "led" },
-    0x0A: { "channel": 1, "name": "auto beat", "type": "led" },
-    0x04: { "channel": 2, "name": "auto beat", "type": "led" },
-    0x09: { "channel": 1, "name": "cue", "type": "led" },
-    0x03: { "channel": 2, "name": "cue", "type": "led" },
-    0x00: { "channel": 1, "name": "play blink", "type": "led" },
-    0x05: { "channel": 2, "name": "play blink", "type": "led" },
-    0x08: { "channel": 1, "name": "play", "type": "led" },
-    0x02: { "channel": 2, "name": "play", "type": "led" }
+    0x0F: {"channel": 1, "name": "fx mode", "type": "led"},
+    0x10: {"channel": 2, "name": "fx mode", "type": "led"},
+    0x0E: {"channel": 1, "name": "cue mode", "type": "led"},
+    0x11: {"channel": 2, "name": "cue mode", "type": "led"},
+    0x0D: {"channel": 1, "name": "loop mode", "type": "led"},
+    0x12: {"channel": 2, "name": "loop mode", "type": "led"},
+    0x16: {"channel": 1, "name": "master tempo", "type": "led"},
+    0x1A: {"channel": 2, "name": "master tempo", "type": "led"},
+    0x0A: {"channel": 1, "name": "auto beat", "type": "led"},
+    0x04: {"channel": 2, "name": "auto beat", "type": "led"},
+    0x09: {"channel": 1, "name": "cue", "type": "led"},
+    0x03: {"channel": 2, "name": "cue", "type": "led"},
+    0x00: {"channel": 1, "name": "play blink", "type": "led"},
+    0x05: {"channel": 2, "name": "play blink", "type": "led"},
+    0x08: {"channel": 1, "name": "play", "type": "led"},
+    0x02: {"channel": 2, "name": "play", "type": "led"}
     }
 };
 
 HerculesMk2.leds = {
 };
 
-HerculesMk2.init = function (id) { // called when the device is opened & set up
+HerculesMk2.init = function(id) { // called when the device is opened & set up
     HerculesMk2.initializeControls();
 
     engine.connectControl("[Channel1]","playposition","HerculesMk2.wheelDecay");
@@ -76,7 +76,7 @@ HerculesMk2.init = function (id) { // called when the device is opened & set up
     print ("HerculesMk2 id: \""+id+"\" initialized.");
 };
 
-HerculesMk2.initializeControls = function () {
+HerculesMk2.initializeControls = function() {
     for (control in HerculesMk2.controls.outputs) {
     if (HerculesMk2.controls.outputs[control].type == 'led') {
         key = "[Channel" + HerculesMk2.controls.outputs[control].channel + "] " + HerculesMk2.controls.outputs[control].name;
@@ -91,11 +91,11 @@ HerculesMk2.initializeControls = function () {
     midi.sendShortMsg(0xB0,0x7F,0x7F);
 };
 
-HerculesMk2.shutdown = function (id) {
+HerculesMk2.shutdown = function(id) {
     HerculesMk2.setLeds("off");
 };
 
-HerculesMk2.getGroup = function (control){
+HerculesMk2.getGroup = function(control) {
     // Get the "group" that used to be provided in group, this is not reusable
     // across devices and also breaks remapping of these functions to other
     // buttons.
@@ -103,7 +103,7 @@ HerculesMk2.getGroup = function (control){
     return "[Channel" + HerculesMk2.controls.inputs[control].channel + "]";
 };
 
-HerculesMk2.getControl = function (io, channel, name) {
+HerculesMk2.getControl = function(io, channel, name) {
     // Accept channel in form 'N' or '[ChannelN]'
     channel = channel.replace(/\[Channel(\d)\]/, "$1");
 
@@ -116,7 +116,7 @@ HerculesMk2.getControl = function (io, channel, name) {
     print ("HerculesMk2.getControl: Control not found: io=" + io + ": channel=" + channel + ": name=" + name);
 };
 
-HerculesMk2.setLeds = function (onOff) {
+HerculesMk2.setLeds = function(onOff) {
     for (LED in HerculesMk2.leds) {
     HerculesMk2.setLed(LED,onOff);
     // Seems that if midi messages are sent too quickly, leds don't behave
@@ -125,22 +125,22 @@ HerculesMk2.setLeds = function (onOff) {
     }
 };
 
-HerculesMk2.setLed = function (led, onOff) {
+HerculesMk2.setLed = function(led, onOff) {
     value = onOff=="on" ?  HerculesMk2.ledOn : HerculesMk2.ledOff;
     if (HerculesMk2.debug) print ("HerculesMk2.setLed: Setting " + led + " led " + onOff);
     if (HerculesMk2.debug) print ("HerculesMk2.setLed: midi.sendShortMsg(0xB0," + HerculesMk2.leds[led].toString(16) + "," + value + ")");
     midi.sendShortMsg(0xB0,HerculesMk2.leds[led],value);
-    HerculesMk2.controls.outputs[HerculesMk2.leds[led]].isOn = onOff=="on" ? true : false;
+    HerculesMk2.controls.outputs[HerculesMk2.leds[led]].isOn = onOff=="on";
 };
 
 HerculesMk2.pauseScript = function(ms) {
     startDate = new Date();
     currentDate = null;
 
-    while(currentDate-startDate < ms) currentDate = new Date();
+    while (currentDate-startDate < ms) currentDate = new Date();
 };
 
-HerculesMk2.pfl = function (group, control, value, status) {
+HerculesMk2.pfl = function(group, control, value, status) {
     if (value) { // Act on given mode being selected, not deselected.
     if (HerculesMk2.debug) print("HerculesMk2.pfl: " + control.toString(16) + " " + value.toString(16));
     switch (control) {
@@ -163,7 +163,7 @@ HerculesMk2.pfl = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.cue = function (group, control, value, status) {
+HerculesMk2.cue = function(group, control, value, status) {
     group = HerculesMk2.getGroup(control);
 
     if ((engine.getValue(group, "duration") == 0) && (value)) {
@@ -179,7 +179,7 @@ HerculesMk2.cue = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.play = function (group, control, value, status) {
+HerculesMk2.play = function(group, control, value, status) {
     if (value) { // Only do stuff when play is pushed, not released.
     group = HerculesMk2.getGroup(control);
 
@@ -193,7 +193,7 @@ HerculesMk2.play = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.loadSelectedTrack = function (group, control, value, status) {
+HerculesMk2.loadSelectedTrack = function(group, control, value, status) {
     if (value) { // Only do stuff when pushed, not released.
     group = HerculesMk2.getGroup(control);
     engine.setValue(group, "LoadSelectedTrack", 1);
@@ -201,7 +201,7 @@ HerculesMk2.loadSelectedTrack = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.buttons123 = function (group, control, value, status) {
+HerculesMk2.buttons123 = function(group, control, value, status) {
     group = HerculesMk2.getGroup(control);
 
     if (value) { // Button pressed.
@@ -326,7 +326,7 @@ HerculesMk2.buttons123 = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.buttons123mode = function (group, control, value, status) {
+HerculesMk2.buttons123mode = function(group, control, value, status) {
     group = HerculesMk2.getGroup(control);
     if (value) { // Only do stuff when pushed, not released.
     currentMode = HerculesMk2.controls.inputs[control].mode;
@@ -362,7 +362,7 @@ HerculesMk2.buttons123mode = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.pitch = function (group, control, value, status) {
+HerculesMk2.pitch = function(group, control, value, status) {
     //  7F > 40: CCW Slow > Fast - 127 > 64
     //  01 > 3F: CW Slow > Fast - 0 > 63
 
@@ -413,7 +413,7 @@ HerculesMk2.pitch = function (group, control, value, status) {
     }
 
     if (HerculesMk2.getControl("inputs", group, "fx 3").isDown) {
-        min = 50000; max = 2000000
+        min = 50000; max = 2000000;
         increment = (max-min)/potStep;
         increment = (value <= 0x3F) ? increment : increment * -1;
 
@@ -438,7 +438,7 @@ HerculesMk2.pitch = function (group, control, value, status) {
     engine.setValue(group, "rate", engine.getValue(group, "rate") + increment);
 };
 
-HerculesMk2.jog_wheel = function (group, control, value, status) {
+HerculesMk2.jog_wheel = function(group, control, value, status) {
     //  7F > 40: CCW Slow > Fast - 127 > 64
     //  01 > 3F: CW Slow > Fast - 0 > 63
     group = HerculesMk2.getGroup(control);
@@ -450,7 +450,7 @@ HerculesMk2.jog_wheel = function (group, control, value, status) {
     jogValue = value >=0x40 ? value - 0x80 : value; // -64 to +63, - = CCW, + = CW
 
     if (HerculesMk2.scratchMode) { // do some scratching
-    if (HerculesMk2.debug) print("Do scratching value:" + value + " jogValue: " + jogValue );
+    if (HerculesMk2.debug) print("Do scratching value:" + value + " jogValue: " + jogValue);
     engine.setValue(group,"scratch", (engine.getValue(group,"scratch") + (jogValue/64)).toFixed(2));
     } else { // do pitch adjustment
     newValue = jogValue;
@@ -459,7 +459,7 @@ HerculesMk2.jog_wheel = function (group, control, value, status) {
     }
 };
 
-HerculesMk2.wheelDecay = function (value) {
+HerculesMk2.wheelDecay = function(value) {
     currentDate = new Date().getTime();
 
     if (currentDate > HerculesMk2.decayLast + HerculesMk2.decayInterval) {

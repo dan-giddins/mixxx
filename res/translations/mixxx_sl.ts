@@ -57,14 +57,14 @@
         <location filename="../../src/library/banshee/bansheefeature.cpp" line="77"/>
         <source>Banshee database file not found at
 </source>
-        <translation>Banshee podatkovna baza ni bila najdena v 
+        <translation>Banshee podatkovna baza ni bila najdena v
 </translation>
     </message>
     <message>
         <location filename="../../src/library/banshee/bansheefeature.cpp" line="86"/>
         <source>There was an error loading your Banshee database at
 </source>
-        <translation>Zgodila se je napaka pri nalaganju Banshee podatkovne baze v 
+        <translation>Zgodila se je napaka pri nalaganju Banshee podatkovne baze v
 </translation>
     </message>
 </context>
@@ -5127,7 +5127,7 @@ CUP mode:
 - Cue button while pause not at cue point = set cue point and play after release
 - Cue button while playing = go to cue point and play after release
 </source>
-        <translation>Mixxx način: 
+        <translation>Mixxx način:
 - Gumb Cue ko je pavzirano na cue iztočnici = predogled
 - Gumb Cue ko je pavzirano in ni na cue iztočnici = nastavi cue iztočnico
 - Gumb Cue ko predvaja = pavziraj na cue iztočnici
@@ -7000,14 +7000,14 @@ Ciljna glasnost je približna in predpostavlja, da ostaneta predojačitev in izh
         <location filename="../../src/preferences/dialog/dlgprefwaveformdlg.ui" line="303"/>
         <source>The waveform overview shows the waveform envelope of the entire track.
 Select from different types of displays for the waveform overview, which differ primarily in the level of detail shown in the waveform.</source>
-        <translation>Pregled celotne valovne oblike prikazuje valovno obliko celotne skladbe. 
+        <translation>Pregled celotne valovne oblike prikazuje valovno obliko celotne skladbe.
 Izbirajte med različnimi vrstami prikaza valovne oblike, ki se primarno razlikujejo v stopnji detajlov, ki so prikazane v valovni obliki.</translation>
     </message>
     <message>
         <location filename="../../src/preferences/dialog/dlgprefwaveformdlg.ui" line="311"/>
         <source>The waveform shows the waveform envelope of the track near the current playback position.
 Select from different types of displays for the waveform, which differ primarily in the level of detail shown in the waveform.</source>
-        <translation>Valovna oblika prikazuje valovno obliko blizu trenutnega mesta predvajanja. 
+        <translation>Valovna oblika prikazuje valovno obliko blizu trenutnega mesta predvajanja.
 Izbirajte med različnimi vrstami prikaza valovne oblike, ki se primarno razlikujejo v stopnji detajlov, ki so prikazane v valovni obliki.</translation>
     </message>
     <message>

@@ -45,7 +45,7 @@ WirelessDJ.init = function(id) {
     engine.connectControl("[Channel2]", "pfl", "WirelessDJ.buttonOutput");
     engine.connectControl("[Channel1]", "flanger", "WirelessDJ.buttonOutput");
     engine.connectControl("[Channel2]", "flanger", "WirelessDJ.buttonOutput");
-}
+};
 
 WirelessDJ.shutdown = function(id) {
     engine.connectControl("[Channel1]", "VuMeter", "WirelessDJ.meter", true);
@@ -75,7 +75,7 @@ WirelessDJ.shutdown = function(id) {
     engine.connectControl("[Channel2]", "pfl", "WirelessDJ.buttonOutput", true);
     engine.connectControl("[Channel1]", "flanger", "WirelessDJ.buttonOutput", true);
     engine.connectControl("[Channel2]", "flanger", "WirelessDJ.buttonOutput", true);
-}
+};
 
 WirelessDJ.groupToDeck = function(group) {
     var the_char = group.charAt(8);
@@ -87,7 +87,7 @@ WirelessDJ.groupToDeck = function(group) {
 	} else {
         return -1;
     }
-}
+};
 
 // we need update LED value every second, or they will switch off.
 WirelessDJ.sendLED = function(index, value) {
@@ -101,7 +101,7 @@ WirelessDJ.sendLED = function(index, value) {
         WirelessDJ.ledTimers[index] = curTime;
 //        script.debug("", "", "", "", curTime);
     }
-}
+};
 
 WirelessDJ.meter = function(value, group, key) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -120,7 +120,7 @@ WirelessDJ.meter = function(value, group, key) {
             WirelessDJ.sendLED(2, val);
         }
     }
-}
+};
 
 WirelessDJ.controlFeedback = function(value, group, key) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -159,7 +159,7 @@ WirelessDJ.controlFeedback = function(value, group, key) {
             midi.sendShortMsg(0xb1, 0x1e, value);
         }
     }
-}
+};
 
 WirelessDJ.buttonOutput = function(value, group, key) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -171,7 +171,7 @@ WirelessDJ.buttonOutput = function(value, group, key) {
     } else if (key == "flanger") {
         midi.sendShortMsg(0x90 + deck, 0x08, value*127);
     }
-}
+};
 
 WirelessDJ.seek_on = function(channel, control, value, status, group) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -181,7 +181,7 @@ WirelessDJ.seek_on = function(channel, control, value, status, group) {
     } else {
         WirelessDJ.magicStripeMode[deck] &= ~0x1;
     }
-}
+};
 
 WirelessDJ.jog_on = function(channel, control, value, status, group) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -195,7 +195,7 @@ WirelessDJ.jog_on = function(channel, control, value, status, group) {
             engine.setValue(group, "wheel", 0);
         }
     }
-}
+};
 
 WirelessDJ.tempo_tuning = function(channel, control, value, status, group) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -207,7 +207,7 @@ WirelessDJ.tempo_tuning = function(channel, control, value, status, group) {
         WirelessDJ.magicStripeMode[deck] &= ~0x4;
     //            engine.setValue(group, "rate", -1);
     }
-}
+};
 
 WirelessDJ.magic_stripe_msb = function(channel, control, value, status, group) {
     var deck = WirelessDJ.groupToDeck(group);
@@ -255,8 +255,8 @@ WirelessDJ.magic_stripe_lsb = function(channel, control, value, status, group) {
 
         engine.setValue(group, "rate", position);
 
-        script.debug("pos", "", "", "", position );
-        script.debug("diff", "", "", "", diff );
+        script.debug("pos", "", "", "", position);
+        script.debug("diff", "", "", "", diff);
     } else {
         //        script.debug(WirelessDJ.prevMagicValue[deck], adjustedValue, "", "", diff );
 

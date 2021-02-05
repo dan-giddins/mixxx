@@ -8733,7 +8733,7 @@ To abort this action, press Cancel on the file dialog.</source>
 
 %1
 
-Depois de carregar em OK, irá ver o seletor de ficheiros. Para dar ao Mixx permissão, tem de seleccionar &apos;%2&apos; para proceguir. Se não quiser dar ao Mixx acesso, carregue em Cancelar no seletor de ficheiros. Lamentamos a inconveniencia. 
+Depois de carregar em OK, irá ver o seletor de ficheiros. Para dar ao Mixx permissão, tem de seleccionar &apos;%2&apos; para proceguir. Se não quiser dar ao Mixx acesso, carregue em Cancelar no seletor de ficheiros. Lamentamos a inconveniencia.
 
 Para abortar esta acção, prima Cancelar no diálogo de ficheiro.</translation>
     </message>

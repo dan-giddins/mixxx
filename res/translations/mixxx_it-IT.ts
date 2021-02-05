@@ -3557,18 +3557,18 @@ last sound.</source>
 
 Piena Intro + Outro:
 Suona l&apos;intera intro e outro. Usa la lunghezza intro o outro
-come tempo di dissolvenza, preferendo il più corto. Se intro 
+come tempo di dissolvenza, preferendo il più corto. Se intro
 o outro non sono definiti, usa il tempo di transizione selezionato.
 
 Smorzata ad Inizio Outro:
 La dissolvenza parte ad inizio outro. Se l&apos;outro è più lunga dell&apos;
-intro, taglia la fine dell&apos;outro. Usa la lunghezza dell&apos;intro o outro 
-come tempo di transizione, preferendo il più corto. Se intro 
+intro, taglia la fine dell&apos;outro. Usa la lunghezza dell&apos;intro o outro
+come tempo di transizione, preferendo il più corto. Se intro
 o outro non sono definiti, usa il tempo di transizione selezionato.
 
 Traccia Piena:
-Suona l&apos;intera traccia. Inizia la transizione del numero selezionato 
-di secondi prima della fine della traccia. Un tempo negativo di 
+Suona l&apos;intera traccia. Inizia la transizione del numero selezionato
+di secondi prima della fine della traccia. Un tempo negativo di
 transizione aggiunge silenzio fra le tracce.
 
 Salta Silenzio:

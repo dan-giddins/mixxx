@@ -25,12 +25,12 @@ VMS4.id = "";   // The ID for the particular device being controlled for use in 
 
 VMS4.numHotCues = 8;
 // Button control number to hot cue mapping
-VMS4.hotCues = { 0x12:1, 0x13:2, 0x14:3, 0x15:4,
-                 0x17:5, 0x18:6, 0x19:7, 0x1A:8,
-                 0x34:1, 0x35:2, 0x36:3, 0x37:4,
-                 0x39:5, 0x3A:6, 0x3B:7, 0x3C:8 };
+VMS4.hotCues = {0x12: 1, 0x13: 2, 0x14: 3, 0x15: 4,
+                 0x17: 5, 0x18: 6, 0x19: 7, 0x1A: 8,
+                 0x34: 1, 0x35: 2, 0x36: 3, 0x37: 4,
+                 0x39: 5, 0x3A: 6, 0x3B: 7, 0x3C: 8};
 
-VMS4.initControls = [   ["Channel", "hotcue_x_enabled"],
+VMS4.initControls = [["Channel", "hotcue_x_enabled"],
                         ["Channel", "quantize"],
                         ["Channel", "sync_enabled"],
                         ["Channel", "loop_in"],
@@ -48,7 +48,7 @@ VMS4.initControls = [   ["Channel", "hotcue_x_enabled"],
                         ["Sampler", "play"]
                     ];
 
-VMS4.init = function (id) {    // called when the MIDI device is opened & set up
+VMS4.init = function(id) {    // called when the MIDI device is opened & set up
     VMS4.id = id;   // Store the ID of this device for later use
     for (i=12; i<=77; i++) midi.sendShortMsg(0x80,i,0x00);  // Extinquish all LEDs
 
@@ -95,22 +95,22 @@ VMS4.init = function (id) {    // called when the MIDI device is opened & set up
 
 
     print("American Audio "+VMS4.id+" initialized.");
-}
+};
 
-VMS4.shutdown = function () {
+VMS4.shutdown = function() {
     for (i=12; i<=77; i++) midi.sendShortMsg(0x80,i,0x00);  // Extinquish all LEDs
     print("American Audio "+VMS4.id+" shut down.");
-}
+};
 
 VMS4.Button = Button;
 
 VMS4.Button.prototype.setLed = function(ledState) {
-   if(ledState == LedState.on) {
+   if (ledState == LedState.on) {
       midi.sendShortMsg(0x90,this.controlId,LedState.on);
    } else {
       midi.sendShortMsg(0x80,this.controlId,LedState.off);
    }
-}
+};
 
 VMS4.Deck = Deck;
 VMS4.Deck.jogMsb = 0x00;
@@ -126,7 +126,7 @@ VMS4.Deck.effectSelect = -1;
 VMS4.Deck.sampleSelect = -1;
 
 VMS4.Deck.prototype.rateRangeHandler = function(value) {
-    if(value == ButtonState.pressed) {
+    if (value == ButtonState.pressed) {
         this.Buttons.RateRange.setLed(LedState.on);
         // Round to two decimals to avoid double-precision comparison issues
         var currentRange = Math.round(engine.getValue(this.group, "rateRange")*100)/100;
@@ -149,23 +149,21 @@ VMS4.Deck.prototype.rateRangeHandler = function(value) {
         }
         // Update the screen display
         engine.trigger(this.group,"rate");
-    }
-    else this.Buttons.RateRange.setLed(LedState.off);
-}
+    } else this.Buttons.RateRange.setLed(LedState.off);
+};
 
 VMS4.Deck.prototype.pitchCenterHandler = function(value) {
     // Reset pitch only on entrance to center position
-    if(value == ButtonState.pressed) {
+    if (value == ButtonState.pressed) {
         this.pitchLock=true;
         engine.setValue(this.group, "rate", 0);
-    }
-    else {
+    } else {
         this.pitchLock=false;
     }
-}
+};
 
 VMS4.Deck.prototype.jogTouchHandler = function(value) {
-   if(value == ButtonState.pressed) {
+   if (value == ButtonState.pressed) {
       engine.scratchEnable(this.deckNumber, 3000, 45, 1.0/8, (1.0/8)/32);
       // Recall the cue point if in "scratch & cue" mode only when playing
       if (this.scratchncue && engine.getValue(this.group,"play")==1) {
@@ -175,45 +173,44 @@ VMS4.Deck.prototype.jogTouchHandler = function(value) {
    } else {
       engine.scratchDisable(this.deckNumber);
    }
-}
+};
 
 VMS4.Deck.prototype.jogMove = function(lsbValue) {
    var jogValue = (this.jogMsb << 7) + lsbValue;
 
-   if(!isNaN(this.previousJogValue)) {
+   if (!isNaN(this.previousJogValue)) {
       var offset = jogValue - this.previousJogValue;
 
-      if(offset > 8192) {
+      if (offset > 8192) {
          offset = offset - 16384;
-      } else if(offset < -8192) {
+      } else if (offset < -8192) {
          offset = offset + 16384;
       }
 
-      if(engine.isScratching(this.deckNumber)) {
+      if (engine.isScratching(this.deckNumber)) {
          engine.scratchTick(this.deckNumber, offset);
       } else {
          engine.setValue(this.group,"jog", offset / 40.0);
       }
    }
    this.previousJogValue = jogValue;
-}
+};
 
 VMS4.Deck.prototype.vinylButtonHandler = function(value) {
-    if(value == ButtonState.pressed) this.vinylButton=true;
+    if (value == ButtonState.pressed) this.vinylButton=true;
     else {
         this.vinylButton=false;
         // Force keylock up too since they're they same physical button
         //  (This prevents keylock getting stuck down if shift is released first)
         this.keylockButton=false;
     }
-}
+};
 
 VMS4.Deck.prototype.keyLockButtonHandler = function(value) {
-    if(value == ButtonState.pressed) {
+    if (value == ButtonState.pressed) {
         this.keylockButton=true;
         this.hotCueDeleted=false;
-    }
-    else {
+    } else {
         // Toggle keylock only on release and only if a hot cue wasn't deleted
         if (!this.hotCueDeleted) {
             var currentKeylock = engine.getValue(this.group, "keylock");
@@ -225,7 +222,7 @@ VMS4.Deck.prototype.keyLockButtonHandler = function(value) {
         //  vinyl is held down)
         this.vinylButton=false;
     }
-}
+};
 
 VMS4.Deck.prototype.effectParamButtonHandler = function(value) {
     // Couldn't get this to work. The buttons are mapped instead to VMS4.effectParameterButton
@@ -241,31 +238,31 @@ VMS4.Deck.prototype.effectParamButtonHandler = function(value) {
 //             this.Buttons.FXParam.setLed(LedState.off);
 //         }
 //     }
-}
+};
 
-VMS4.Decks = {"Left":new VMS4.Deck(1,"[Channel1]"), "Right":new VMS4.Deck(2,"[Channel2]")};
-VMS4.GroupToDeck = {"[Channel1]":"Left", "[Channel2]":"Right"};
-VMS4.GroupToDeckNum = {"[Channel1]":1, "[Channel2]":2, "[Channel3]":3, "[Channel4]":4};
-VMS4.StripToSide = {0x28:"Left", 0x2D:"Right"};
-VMS4.touchStripPos = {"Left":null, "Right":null}; // Stores the position on touch
+VMS4.Decks = {"Left": new VMS4.Deck(1,"[Channel1]"), "Right": new VMS4.Deck(2,"[Channel2]")};
+VMS4.GroupToDeck = {"[Channel1]": "Left", "[Channel2]": "Right"};
+VMS4.GroupToDeckNum = {"[Channel1]": 1, "[Channel2]": 2, "[Channel3]": 3, "[Channel4]": 4};
+VMS4.StripToSide = {0x28: "Left", 0x2D: "Right"};
+VMS4.touchStripPos = {"Left": null, "Right": null}; // Stores the position on touch
                                                   // to convert the absolute sliders
                                                   // to relative ones
 
 VMS4.GetDeck = function(group) {
    try {
       return VMS4.Decks[VMS4.GroupToDeck[group]];
-   } catch(ex) {
+   } catch (ex) {
       return null;
    }
-}
+};
 
 VMS4.GetDeckNum = function(group) {
     try {
         return VMS4.GroupToDeckNum[group];
-    } catch(ex) {
+    } catch (ex) {
         return null;
     }
-}
+};
 
 VMS4.Decks.Left.addButton("RateRange", new VMS4.Button(0x11), "rateRangeHandler");
 VMS4.Decks.Left.addButton("PitchCenter", new VMS4.Button(), "pitchCenterHandler");
@@ -285,7 +282,7 @@ VMS4.Decks.Right.addButton("FXParam", new VMS4.Button(0x3E), "effectParamButtonH
 VMS4.rate_range = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
     deck.Buttons.RateRange.handleEvent(value);
-}
+};
 
 VMS4.pitch = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
@@ -297,12 +294,12 @@ VMS4.pitch = function(channel, control, value, status, group) {
         var rate = (8192-value)/8191;
         engine.setValue(group, "rate", rate);
     }
-}
+};
 
 VMS4.pitchCenter = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
     deck.Buttons.PitchCenter.handleEvent(value);
-}
+};
 
 VMS4.effectSelect = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
@@ -321,14 +318,14 @@ VMS4.effectSelect = function(channel, control, value, status, group) {
 
     engine.setValue("[EffectRack1_EffectUnit"+VMS4.GetDeckNum(group)+"_Effect1]",
                     "effect_selector",diff);
-}
+};
 
 VMS4.effectSelectPress = function(channel, control, value, status, group) {
     var deckNum = VMS4.GetDeckNum(group);
     if (value > 0x40) {
         script.toggleControl("[EffectRack1_EffectUnit"+deckNum+"_Effect1]","enabled");
     }
-}
+};
 
 VMS4.effectControl = function(channel, control, value, status, group) {
     // If Parameter button is on, this becomes a super knob. Otherwise it controls wet/dry
@@ -339,12 +336,12 @@ VMS4.effectControl = function(channel, control, value, status, group) {
     } else {
         engine.setParameter("[EffectRack1_EffectUnit"+deckNum+"]","mix",value/0x7F);
     }
-}
+};
 
 VMS4.effectParameterButton = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
 //     deck.Buttons.FXParam.handleEvent(group, value);
-    if(value > 0x40) {
+    if (value > 0x40) {
         var deckNum = VMS4.GetDeckNum(group);
         deck.controlEffectParameter=!deck.controlEffectParameter;
         if (deck.controlEffectParameter) {
@@ -352,15 +349,14 @@ VMS4.effectParameterButton = function(channel, control, value, status, group) {
             deck.Buttons.FXParam.setLed(LedState.on);
             // Ignore the next wet/dry value
             engine.softTakeoverIgnoreNextValue("[EffectRack1_EffectUnit"+deckNum+"]","mix");
-        }
-        else {
+        } else {
             // Wet/dry
             deck.Buttons.FXParam.setLed(LedState.off);
             // Ignore the next Super knob value
             engine.softTakeoverIgnoreNextValue("[EffectRack1_EffectUnit"+deckNum+"]","super1");
         }
     }
-}
+};
 
 
 VMS4.sampleSelect = function(channel, control, value, status, group) {
@@ -378,22 +374,22 @@ VMS4.sampleSelect = function(channel, control, value, status, group) {
     diff += wrapCount*128;
 
     engine.setValue("[Playlist]","SelectTrackKnob",diff);
-}
+};
 
 VMS4.jog_touch = function(channel, control, value, status, group) {
    var deck = VMS4.GetDeck(group);
    deck.Buttons.JogTouch.handleEvent(value);
-}
+};
 
 VMS4.jog_move_lsb = function(channel, control, value, status, group) {
    var deck = VMS4.GetDeck(group);
    deck.jogMove(value);
-}
+};
 
 VMS4.jog_move_msb = function(channel, control, value, status, group) {
    var deck = VMS4.GetDeck(group);
    deck.jogMsb = value;
-}
+};
 
 VMS4.strip_fx_dw = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeckNum(group);
@@ -403,7 +399,7 @@ VMS4.strip_fx_dw = function(channel, control, value, status, group) {
     } else {
         engine.setParameter("[EffectRack1_EffectUnit"+deck+"]","mix",value/0x7F);
     }
-}
+};
 
 VMS4.strip_touch = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeckNum(group);
@@ -416,7 +412,7 @@ VMS4.strip_touch = function(channel, control, value, status, group) {
             VMS4.touchStripPos["Right"] = null;
         }
     }
-}
+};
 
 VMS4.strip_scroll = function(channel, control, value, status, group) {
     var side = VMS4.StripToSide[control];
@@ -432,39 +428,36 @@ VMS4.strip_scroll = function(channel, control, value, status, group) {
         }
     }
     VMS4.touchStripPos[side] = value;
-}
+};
 
 VMS4.vinyl = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
     deck.Buttons.Vinyl.handleEvent(value);
-}
+};
 
 VMS4.keylock = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
     deck.Buttons.KeyLock.handleEvent(value);
-}
+};
 
 VMS4.hotCue = function(channel, control, value, status, group) {
     var deck = VMS4.GetDeck(group);
     var hotCue = VMS4.hotCues[control];
-    if(value == ButtonState.pressed) {
+    if (value == ButtonState.pressed) {
         deck.hotCuePressed=true;
         if (deck.vinylButton || deck.keylockButton) {
 //             print("vinyl="+deck.vinylButton+" keylock="+deck.keylockButton+" so clear hotcue"+hotCue);
             engine.setValue(group,"hotcue_"+hotCue+"_clear",1);
             deck.hotCueDeleted=true;
-        }
-        else {
+        } else {
             engine.setValue(group,"hotcue_"+hotCue+"_activate",1);
         }
-    }
-    else {
+    } else {
         deck.hotCuePressed=false;
         if (deck.vinylButton || deck.keylockButton) {
             engine.setValue(group,"hotcue_"+hotCue+"_clear",0);
-        }
-        else {
+        } else {
             engine.setValue(group,"hotcue_"+hotCue+"_activate",0);
         }
     }
-}
+};

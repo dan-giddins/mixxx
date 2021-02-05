@@ -10,7 +10,7 @@ VestaxSpin = new function() {
     this.buttons = [];
     this.controls = [];
     this.lights = [];
-}
+};
 
 VestaxSpin.DECK_LIGHTS = [0x32, 0x35, 0x33, 0x24, 0x25, 0x46, 0x42, 0x21, 0x20, 0x29, 0x2a, 0x2b,
     0x2c, 0x2d];
@@ -51,7 +51,7 @@ VestaxSpin.init = function(id) {
         for (var j = 0; j < 20000000; ++j);
     }*/
 
-}
+};
 
 VestaxSpin.shutdown = function(id) {
     // clear everything
@@ -64,7 +64,7 @@ VestaxSpin.shutdown = function(id) {
         new VestaxSpin.Light(2, VestaxSpin.MISC_LIGHTS[light]).off();
         for (var j = 0; j < 10000000; ++j);
     }
-}
+};
 
 VestaxSpin.GetDeck = function(group) {
     var groupToDeck = {
@@ -76,7 +76,7 @@ VestaxSpin.GetDeck = function(group) {
     } catch (ex) {
         return null;
     }
-}
+};
 
 VestaxSpin.addButton = function(buttonName, button, eventHandler) {
     button.group = this.group;
@@ -100,7 +100,7 @@ VestaxSpin.addButton = function(buttonName, button, eventHandler) {
     } else {
         this.controls[button.control] = [button];
     }
-}
+};
 
 VestaxSpin.handleEvent = function(channel, control, value, status, group) {
     var deck = VestaxSpin.GetDeck(group);
@@ -115,7 +115,7 @@ VestaxSpin.handleEvent = function(channel, control, value, status, group) {
     for (var button in buttons) {
         buttons[button].handleEvent(value);
     }
-}
+};
 
 VestaxSpin.ButtonState = {"released": 0x00, "pressed": 0x7F};
 
@@ -135,7 +135,7 @@ VestaxSpin.Button = function(channel, control, makeLight, lightControl) {
     } else {
         this.light = null;
     }
-}
+};
 
 VestaxSpin.LightState = {"on": 0x7f, "off": 0x00};
 
@@ -146,17 +146,17 @@ VestaxSpin.Light = function(channel, control) {
     this.on = function() {
         midi.sendShortMsg(0x90 + this.channel, this.control, VestaxSpin.LightState.on);
         this.state = VestaxSpin.LightState.on;
-    }
+    };
     this.off = function() {
         midi.sendShortMsg(0x90 + this.channel, this.control, VestaxSpin.LightState.off);
         this.state = VestaxSpin.LightState.off;
-    }
-}
+    };
+};
 
 VestaxSpin.Button.prototype.handleEvent = function(value) {
     this.state = value;
     this.handler();
-}
+};
 
 VestaxSpin.Deck = function(deckNum, group) {
     this.deckNum = deckNum;
@@ -188,7 +188,7 @@ VestaxSpin.Deck = function(deckNum, group) {
     this.lights["vu3"] = new VestaxSpin.Light(deckNum-1, 0x2b);
     this.lights["vu4"] = new VestaxSpin.Light(deckNum-1, 0x2c);
     this.lights["vu5"] = new VestaxSpin.Light(deckNum-1, 0x2d);
-}
+};
 
 VestaxSpin.Deck.prototype.addButton = VestaxSpin.addButton;
 
@@ -203,7 +203,7 @@ VestaxSpin.Deck.prototype.handleEvent = function(channel, control, value, status
             buttons[button].handleEvent(value);
         }
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleSongList = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -213,7 +213,7 @@ VestaxSpin.Button.prototype.handleSongList = function() {
         engine.setValue("[Playlist]", "SelectNextPlaylist", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleLoopOpen = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -223,7 +223,7 @@ VestaxSpin.Button.prototype.handleLoopOpen = function() {
         engine.setValue(this.group, "loop_in", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleLoopClose = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -233,7 +233,7 @@ VestaxSpin.Button.prototype.handleLoopClose = function() {
         engine.setValue(this.group, "loop_out", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleSync = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -243,7 +243,7 @@ VestaxSpin.Button.prototype.handleSync = function() {
         engine.setValue(this.group, "beatsync", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleCue = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -256,7 +256,7 @@ VestaxSpin.Button.prototype.handleCue = function() {
         engine.setValue(this.group, "back", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleCup = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -269,7 +269,7 @@ VestaxSpin.Button.prototype.handleCup = function() {
         engine.setValue(this.group, "fwd", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleFilter = function() {
     if (this.state == VestaxSpin.ButtonState.released) return;
@@ -286,7 +286,7 @@ VestaxSpin.Button.prototype.handleFilter = function() {
         }
         engine.scratchDisable(this.parent.deckNum);
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleBack = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -296,7 +296,7 @@ VestaxSpin.Button.prototype.handleBack = function() {
     } else {
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleRW = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -306,7 +306,7 @@ VestaxSpin.Button.prototype.handleRW = function() {
         engine.setValue(this.group, "back", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleFF = function() {
     if (this.state == VestaxSpin.ButtonState.pressed) {
@@ -316,7 +316,7 @@ VestaxSpin.Button.prototype.handleFF = function() {
         engine.setValue(this.group, "fwd", 0);
         this.light.off();
     }
-}
+};
 
 VestaxSpin.Button.prototype.handleWheelTouch = function() {
    if (this.parent.vinylMode && this.state == VestaxSpin.ButtonState.pressed) {
@@ -333,11 +333,11 @@ VestaxSpin.Button.prototype.handleWheelTouch = function() {
                 engine.stopTimer(this.timer);
                 this.timer = 0;
             }
-        }
+        };
         this.timer = engine.beginTimer(VestaxSpin.SCRATCH_TIMER_PERIOD,
             "VestaxSpin.GetDeck(\"" + this.group + "\").buttons[\"wheeltouch\"].callback()");
    }
-}
+};
 
 VestaxSpin.Button.prototype.handleWheel = function() {
     if (engine.getValue(this.group, "scratch2_enable")) {
@@ -346,4 +346,4 @@ VestaxSpin.Button.prototype.handleWheel = function() {
     } else {
         engine.setValue(this.group, "jog", this.state - 0x40);
     }
-}
+};

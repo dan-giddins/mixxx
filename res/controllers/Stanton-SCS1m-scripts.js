@@ -28,25 +28,25 @@ StantonSCS1m.state = { };   // Temporary state variables
 StantonSCS1m.timer = { };   // Temporary storage of timer IDs
 StantonSCS1m.lastLight = [-1,-1];   // Last circle LED values
 StantonSCS1m.lastTime = ["-99:99","-99:99"];    // Last time remaining values
-StantonSCS1m.lastVu = { 92:0, 93:0, 94:0, 95:0, 96:0, 97:0 };  // Last VU meter values
+StantonSCS1m.lastVu = {92: 0, 93: 0, 94: 0, 95: 0, 96: 0, 97: 0};  // Last VU meter values
 StantonSCS1m.lastCrossFader = 0;  // Last value of the cross fader
 StantonSCS1m.lastFader = [0,0];   // Last value of each channel fader
 StantonSCS1m.scratchDeck = 0;   // Current deck being scratched with the select knob
-StantonSCS1m.scratch = {    "rpm":(33+1/3)*StantonSCS1m.scratchFactor,
-                            "resolution":30, "alpha":1.0/8, "beta":(1.0/8)/32 };
+StantonSCS1m.scratch = {"rpm": (33+1/3)*StantonSCS1m.scratchFactor,
+                            "resolution": 30, "alpha": 1.0/8, "beta": (1.0/8)/32};
 StantonSCS1m.hotCueDeck = 1;    // Current hot cue page
-StantonSCS1m.hotCues =  {   1:{ 35:1, 36:2, 37:3, 38:4 },
-                            2:{ 35:1, 36:2, 37:3, 38:4 }    };
+StantonSCS1m.hotCues =  {1: {35: 1, 36: 2, 37: 3, 38: 4},
+                            2: {35: 1, 36: 2, 37: 3, 38: 4}};
 
 // Signals to (dis)connect: Group, Key, Function name
-StantonSCS1m.hotcueSignals = [  ["CurrentChannel", "hotcue_1_enabled", "StantonSCS1m.Preset1LED"],
+StantonSCS1m.hotcueSignals = [["CurrentChannel", "hotcue_1_enabled", "StantonSCS1m.Preset1LED"],
                                 ["CurrentChannel", "hotcue_2_enabled", "StantonSCS1m.Preset2LED"],
                                 ["CurrentChannel", "hotcue_3_enabled", "StantonSCS1m.Preset3LED"],
-                                ["CurrentChannel", "hotcue_4_enabled", "StantonSCS1m.Preset4LED"] ];
+                                ["CurrentChannel", "hotcue_4_enabled", "StantonSCS1m.Preset4LED"]];
 
 // ----------   Functions   ----------
 
-StantonSCS1m.init = function (id) {    // called when the MIDI device is opened & set up
+StantonSCS1m.init = function(id) {    // called when the MIDI device is opened & set up
 
     StantonSCS1m.id = id;   // Store the ID of this device for later use
 
@@ -123,12 +123,12 @@ StantonSCS1m.init = function (id) {    // called when the MIDI device is opened 
     // Button LEDs
     if (StantonSCS1m.faderStart) midi.sendShortMsg(No,8,1);
 
-    var LEDInit = [ ["Channels","rate_temp_up"],
+    var LEDInit = [["Channels","rate_temp_up"],
                     ["Channels","rate_temp_down"],
                     ["Channels","pfl"],
                     ["Channels","beatsync"],
                     ["Channels","play"],
-                    ["Channels","cue_default"]     ];
+                    ["Channels","cue_default"]];
 
     for (i=0; i<LEDInit.length; i++) {
         var group = LEDInit[i][0];
@@ -136,14 +136,13 @@ StantonSCS1m.init = function (id) {    // called when the MIDI device is opened 
         if (group=="Channels") {
             engine.trigger("[Channel1]",name);
             engine.trigger("[Channel2]",name);
-            }
-        else engine.trigger(group,name);
+            } else engine.trigger(group,name);
     }
 
     print ("StantonSCS1m: \""+StantonSCS1m.id+"\" on MIDI channel "+(StantonSCS1m.channel+1)+" initialized.");
-}
+};
 
-StantonSCS1m.shutdown = function () {   // called when the MIDI device is closed
+StantonSCS1m.shutdown = function() {   // called when the MIDI device is closed
 
     // Graffiti :)
     var message = "Mixxx";
@@ -156,9 +155,9 @@ StantonSCS1m.shutdown = function () {   // called when the MIDI device is closed
 
     midi.sendSysexMsg(StantonSCS1m.sysex.concat([StantonSCS1m.channel, 17, 0xF7]),7); // Extinguish all LEDs
     print ("StantonSCS1m: \""+StantonSCS1m.id+"\" on MIDI channel "+(StantonSCS1m.channel+1)+" shut down.");
-}
+};
 
-StantonSCS1m.initLCDs = function () {
+StantonSCS1m.initLCDs = function() {
     var No = 0x90 + StantonSCS1m.channel;
     var message = "Pitch 1";
     midi.sendSysexMsg(StantonSCS1m.sysex.concat([StantonSCS1m.channel, 1],message.toInt(), 0xF7),7+message.length);   // Set LCD1
@@ -172,10 +171,10 @@ StantonSCS1m.initLCDs = function () {
     message = " Deck 2";
     midi.sendSysexMsg(StantonSCS1m.sysex.concat([StantonSCS1m.channel, 3],message.toInt(), 0xF7),7+message.length);   // Set LCD3
     midi.sendShortMsg(No,49+2,32);   // to red
-}
+};
 
 // (Dis)connects the appropriate Mixxx control signals to/from functions based on the currently controlled deck and what mode the controller section is in
-StantonSCS1m.connectPresetSignals = function (channel, disconnect) {
+StantonSCS1m.connectPresetSignals = function(channel, disconnect) {
 
     var signalList = StantonSCS1m.hotcueSignals;
     for (i=0; i<signalList.length; i++) {
@@ -201,22 +200,22 @@ StantonSCS1m.connectPresetSignals = function (channel, disconnect) {
         var No = 0x80 + channel;
         for (i=35; i<=38; i++) midi.sendShortMsg(No,i,0);
     }
-}
+};
 
-StantonSCS1m.checkInSetup = function () {
+StantonSCS1m.checkInSetup = function() {
   if (StantonSCS1m.inSetup) print ("StantonSCS1m: In setup mode, ignoring command.");
   return StantonSCS1m.inSetup;
-}
+};
 
-StantonSCS1m.playButton1 = function (channel, control, value, status) {
+StantonSCS1m.playButton1 = function(channel, control, value, status) {
     StantonSCS1m.playButton(channel, control, value, status, 1);
-}
+};
 
-StantonSCS1m.playButton2 = function (channel, control, value, status) {
+StantonSCS1m.playButton2 = function(channel, control, value, status) {
     StantonSCS1m.playButton(channel, control, value, status, 2);
-}
+};
 
-StantonSCS1m.playButton = function (channel, control, value, status, deck) {
+StantonSCS1m.playButton = function(channel, control, value, status, deck) {
     if (StantonSCS1m.debug) print("Play button"+deck);
     var byte1 = 0x90 + channel;
     if ((status & 0xF0) == 0x90) {    // If button down
@@ -226,17 +225,17 @@ StantonSCS1m.playButton = function (channel, control, value, status, deck) {
         return;
     }
     StantonSCS1m.modifier["play"+deck]=0;
-}
+};
 
-StantonSCS1m.cueButton1 = function (channel, control, value, status) {
+StantonSCS1m.cueButton1 = function(channel, control, value, status) {
     StantonSCS1m.cueButton(channel, control, value, status, 1);
-}
+};
 
-StantonSCS1m.cueButton2 = function (channel, control, value, status) {
+StantonSCS1m.cueButton2 = function(channel, control, value, status) {
     StantonSCS1m.cueButton(channel, control, value, status, 2);
-}
+};
 
-StantonSCS1m.cueButton = function (channel, control, value, status, deck) {
+StantonSCS1m.cueButton = function(channel, control, value, status, deck) {
     if (StantonSCS1m.debug) print("Cue button"+deck);
     var byte1 = 0x90 + channel;
     if ((status & 0xF0) != 0x80) {    // If button down
@@ -246,9 +245,9 @@ StantonSCS1m.cueButton = function (channel, control, value, status, deck) {
     }
     engine.setValue("[Channel"+deck+"]","cue_default",0);
     StantonSCS1m.modifier["cue"+deck]=0;   // Clear button modifier flag
-}
+};
 
-StantonSCS1m.setupButton = function (channel, control, value, status) {
+StantonSCS1m.setupButton = function(channel, control, value, status) {
     if ((status & 0XF0) == 0x90) StantonSCS1m.inSetup = !StantonSCS1m.inSetup;
     else if (StantonSCS1m.inSetup) {  // If entering setup, change the LCD back light colors to green
         var No = 0x90 + channel;
@@ -256,16 +255,15 @@ StantonSCS1m.setupButton = function (channel, control, value, status) {
         midi.sendShortMsg(No,49+3,96);
         midi.sendShortMsg(No,49+1,96);
         midi.sendShortMsg(No,49+2,96);
-    }
-    else {
+    } else {
         StantonSCS1m.initLCDs(); // If out of setup & the button was released, restore the displays
         StantonSCS1m.lastTime = ["-99:99","-99:99"];    // Force time displays to update
         engine.trigger("[Channel1]","rate");    // Force pitch displays to update
         engine.trigger("[Channel2]","rate");
     }
-}
+};
 
-StantonSCS1m.controlButton = function (channel, control, value, status) {
+StantonSCS1m.controlButton = function(channel, control, value, status) {
   if (StantonSCS1m.checkInSetup()) return;
     var byte1 = 0x90 + channel;
     if ((status & 0XF0) == 0x90) {    // If button down
@@ -277,9 +275,9 @@ StantonSCS1m.controlButton = function (channel, control, value, status) {
         midi.sendShortMsg(byte1,26,32);
         return;
     }
-}
+};
 
-StantonSCS1m.browseButton = function (channel, control, value, status) {
+StantonSCS1m.browseButton = function(channel, control, value, status) {
   if (StantonSCS1m.checkInSetup()) return;
     var byte1 = 0x90 + channel;
     if ((status & 0XF0) == 0x90) {    // If button down
@@ -291,9 +289,9 @@ StantonSCS1m.browseButton = function (channel, control, value, status) {
         midi.sendShortMsg(0x80+channel,26,0);   // Exinguish right (enter) button
         return;
     }
-}
+};
 
-StantonSCS1m.selectKnob = function (channel, control, value, status) {
+StantonSCS1m.selectKnob = function(channel, control, value, status) {
   if (StantonSCS1m.checkInSetup()) return;
 
   jogValue = (value-64); // -64 to +63, - = CCW, + = CW
@@ -308,9 +306,9 @@ StantonSCS1m.selectKnob = function (channel, control, value, status) {
             engine.setValue("[Playlist]","SelectTrackKnob", jogValue);
             break;
     }
-}
+};
 
-StantonSCS1m.pressSelectKnob = function () {
+StantonSCS1m.pressSelectKnob = function() {
   if (StantonSCS1m.checkInSetup()) return;
     switch (StantonSCS1m.selectKnobMode) {
         case "control":
@@ -319,9 +317,9 @@ StantonSCS1m.pressSelectKnob = function () {
             engine.setValue("[Playlist]","LoadSelectedIntoFirstStopped",1); // This doesn't work in 1.9.x!
             break;
     }
-}
+};
 
-StantonSCS1m.cancelButton = function (channel, control, value, status) {
+StantonSCS1m.cancelButton = function(channel, control, value, status) {
   if (StantonSCS1m.checkInSetup()) return;
   if ((status & 0XF0) == 0x90) {    // If button down
     StantonSCS1m.modifier["cancelButton"]=1;
@@ -340,8 +338,7 @@ StantonSCS1m.cancelButton = function (channel, control, value, status) {
                 // ...light the button red to show acknowledgement of the press but don't load
                 midi.sendShortMsg(0x90+channel,control,64);
                 print ("StantonSCS1m: Not loading into deck 1 because it's playing to the Master output.");
-            }
-            else {
+            } else {
                 midi.sendShortMsg(0x90+channel,control,127); // Orange
                 engine.setValue("[Channel1]","LoadSelectedTrack",1);
             }
@@ -364,9 +361,9 @@ StantonSCS1m.cancelButton = function (channel, control, value, status) {
         break;
   }
   StantonSCS1m.modifier["cancelButton"]=0;
-}
+};
 
-StantonSCS1m.enterButton = function (channel, control, value, status) {
+StantonSCS1m.enterButton = function(channel, control, value, status) {
   if (StantonSCS1m.checkInSetup()) return;
   if ((status & 0XF0) == 0x90) {    // If button down
     StantonSCS1m.modifier["enterButton"]=1;
@@ -385,8 +382,7 @@ StantonSCS1m.enterButton = function (channel, control, value, status) {
                 // ...light the button red to show acknowledgement of the press but don't load
                 midi.sendShortMsg(0x90+channel,control,64);
                 print ("StantonSCS1m: Not loading into deck 2 because it's playing to the Master output.");
-            }
-            else {
+            } else {
                 midi.sendShortMsg(0x90+channel,control,127); // Orange
                 engine.setValue("[Channel2]","LoadSelectedTrack",1);
             }
@@ -409,32 +405,32 @@ StantonSCS1m.enterButton = function (channel, control, value, status) {
         break;
   }
   StantonSCS1m.modifier["enterButton"]=0;
-}
+};
 
-StantonSCS1m.encoderJog1 = function (channel, control, value, status) {
+StantonSCS1m.encoderJog1 = function(channel, control, value, status) {
     StantonSCS1m.encoderJog(value,1);
-}
+};
 
-StantonSCS1m.encoderJog2 = function (channel, control, value, status) {
+StantonSCS1m.encoderJog2 = function(channel, control, value, status) {
     StantonSCS1m.encoderJog(value,2);
-}
+};
 
-StantonSCS1m.encoderJog = function (value,deck) {
+StantonSCS1m.encoderJog = function(value,deck) {
     if (StantonSCS1m.checkInSetup()) return;
     jogValue=(value-64);
     if (engine.getValue("[Channel"+deck+"]","play")==1 && engine.getValue("[Channel"+deck+"]","reverse")==1) jogValue= -(jogValue);
     engine.setValue("[Channel"+deck+"]","jog",jogValue*4);
-}
+};
 
-StantonSCS1m.pitchRangeKnob1 = function (channel, control, value, status) {
+StantonSCS1m.pitchRangeKnob1 = function(channel, control, value, status) {
     StantonSCS1m.pitchRangeKnob(value,1);
-}
+};
 
-StantonSCS1m.pitchRangeKnob2 = function (channel, control, value, status) {
+StantonSCS1m.pitchRangeKnob2 = function(channel, control, value, status) {
     StantonSCS1m.pitchRangeKnob(value,2);
-}
+};
 
-StantonSCS1m.pitchRangeKnob = function (value,deck) {
+StantonSCS1m.pitchRangeKnob = function(value,deck) {
     if (StantonSCS1m.checkInSetup()) return;
     var currentValue = engine.getValue("[Channel"+deck+"]","rateRange");
     var newValue = Math.round(currentValue*100+(value-64))*0.01;
@@ -443,22 +439,21 @@ StantonSCS1m.pitchRangeKnob = function (value,deck) {
     engine.setValue("[Channel"+deck+"]","rateRange",newValue);
     engine.trigger("[Channel"+deck+"]","rate"); // Force GUI to update
     StantonSCS1m.pitchDisplay(engine.getValue("[Channel"+deck+"]","rate"),deck); // Force LCDs to update
-}
+};
 
-StantonSCS1m.faderStartToggle = function (channel, control, value, status) {
+StantonSCS1m.faderStartToggle = function(channel, control, value, status) {
     StantonSCS1m.faderStart = !StantonSCS1m.faderStart;
     var No = 0x90 + channel;
     if (StantonSCS1m.faderStart) midi.sendShortMsg(No,8,1);
     else midi.sendShortMsg(No,8,0);
-}
+};
 
-StantonSCS1m.hotCueDeckChange = function (channel, control, value, status) {
+StantonSCS1m.hotCueDeckChange = function(channel, control, value, status) {
     if (StantonSCS1m.checkInSetup()) return;
     if ((status & 0XF0) == 0x90) {    // If button down
         StantonSCS1m.modifier["hotCueToggle"]=1;    // Set modifier flag (to allow cue deletion)
         StantonSCS1m.modifier["hotCueToggleTime"] = new Date();  // Store the current time in milliseconds
-    }
-    else {    // If button up
+    } else {    // If button up
         StantonSCS1m.modifier["hotCueToggle"]=0;
         // If the button was held down for over 1/3 of a second, stay on the current cue page
         if (StantonSCS1m.modifier["hotCueToggleTime"] != 0.0 && ((new Date() - StantonSCS1m.modifier["hotCueToggleTime"])>300)) return;
@@ -471,9 +466,9 @@ StantonSCS1m.hotCueDeckChange = function (channel, control, value, status) {
         else midi.sendShortMsg(0x80 + channel,34,0);   // Off
         StantonSCS1m.connectPresetSignals(channel,false);   // Connect new ones
     }
-}
+};
 
-StantonSCS1m.presetButton = function (channel, control, value, status) {
+StantonSCS1m.presetButton = function(channel, control, value, status) {
     if (StantonSCS1m.checkInSetup()) return;
     var deck = StantonSCS1m.hotCueDeck;
     if ((status & 0xF0) == 0x90) {    // If button down
@@ -481,8 +476,7 @@ StantonSCS1m.presetButton = function (channel, control, value, status) {
         if (StantonSCS1m.modifier["hotCueToggle"]==1) { // Delete cue point
             engine.setValue("[Channel"+deck+"]","hotcue_"+StantonSCS1m.hotCues[deck][control]+"_clear",1);
             engine.setValue("[Channel"+deck+"]","hotcue_"+StantonSCS1m.hotCues[deck][control]+"_clear",0);
-        }
-        else {
+        } else {
             // If hotcue X is set, seeks the player to hotcue X's position.
             // If hotcue X is not set, sets hotcue X to the current play position.
             engine.setValue("[Channel"+deck+"]","hotcue_"+StantonSCS1m.hotCues[deck][control]+"_activate",1);
@@ -491,11 +485,11 @@ StantonSCS1m.presetButton = function (channel, control, value, status) {
     }
     // Button up
     engine.setValue("[Channel"+deck+"]","hotcue_"+StantonSCS1m.hotCues[deck][control]+"_activate",0);
-}
+};
 
 // ----------   Slot functions  ----------
 
-StantonSCS1m.crossFaderStart = function (value) {
+StantonSCS1m.crossFaderStart = function(value) {
 
   if (!StantonSCS1m.faderStart) return;
   if (StantonSCS1m.lastCrossFader==value) return;
@@ -512,17 +506,17 @@ StantonSCS1m.crossFaderStart = function (value) {
   if (StantonSCS1m.lastCrossFader==1.0) engine.setValue("[Channel1]","play",1);
 
   StantonSCS1m.lastCrossFader=value;
-}
+};
 
-StantonSCS1m.ch1FaderStart = function (value) {
+StantonSCS1m.ch1FaderStart = function(value) {
   StantonSCS1m.channelFaderStart(value,1);
-}
+};
 
-StantonSCS1m.ch2FaderStart = function (value) {
+StantonSCS1m.ch2FaderStart = function(value) {
   StantonSCS1m.channelFaderStart(value,2);
-}
+};
 
-StantonSCS1m.channelFaderStart = function (value,deck) {
+StantonSCS1m.channelFaderStart = function(value,deck) {
 
   if (!StantonSCS1m.faderStart) return;
   if (StantonSCS1m.lastFader[deck]==value) return;
@@ -534,65 +528,65 @@ StantonSCS1m.channelFaderStart = function (value,deck) {
   if (StantonSCS1m.lastFader[deck]==0) engine.setValue("[Channel"+deck+"]","play",1);
 
   StantonSCS1m.lastFader[deck]=value;
-}
+};
 
 // ----------   LED slot functions  ----------
 
-StantonSCS1m.buttonLED = function (value, note, on, off) {
+StantonSCS1m.buttonLED = function(value, note, on, off) {
     var byte1 = 0x90 + StantonSCS1m.channel;
     if (value>0) midi.sendShortMsg(byte1,note,on);
     else midi.sendShortMsg(byte1,note,off);
-}
+};
 
-StantonSCS1m.Preset1LED = function(value) { StantonSCS1m.PresetLED(value,35);   }
-StantonSCS1m.Preset2LED = function(value) { StantonSCS1m.PresetLED(value,36);   }
-StantonSCS1m.Preset3LED = function(value) { StantonSCS1m.PresetLED(value,37);   }
-StantonSCS1m.Preset4LED = function(value) { StantonSCS1m.PresetLED(value,38);   }
+StantonSCS1m.Preset1LED = function(value) { StantonSCS1m.PresetLED(value,35);   };
+StantonSCS1m.Preset2LED = function(value) { StantonSCS1m.PresetLED(value,36);   };
+StantonSCS1m.Preset3LED = function(value) { StantonSCS1m.PresetLED(value,37);   };
+StantonSCS1m.Preset4LED = function(value) { StantonSCS1m.PresetLED(value,38);   };
 
 StantonSCS1m.PresetLED = function(value,control) {
     if (value>0) midi.sendShortMsg(0x90 + StantonSCS1m.channel,control,64);
     else midi.sendShortMsg(0x80 + StantonSCS1m.channel,control,0);
-}
+};
 
 // Vu Meters
 
-StantonSCS1m.Channel1Vu = function (value) {
+StantonSCS1m.Channel1Vu = function(value) {
     StantonSCS1m.VuMeter(value,93);
-}
+};
 
-StantonSCS1m.Channel2Vu = function (value) {
+StantonSCS1m.Channel2Vu = function(value) {
     StantonSCS1m.VuMeter(value,94);
-}
+};
 
-StantonSCS1m.MasterLVu = function (value) {
+StantonSCS1m.MasterLVu = function(value) {
     StantonSCS1m.VuMeter(value,96);
-}
+};
 
-StantonSCS1m.MasterRVu = function (value) {
+StantonSCS1m.MasterRVu = function(value) {
     StantonSCS1m.VuMeter(value,97);
-}
+};
 
-StantonSCS1m.Channel1Clip = function (value) {
+StantonSCS1m.Channel1Clip = function(value) {
     StantonSCS1m.clipLED(value,93);
-}
+};
 
-StantonSCS1m.Channel2Clip = function (value) {
+StantonSCS1m.Channel2Clip = function(value) {
     StantonSCS1m.clipLED(value,94);
-}
+};
 
-StantonSCS1m.MasterClip = function (value) {
+StantonSCS1m.MasterClip = function(value) {
     StantonSCS1m.clipLED(value,96);
     StantonSCS1m.clipLED(value,97);
-}
+};
 
-StantonSCS1m.clipLED = function (value, note) {
+StantonSCS1m.clipLED = function(value, note) {
     var on = 0x90 + StantonSCS1m.channel;
     var off = 0x80 + StantonSCS1m.channel;
     if (value>0) midi.sendShortMsg(on,note,8);
     else midi.sendShortMsg(off,note,8);
-}
+};
 
-StantonSCS1m.VuMeter = function (value,note) {
+StantonSCS1m.VuMeter = function(value,note) {
     var range = 1/7;    // keep the highest one for the clip signal
     var newLEDs=0;
     if (value>=range*7) newLEDs = 255;
@@ -613,29 +607,28 @@ StantonSCS1m.VuMeter = function (value,note) {
     var off = 0x80 + StantonSCS1m.channel;
     var compare=1;
     for (i=0; i<=7; i++) {
-        if((change & compare) !=0) { // If this LED changed
+        if ((change & compare) !=0) { // If this LED changed
             if ((newLEDs & compare) !=0) {  // If the new value is not 0
                 midi.sendShortMsg(on,note,i);   // Light it up
-                }
-            else midi.sendShortMsg(off,note,i); // Turn it off
+                } else midi.sendShortMsg(off,note,i); // Turn it off
         }
         compare <<= 1;
     }
-}
+};
 
 // LCD displays ("scribble strips")
 
-StantonSCS1m.pitchDisplay1 = function (value) {
+StantonSCS1m.pitchDisplay1 = function(value) {
     if (StantonSCS1m.inSetup) return;
     StantonSCS1m.pitchDisplay(value,1);
-}
+};
 
-StantonSCS1m.pitchDisplay2 = function (value) {
+StantonSCS1m.pitchDisplay2 = function(value) {
     if (StantonSCS1m.inSetup) return;
     StantonSCS1m.pitchDisplay(value,2);
-}
+};
 
-StantonSCS1m.pitchDisplay = function (value,deck) {
+StantonSCS1m.pitchDisplay = function(value,deck) {
     var data = (value * engine.getValue("[Channel"+deck+"]","rateRange") * 100);
     if (engine.getValue("[Channel"+deck+"]","rate_dir") == -1) data=-data;  // Show the correct sign depending on the preferences
     data = data.toFixed(2); // Always two decimal places
@@ -650,17 +643,17 @@ StantonSCS1m.pitchDisplay = function (value,deck) {
         case 2: LCD=4; break;
     }
     midi.sendSysexMsg(StantonSCS1m.sysex.concat([StantonSCS1m.channel, LCD],message.toInt(), 0xF7),7+message.length);   // Set LCD with pitch value
-}
+};
 
-StantonSCS1m.pitchColor1 = function (value) {
+StantonSCS1m.pitchColor1 = function(value) {
     StantonSCS1m.pitchColor(value,1);
-}
+};
 
-StantonSCS1m.pitchColor2 = function (value) {
+StantonSCS1m.pitchColor2 = function(value) {
     StantonSCS1m.pitchColor(value,2);
-}
+};
 
-StantonSCS1m.pitchColor = function (value, deck) {
+StantonSCS1m.pitchColor = function(value, deck) {
     var No = 0x90 + StantonSCS1m.channel;
     var offset=0;
     if (deck==2) offset=3;
@@ -669,11 +662,11 @@ StantonSCS1m.pitchColor = function (value, deck) {
     else if (value<=0.5) midi.sendShortMsg(No,49+offset,127);
     else if (value>0.5) midi.sendShortMsg(No,49+offset,32);
     engine.trigger("[Channel"+deck+"]","rate");    // Force pitch display to update
-}
+};
 
 // Virtual platter rings & time displays
 
-StantonSCS1m.durationChange1 = function (value) {
+StantonSCS1m.durationChange1 = function(value) {
     // Stop any leftover end-of-track-flash timers
     var deck = 1;
     if (StantonSCS1m.timer["15s-d"+deck] != -1) {
@@ -692,9 +685,9 @@ StantonSCS1m.durationChange1 = function (value) {
 
     StantonSCS1m.trackDuration[1]=value;
     StantonSCS1m.displayFlash[1]=-1;
-}
+};
 
-StantonSCS1m.durationChange2 = function (value) {
+StantonSCS1m.durationChange2 = function(value) {
     // Stop any leftover end-of-track-flash timers
     var deck = 1;
     if (StantonSCS1m.timer["15s-d"+deck] != -1) {
@@ -713,30 +706,29 @@ StantonSCS1m.durationChange2 = function (value) {
 
     StantonSCS1m.trackDuration[2]=value;
     StantonSCS1m.displayFlash[2]=-1;
-}
+};
 
-StantonSCS1m.positionUpdates1 = function (value) {
+StantonSCS1m.positionUpdates1 = function(value) {
     StantonSCS1m.positionUpdates(value,1);
-}
+};
 
-StantonSCS1m.positionUpdates2 = function (value) {
+StantonSCS1m.positionUpdates2 = function(value) {
     StantonSCS1m.positionUpdates(value,2);
-}
+};
 
-StantonSCS1m.displayFlash = function (deck) {
+StantonSCS1m.displayFlash = function(deck) {
     if (StantonSCS1m.checkInSetup()) return;
     var No = 0x90 + StantonSCS1m.channel;
     if (!StantonSCS1m.state["flash"+deck]) {
         StantonSCS1m.state["flash"+deck]=true;
         midi.sendShortMsg(No,49+deck,96);   //green
-    }
-    else {
+    } else {
         StantonSCS1m.state["flash"+deck]=false;
         midi.sendShortMsg(No,49+deck,32);   //red
     }
-}
+};
 
-StantonSCS1m.positionUpdates = function (value,deck) {
+StantonSCS1m.positionUpdates = function(value,deck) {
     var No = 0x90 + StantonSCS1m.channel;
     var trackTimeRemaining = ((1-value) * StantonSCS1m.trackDuration[deck]) | 0;    // OR with 0 replaces Math.floor and is faster
 
@@ -804,4 +796,4 @@ StantonSCS1m.positionUpdates = function (value,deck) {
             StantonSCS1m.lastTime[deck]=message;
         }
     }
-}
+};

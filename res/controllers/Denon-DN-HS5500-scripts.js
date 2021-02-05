@@ -63,7 +63,7 @@ DNHS5500.init = function init(id,debug) {
     DNHS5500.clearTrackDisplay(DNHS5500.secondDeckGroup);
 
     DNHS5500.braking = [false, false];
-}
+};
 
 DNHS5500.shutdown = function shutdown() {
     // Turn off platter movement.
@@ -79,9 +79,9 @@ DNHS5500.shutdown = function shutdown() {
     DNHS5500.repeatLight(0, DNHS5500.secondDeckGroup);
     DNHS5500.keylockLight(0, DNHS5500.firstDeckGroup);
     DNHS5500.keylockLight(0, DNHS5500.secondDeckGroup);
-}
+};
 
-DNHS5500.clearTrackDisplay = function (group) {
+DNHS5500.clearTrackDisplay = function(group) {
     DNHS5500.hotcue1Light(0, group);
     DNHS5500.hotcue2Light(0, group);
     DNHS5500.hotcue3Light(0, group);
@@ -95,35 +95,35 @@ DNHS5500.clearTrackDisplay = function (group) {
     DNHS5500.scratchLight(0, group);
     DNHS5500.playLight(0, group);
     DNHS5500.cueLight(0, group);
-}
+};
 
-DNHS5500.channelForGroup = function (group) {
+DNHS5500.channelForGroup = function(group) {
     if (group == DNHS5500.firstDeckGroup) {
         return DNHS5500.midiChannelBase;
     } else {
         return DNHS5500.midiChannelBase + 1;
     }
-}
+};
 
 // XXX: how to support decks 3 and 4?
-DNHS5500.groupForChannel = function (channel) {
+DNHS5500.groupForChannel = function(channel) {
     if (channel == 0) {
         return DNHS5500.firstDeckGroup;
     } else {
         return DNHS5500.secondDeckGroup;
     }
-}
+};
 
 // XXX: properly support decks 3 and 4.
-DNHS5500.deckForChannel = function (channel) {
+DNHS5500.deckForChannel = function(channel) {
     if (channel == 0) {
         return 1;
     } else {
         return 2;
     }
-}
+};
 
-DNHS5500.rateDisplay = function (value, group) {
+DNHS5500.rateDisplay = function(value, group) {
     var channelmidi = DNHS5500.channelForGroup(group);
     var rateDir = engine.getValue(group, "rate_dir");
     var raterange = engine.getValue(group, "rateRange");
@@ -151,9 +151,9 @@ DNHS5500.rateDisplay = function (value, group) {
     var bpm_frac = Math.round((bpm - (bpm_dec * 10)) * 10);
     midi.sendShortMsg(channelmidi, 0x73, bpm_dec);
     midi.sendShortMsg(channelmidi, 0x74, bpm_frac);
-}
+};
 
-DNHS5500.rateDisplayClear = function (group) {
+DNHS5500.rateDisplayClear = function(group) {
     // We can't make this information disappear, so set to zeros.
     var channelmidi = DNHS5500.channelForGroup(group);
     midi.sendShortMsg(channelmidi, 0x71, 0);
@@ -161,9 +161,9 @@ DNHS5500.rateDisplayClear = function (group) {
     midi.sendShortMsg(channelmidi, 0x45, 0x01);
     midi.sendShortMsg(channelmidi, 0x73, 0);
     midi.sendShortMsg(channelmidi, 0x74, 0);
-}
+};
 
-DNHS5500.playPositionChanged = function (value, group) {
+DNHS5500.playPositionChanged = function(value, group) {
     var channelmidi = DNHS5500.channelForGroup(group);
 
     // Track percentage position.
@@ -186,7 +186,7 @@ DNHS5500.playPositionChanged = function (value, group) {
     midi.sendShortMsg(channelmidi, 0x42, pos_minutes);
     midi.sendShortMsg(channelmidi, 0x43, pos_secs);
     midi.sendShortMsg(channelmidi, 0x44, pos_frac);
-}
+};
 
 /*DNHS5500.spinnyAngleChanged = function (angle, group) {
     // XXX: This only gets updated if the spinnys are visible in the UI.
@@ -206,7 +206,7 @@ DNHS5500.playPositionChanged = function (value, group) {
 
 // The button that enables/disables scratching.  The wheel itself is supposed
 // to send this message but never does.  Instead we use the "platter source" button.
-DNHS5500.wheelTouch = function (channel, control, value, status) {
+DNHS5500.wheelTouch = function(channel, control, value, status) {
     var decknum = DNHS5500.deckForChannel(channel);
     if (value == 0x40) {
         // Ramp from current rate to scratch rate.
@@ -215,15 +215,15 @@ DNHS5500.wheelTouch = function (channel, control, value, status) {
         // Ramp from scratch rate to current rate.
         engine.scratchDisable(decknum, true);
     }
-}
+};
 
-DNHS5500.scratchEnable = function (deck, ramp) {
+DNHS5500.scratchEnable = function(deck, ramp) {
     // Try lower damp values for more responsive scratching.
     var damp_value = 32;
     var alpha = 1.0 / damp_value;
     var beta = alpha / damp_value;
     engine.scratchEnable(deck, 1480, 33+1/3, alpha, beta, ramp);
-}
+};
 
 //DNHS5500.scratchEnableDamped = function (deck) {
 //    var alpha = 1.0/256;
@@ -232,15 +232,15 @@ DNHS5500.scratchEnable = function (deck, ramp) {
 //}
 
 // See above.  We never get this signal.
-DNHS5500.wheelRelease = function (channel, control, value, status) {
+DNHS5500.wheelRelease = function(channel, control, value, status) {
     var decknum = DNHS5500.deckForChannel(channel);
     if (value == 0x00) {
         // Ramp from to saved rate from scratch rate.
         engine.scratchDisable(decknum, true);
     }
-}
+};
 
-DNHS5500.wheelTurn = function (channel, control, value, status) {
+DNHS5500.wheelTurn = function(channel, control, value, status) {
     // Reports the velocity of the top disc-like wheel, as well as touch events.
     var deckNumber = DNHS5500.deckForChannel(channel);
     var group = DNHS5500.groupForChannel(channel);
@@ -264,9 +264,9 @@ DNHS5500.wheelTurn = function (channel, control, value, status) {
     } else {
         engine.setValue(group, "jog", velocity);
     }
-}
+};
 
-DNHS5500.platterTurn = function (channel, control, value, status) {
+DNHS5500.platterTurn = function(channel, control, value, status) {
     // Reports the velocity of the lower platter.
     var velocity = value - 0x40;
     var deckNumber = DNHS5500.deckForChannel(channel);
@@ -282,9 +282,9 @@ DNHS5500.platterTurn = function (channel, control, value, status) {
             DNHS5500.wheelTurn(channel, 0, 0x40, 0);
         }
     }
-}
+};
 
-DNHS5500.playButton = function (channel, control, value, status) {
+DNHS5500.playButton = function(channel, control, value, status) {
     // Only respond to presses.
     if (value == 0) {
         return;
@@ -298,9 +298,9 @@ DNHS5500.playButton = function (channel, control, value, status) {
         engine.setValue(channelname, "play", 1.0);
     }
     DNHS5500.playChanged(value, DNHS5500.groupForChannel(channel));
-}
+};
 
-DNHS5500.playChanged = function (value, group) {
+DNHS5500.playChanged = function(value, group) {
     var channelmidi = DNHS5500.channelForGroup(group);
     // XXX: support 4 decks.
     if (group == DNHS5500.firstDeckGroup) {
@@ -325,25 +325,25 @@ DNHS5500.playChanged = function (value, group) {
         // Reset brake. XXX: HACK;
         DNHS5500.brake(deck - 1, 0, 1, 1);
     }
-}
+};
 
-DNHS5500.selectTrack = function (channel, control, value, status) {
+DNHS5500.selectTrack = function(channel, control, value, status) {
     if (value > 0) {
         engine.setValue("[Playlist]", "SelectPrevTrack", 1);
     } else {
         engine.setValue("[Playlist]", "SelectNextTrack", 1);
     }
-}
+};
 
-DNHS5500.eject = function (channel, control, value, status) {
+DNHS5500.eject = function(channel, control, value, status) {
     if (value == 0) {
         return;
     }
     var group = DNHS5500.groupForChannel(channel);
     DNHS5500.clearTrackDisplay(group);
-}
+};
 
-DNHS5500.brake = function (channel, control, value, status) {
+DNHS5500.brake = function(channel, control, value, status) {
     if (value == 0) {
         return;
     }
@@ -359,64 +359,64 @@ DNHS5500.brake = function (channel, control, value, status) {
         engine.brake(decknum, true);
         DNHS5500.brakeLight(1, group);
     }
-}
+};
 
-DNHS5500.toggleLightLayer1 = function (group, light, status) {
+DNHS5500.toggleLightLayer1 = function(group, light, status) {
     var channel = DNHS5500.channelForGroup(group);
     if (status > 0) {
         midi.sendShortMsg(channel, 0x4A, light);
     } else {
         midi.sendShortMsg(channel, 0x4B, light);
     }
-}
+};
 
-DNHS5500.toggleLightLayer2 = function (group, light, status) {
+DNHS5500.toggleLightLayer2 = function(group, light, status) {
     var channel = DNHS5500.channelForGroup(group);
     if (status > 0) {
         midi.sendShortMsg(channel, 0x4D, light);
     } else {
         midi.sendShortMsg(channel, 0x4E, light);
     }
-}
+};
 
-DNHS5500.playLight = function (value, group) {
+DNHS5500.playLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x27, value);
-}
+};
 
-DNHS5500.cueLight = function (value, group) {
+DNHS5500.cueLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x26, value);
-}
+};
 
-DNHS5500.keylockLight = function (value, group) {
+DNHS5500.keylockLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x08, value);
     DNHS5500.toggleLightLayer2(group, 0x14, value);
-}
+};
 
-DNHS5500.hotcue1Light = function (value, group) {
+DNHS5500.hotcue1Light = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x11, value);
-}
+};
 
-DNHS5500.hotcue2Light = function (value, group) {
+DNHS5500.hotcue2Light = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x13, value);
-}
+};
 
-DNHS5500.hotcue3Light = function (value, group) {
+DNHS5500.hotcue3Light = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x15, value);
-}
+};
 
-DNHS5500.reverseLight = function (value, group) {
+DNHS5500.reverseLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x3A, value);
-}
+};
 
-DNHS5500.scratchLight = function (value, group) {
+DNHS5500.scratchLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x3B, value);
-}
+};
 
-DNHS5500.exitReloopLight = function (value, group) {
+DNHS5500.exitReloopLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x42, value);
-}
+};
 
-DNHS5500.loopEnabledLight = function (value, group) {
+DNHS5500.loopEnabledLight = function(value, group) {
     if (value != 0) {
         // Include the () when active.
         DNHS5500.toggleLightLayer2(group, 0x42, 1);
@@ -426,26 +426,26 @@ DNHS5500.loopEnabledLight = function (value, group) {
         DNHS5500.toggleLightLayer2(group, 0x1A, 1);
         DNHS5500.toggleLightLayer2(group, 0x1C, 1);
     }
-}
+};
 
-DNHS5500.loopInLight = function (value, group) {
+DNHS5500.loopInLight = function(value, group) {
     var enabled = (value != -1);
     DNHS5500.toggleLightLayer2(group, 0x1A, enabled);
-}
+};
 
-DNHS5500.loopOutLight = function (value, group) {
+DNHS5500.loopOutLight = function(value, group) {
     var enabled = (value != -1);
     DNHS5500.toggleLightLayer2(group, 0x1C, enabled);
-}
+};
 
-DNHS5500.repeatLight = function (value, group) {
+DNHS5500.repeatLight = function(value, group) {
     if (value > 0) {
         DNHS5500.toggleLightLayer2(group, 0x04, 1);
     } else {
         DNHS5500.toggleLightLayer2(group, 0x05, 1);
     }
-}
+};
 
-DNHS5500.brakeLight = function (value, group) {
+DNHS5500.brakeLight = function(value, group) {
     DNHS5500.toggleLightLayer1(group, 0x28, value);
-}
+};

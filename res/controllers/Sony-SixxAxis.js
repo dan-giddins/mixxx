@@ -82,19 +82,19 @@ function SonySixxAxisController() {
         packet.setCallback("hid","gyro_gravity",this.gyro);
 
         this.controller.registerInputPacket(packet);
-    }
+    };
 
     // Sixxaxis has no output controls
-    this.registerOutputPackets = function() { }
+    this.registerOutputPackets = function() { };
 
     // No default scalers: all controls done with callbacks anyway
-    this.registerScalers = function() { }
+    this.registerScalers = function() { };
 
     // Register your own callbacks in caller by overriding this
-    this.registerCallbacks = function() { }
+    this.registerCallbacks = function() { };
 
     // Default dummy callback for gyro events
-    this.gyro = function(field) { return; }
+    this.gyro = function(field) { return; };
 }
 
 // SonySixxAxisController is defined in SonySixxAxis.hid.js
@@ -113,21 +113,21 @@ SonySixxAxis.init = function(id) {
         controller.timers[timer_id] = engine.beginTimer(
             interval,
             "SonySixxAxis.controller.autorepeatTimer()"
-        )
-    }
+        );
+    };
     HIDDebug("Sony SixxAxis controller initialized: " + SonySixxAxis.id);
-}
+};
 
 // Mandatory function for mixxx controllers
 SonySixxAxis.shutdown = function() {
     SonySixxAxis.controller.close();
     HIDDebug("Sony SixxAxis controller shutdown: " + SonySixxAxis.id);
-}
+};
 
 // Mandatory function to receive anything from HID
 SonySixxAxis.incomingData = function(data,length) {
     SonySixxAxis.controller.parsePacket(data,length);
-}
+};
 
 // Register callbacks for "hid" controls defined in SonySixxAxisController
 SonySixxAxis.registerCallbacks = function(id) {
@@ -187,7 +187,7 @@ SonySixxAxis.front_left = function(field) {
         engine.setValue("[Playlist]","SelectPrevPlaylist",true);
     if (field.name=="button_bottom_left")
         engine.setValue("[Playlist]","SelectNextPlaylist",true);
-}
+};
 
 SonySixxAxis.front_right = function(field) {
     var controller = SonySixxAxis.controller;
@@ -199,17 +199,17 @@ SonySixxAxis.front_right = function(field) {
         engine.setValue("[Playlist]","SelectPrevTrack",true);
         var callback = function(field) {
             engine.setValue("[Playlist]","SelectPrevTrack",true);
-        }
+        };
         controller.setAutoRepeat("hid","button_top_right",callback,150);
     }
     if (field.name=="button_bottom_right") {
         engine.setValue("[Playlist]","SelectNextTrack",true);
         var callback = function(field) {
             engine.setValue("[Playlist]","SelectNextTrack",true);
-        }
+        };
         controller.setAutoRepeat("hid","button_bottom_right",callback,150);
     }
-}
+};
 
 SonySixxAxis.left_jog = function(field) {
     var controller = SonySixxAxis.controller;
@@ -228,7 +228,7 @@ SonySixxAxis.left_jog = function(field) {
     if (field.name=="jog_left_x") {
 
     }
-}
+};
 
 SonySixxAxis.right_jog = function(field) {
     var controller = SonySixxAxis.controller;
@@ -248,7 +248,7 @@ SonySixxAxis.right_jog = function(field) {
     if (field.name=="jog_right_x") {
 
     }
-}
+};
 
 SonySixxAxis.left_bend = function(field) {
     var controller = SonySixxAxis.controller;
@@ -258,17 +258,17 @@ SonySixxAxis.left_bend = function(field) {
         SonySixxAxis.jog_bend("deck1","down",field.value);
         var callback = function(field) {
             SonySixxAxis.jog_bend("deck1","down",64);
-        }
+        };
         controller.setAutoRepeat("hid","pressure_top_left",callback,50);
     }
     if (field.name=="pressure_bottom_left") {
         SonySixxAxis.jog_bend("deck1","up",field.value);
         var callback = function() {
             SonySixxAxis.jog_bend("deck1","up",64);
-        }
+        };
         controller.setAutoRepeat("hid","pressure_bottom_left",callback,50);
     }
-}
+};
 
 SonySixxAxis.right_bend = function(field) {
     var controller = SonySixxAxis.controller;
@@ -278,17 +278,17 @@ SonySixxAxis.right_bend = function(field) {
         SonySixxAxis.jog_bend("deck2","down",field);
         var callback = function() {
             SonySixxAxis.jog_bend("deck2","down",64);
-        }
+        };
         controller.setAutoRepeat("hid","pressure_top_right",callback,50);
     }
     if (field.name=="pressure_bottom_right") {
         SonySixxAxis.jog_bend("deck2","up",field);
         var callback = function() {
             SonySixxAxis.jog_bend("deck2","up",64);
-        }
+        };
         controller.setAutoRepeat("hid","pressure_bottom_right",callback,50);
     }
-}
+};
 
 SonySixxAxis.jog_bend = function(group,direction,value) {
     var controller = SonySixxAxis.controller;
@@ -300,6 +300,6 @@ SonySixxAxis.jog_bend = function(group,direction,value) {
         engine.setValue(group,"jog",6);
     if (direction=="down")
         engine.setValue(group,"jog",-6);
-}
+};
 
 

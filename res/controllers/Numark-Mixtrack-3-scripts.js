@@ -1081,8 +1081,8 @@ NumarkMixtrack3.PlayButton = function(channel, control, value, status, group) {
 };
 
 NumarkMixtrack3.BrowseButton = function(channel, control, value, status, group) {
-    var shifted = (NumarkMixtrack3.decks.D1.shiftKey || NumarkMixtrack3.decks
-        .D2.shiftKey || NumarkMixtrack3.decks.D3.shiftKey || NumarkMixtrack3.decks.D4.shiftKey);
+    var shifted = (NumarkMixtrack3.decks.D1.shiftKey || NumarkMixtrack3.decks.
+        D2.shiftKey || NumarkMixtrack3.decks.D3.shiftKey || NumarkMixtrack3.decks.D4.shiftKey);
 
     if (value === ON) {
 	    if (shifted) {
@@ -1711,7 +1711,7 @@ NumarkMixtrack3.PFLButton = function(channel, control, value, status, group) {
             script.toggleControl(group, "quantize");
         } else {
             script.toggleControl(deck.group, "pfl");
-            for (var i = 1; i <= 4 ; i++) {
+            for (var i = 1; i <= 4; i++) {
                 if (i !== deck.decknum) {
                     engine.setValue("[Channel" + i + "]", "pfl", false);
                 }
@@ -1859,7 +1859,7 @@ NumarkMixtrack3.FilterKnob = function(channel, control, value, status, group) {
     if (deck.shiftKey) {
 		// Default behavior for Shift+Filter is to change FX4
 		// for the currently focused effect
-		if(focusedEffect && ShiftFilterFX4) {
+		if (focusedEffect && ShiftFilterFX4) {
 			parameterSoftTakeOver(
 				"[EffectRack1_EffectUnit" + decknum + "_Effect" + focusedEffect + "]", "parameter4", value
 			);

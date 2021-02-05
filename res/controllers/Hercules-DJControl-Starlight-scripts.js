@@ -58,9 +58,9 @@ DJCStarlight.kScratchActionBend = 3;
 
 
 // The base LED are mapped to the VU Meter for light show.
-DJCStarlight.baseLEDUpdate = function(value, group, control){
+DJCStarlight.baseLEDUpdate = function(value, group, control) {
     value = (value*127);
-    switch(control) {
+    switch (control) {
     case "VuMeterL":
         midi.sendShortMsg(0x91, 0x23, value);
         break;
@@ -131,7 +131,7 @@ DJCStarlight._convertWheelRotation = function(value) {
     // (clockwise) or 0x7F (counter clockwise). 0x1 should map to 1, 0x7F
     // should map to -1 (IOW it's 7-bit signed).
     return value < 0x40 ? 1 : -1;
-}
+};
 
 
 // The touch action on the jog wheel's top surface

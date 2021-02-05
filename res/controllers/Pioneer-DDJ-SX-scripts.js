@@ -1043,7 +1043,7 @@ PioneerDDJSX.toggleSamplerMode = function(channel, control, value, status, group
 PioneerDDJSX.toggleSamplerVelocityMode = function(channel, control, value, status, group) {
     var deck = PioneerDDJSX.channelGroups[group],
         index = 0;
-    PioneerDDJSX.samplerVelocityMode[deck] = value ? true : false;
+    PioneerDDJSX.samplerVelocityMode[deck] = !!value;
     if (value) {
         PioneerDDJSX.nonPadLedControl(group, PioneerDDJSX.nonPadLeds.longPressSamplerMode, value);
         for (index = 1; index <= 32; index++) {
@@ -1096,7 +1096,7 @@ PioneerDDJSX.slicerButtons = function(channel, control, value, status, group) {
     } else {
         PioneerDDJSX.padLedControl(group, PioneerDDJSX.ledGroups.slicer, index, false, value);
     }
-    PioneerDDJSX.slicerActive[deck] = value ? true : false;
+    PioneerDDJSX.slicerActive[deck] = !!value;
     PioneerDDJSX.slicerButton[deck] = index;
 
     if (value) {
@@ -1506,7 +1506,7 @@ PioneerDDJSX.reverseButton = function(channel, control, value, status, group) {
 PioneerDDJSX.gridAdjustButton = function(channel, control, value, status, group) {
     var deck = PioneerDDJSX.channelGroups[group];
 
-    PioneerDDJSX.gridAdjustSelected[deck] = value ? true : false;
+    PioneerDDJSX.gridAdjustSelected[deck] = !!value;
     PioneerDDJSX.nonPadLedControl(group, PioneerDDJSX.nonPadLeds.gridAdjust, value);
 };
 
@@ -1518,7 +1518,7 @@ PioneerDDJSX.gridSetButton = function(channel, control, value, status, group) {
 PioneerDDJSX.gridSlideButton = function(channel, control, value, status, group) {
     var deck = PioneerDDJSX.channelGroups[group];
 
-    PioneerDDJSX.gridSlideSelected[deck] = value ? true : false;
+    PioneerDDJSX.gridSlideSelected[deck] = !!value;
     PioneerDDJSX.nonPadLedControl(group, PioneerDDJSX.nonPadLeds.gridSlide, value);
 };
 
@@ -1537,9 +1537,9 @@ PioneerDDJSX.quantizeButton = function(channel, control, value, status, group) {
 PioneerDDJSX.needleSearchTouch = function(channel, control, value, status, group) {
     var deck = PioneerDDJSX.channelGroups[group];
     if (engine.getValue(group, "play")) {
-        PioneerDDJSX.needleSearchTouched[deck] = PioneerDDJSX.shiftPressed && (value ? true : false);
+        PioneerDDJSX.needleSearchTouched[deck] = PioneerDDJSX.shiftPressed && (!!value);
     } else {
-        PioneerDDJSX.needleSearchTouched[deck] = value ? true : false;
+        PioneerDDJSX.needleSearchTouched[deck] = !!value;
     }
 };
 
@@ -1570,7 +1570,7 @@ PioneerDDJSX.panelSelectButton = function(channel, control, value, status, group
 
 PioneerDDJSX.shiftPanelSelectButton = function(channel, control, value, status, group) {
     var channelGroup;
-    PioneerDDJSX.shiftPanelSelectPressed = value ? true : false;
+    PioneerDDJSX.shiftPanelSelectPressed = !!value;
 
     for (var index in PioneerDDJSX.fxUnitGroups) {
         if (PioneerDDJSX.fxUnitGroups.hasOwnProperty(index)) {

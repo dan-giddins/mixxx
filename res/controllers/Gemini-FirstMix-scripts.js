@@ -47,7 +47,7 @@ gammaOutputRange = 3;    // Max rate change
 
 function firstmix() {}
 
-firstmix.init = function (channel, control, value, status, group) {
+firstmix.init = function(channel, control, value, status, group) {
     for (i=0x33; i<=0x60; i++) midi.sendShortMsg(0x90,i,0x00);  // Turn off all LEDs
 
     firstmix.scratchButton = [false,false];
@@ -62,11 +62,11 @@ firstmix.init = function (channel, control, value, status, group) {
 
     firstmix.leds = [
         // Common
-        { "preview": 0x60 },
+        {"preview": 0x60},
         // Deck 1
-        { "play": 0x4a, "cue": 0x3b, "efx": 0x43, "scratch": 0x48, "rev": 0x40, "sync": 0x33 },
+        {"play": 0x4a, "cue": 0x3b, "efx": 0x43, "scratch": 0x48, "rev": 0x40, "sync": 0x33},
         // Deck 2
-        { "play": 0x4c, "cue": 0x42, "efx": 0x45, "scratch": 0x35, "rev": 0x47, "sync": 0x3c },
+        {"play": 0x4c, "cue": 0x42, "efx": 0x45, "scratch": 0x35, "rev": 0x47, "sync": 0x3c},
     ];
 
     // Set controls in Mixxx to reflect settings on the device
@@ -85,11 +85,11 @@ firstmix.init = function (channel, control, value, status, group) {
     engine.softTakeover("[Channel2]","filterHigh",true);
     engine.softTakeover("[Channel2]","filterMed",true);
     engine.softTakeover("[Channel2]","filterLow",true);
-}
+};
 
-firstmix.shutdown = function () {
+firstmix.shutdown = function() {
     for (i=0x33; i<=0x60; i++) midi.sendShortMsg(0x90,i,0x00);  // Turn off all LEDs
-}
+};
 
 // ----------------
 // Helper functions
@@ -98,9 +98,9 @@ firstmix.shutdown = function () {
 firstmix.setLED = function(value, status) {
     status = status ? 0x64 : 0x00;
     midi.sendShortMsg(0x90, value, status);
-}
+};
 
-firstmix.currentDeck = function (group) {
+firstmix.currentDeck = function(group) {
     if (group == "[Channel1]")
         return 1;
     else if (group == "[Channel2]")
@@ -108,60 +108,58 @@ firstmix.currentDeck = function (group) {
     print("Invalid group : " + group);
         midi.sendShortMsg(0x90,0x45,0x7F);    // Turn on right EFX LED
     return -1; // error
-}
+};
 
-firstmix.Stutter1Beat = function (value) {
+firstmix.Stutter1Beat = function(value) {
         var secondsToEnd = engine.getValue("[Channel1]", "duration") * (1-engine.getValue("[Channel1]", "playposition"));
     if (secondsToEnd < secondsBlink && secondsToEnd > 1 && engine.getValue("[Channel1]", "play")) { // The song is going to end
         firstmix.setLED(firstmix.leds[1]["cue"], value);
     }
     firstmix.setLED(firstmix.leds[1]["play"], value);
-}
+};
 
-firstmix.Stutter2Beat = function (value) {
+firstmix.Stutter2Beat = function(value) {
         var secondsToEnd = engine.getValue("[Channel2]", "duration") * (1-engine.getValue("[Channel2]", "playposition"));
     if (secondsToEnd < secondsBlink && secondsToEnd > 1 && engine.getValue("[Channel2]", "play")) { // If song is about to end, blink cue button
         firstmix.setLED(firstmix.leds[2]["cue"], value);
     }
     firstmix.setLED(firstmix.leds[2]["play"], value); // Blink play button on beat
-}
+};
 
 // ----------------------
 // Actual functions below
 // ----------------------
 
 // EFX buttons (used for PFL)
-firstmix.pfl = function (channel, control, value, status, group) {
+firstmix.pfl = function(channel, control, value, status, group) {
     if (value == 0x7F) {  // Only take action on button press; not button release
         if (firstmix.efxButton[firstmix.currentDeck(group)-1] == false) { // if button is off, turn it on
             engine.setValue(group, "pfl", 1);
             firstmix.setLED(firstmix.leds[firstmix.currentDeck(group)]["efx"], 0x7f);
             firstmix.efxButton[firstmix.currentDeck(group)-1] = true;
-        }
-        else { // If button is on, turn it off
+        } else { // If button is on, turn it off
             engine.setValue(group, "pfl", 0);
             firstmix.setLED(firstmix.leds[firstmix.currentDeck(group)]["efx"], 0x00);
             firstmix.efxButton[firstmix.currentDeck(group)-1] = false;
         }
     }
-}
+};
 
 // Scratch buttons
-firstmix.scratch = function (channel, control, value, status, group) {
+firstmix.scratch = function(channel, control, value, status, group) {
     if (value == 0x7F) {  // Only take action on button press; not button release
         if (firstmix.scratchButton[firstmix.currentDeck(group)-1] == false) { // if button is off, turn it on
             firstmix.setLED(firstmix.leds[firstmix.currentDeck(group)]["scratch"], 0x7f);
             firstmix.scratchButton[firstmix.currentDeck(group)-1] = true;
-        }
-        else { // If button is on, turn it off
+        } else { // If button is on, turn it off
             firstmix.setLED(firstmix.leds[firstmix.currentDeck(group)]["scratch"], 0x00);
             firstmix.scratchButton[firstmix.currentDeck(group)-1] = false;
         }
     }
-}
+};
 
 // Preview button
-firstmix.preview = function (channel, control, value, status, group) {
+firstmix.preview = function(channel, control, value, status, group) {
     var tempVolume = engine.getValue("[Sampler4]","volume");
 
     if ((value == 0x7f) && (firstmix.previewButton == false)) {
@@ -171,8 +169,7 @@ firstmix.preview = function (channel, control, value, status, group) {
         engine.beginTimer(250,"engine.setValue(\"[Sampler4]\", \"play\", 1)",true); // I had to add a delay because this wouldn't work otherwise
         firstmix.setLED(firstmix.leds[0]["preview"], 0x7f);
         firstmix.previewButton = true;
-    }
-    else if ((value == 0x7f) && (firstmix.previewButton == true)) {
+    } else if ((value == 0x7f) && (firstmix.previewButton == true)) {
         engine.setValue("[Sampler4]", "play", 0);
         engine.setValue("[Sampler4]", "pfl", 0);
         engine.setValue("[Sampler4]", "volume", tempVolume);
@@ -180,24 +177,23 @@ firstmix.preview = function (channel, control, value, status, group) {
         firstmix.setLED(firstmix.leds[0]["preview"], 0x00);
         firstmix.previewButton = false;
     }
-}
+};
 
 
 // Jogwheel functions
 
-firstmix.wheelTouch = function (channel, control, value, status, group) {
+firstmix.wheelTouch = function(channel, control, value, status, group) {
     if ((value == 0x7F) && (firstmix.scratchButton[firstmix.currentDeck(group)-1] == true)) {
         engine.scratchEnable(firstmix.currentDeck(group), 180, 33+1/3, alpha, beta);
     firstmix.touchingWheel[firstmix.currentDeck(group)-1] = true;
-    }
-    else if ((value == 0x7F) && (firstmix.scratchButton[firstmix.currentDeck(group)-1] == false))
+    } else if ((value == 0x7F) && (firstmix.scratchButton[firstmix.currentDeck(group)-1] == false))
     firstmix.touchingWheel[firstmix.currentDeck(group)-1] = true;
 
     else if (value == 0x00) {    // If button up
         engine.scratchDisable(firstmix.currentDeck(group));
     firstmix.touchingWheel[firstmix.currentDeck(group)-1] = false;
     }
-}
+};
 
 firstmix.jogWheel = function(channel, control, value, status, group) {
     var deck = firstmix.currentDeck(group);
@@ -221,7 +217,7 @@ firstmix.jogWheel = function(channel, control, value, status, group) {
         }
         engine.setValue(group, "jog", adjustedJog);
     }
-}
+};
 
 
 // ====================
@@ -229,7 +225,7 @@ firstmix.jogWheel = function(channel, control, value, status, group) {
 // ====================
 
 // The wheel that actually controls the scratching
-firstmix.wheelTurn = function (channel, control, value, status, group) {
+firstmix.wheelTurn = function(channel, control, value, status, group) {
     // Only continue if scratch button was pressed and jogwheel is being touched. If not, skip this.
     if (!(firstmix.scratchButton[firstmix.currentDeck(group)-1] && firstmix.touchingWheel[firstmix.currentDeck(group)-1])) return;
 
@@ -237,9 +233,9 @@ firstmix.wheelTurn = function (channel, control, value, status, group) {
     if (value-64 > 0) newValue = value-128;
     else newValue = value;
     engine.scratchTick(firstmix.currentDeck(group),newValue);
-}
+};
 
-firstmix.playbutton1 = function (channel, control, value, status) {
+firstmix.playbutton1 = function(channel, control, value, status) {
     var currentlyPlaying = engine.getValue("[Channel1]","play");
     if ((currentlyPlaying == 1) & (value == 0x7F)) {
         engine.setValue("[Channel1]","play",0);    // Stop
@@ -249,9 +245,9 @@ firstmix.playbutton1 = function (channel, control, value, status) {
         engine.setValue("[Channel1]","play",1);    // Start
         midi.sendShortMsg(0x90,0x4A,0x7F);    // Turn on the Play LED
     }
-}
+};
 
-firstmix.playbutton2 = function (channel, control, value, status, group) {
+firstmix.playbutton2 = function(channel, control, value, status, group) {
     var currentlyPlaying = engine.getValue("[Channel2]","play");
     if ((currentlyPlaying == 1) & (value == 0x7F)) {
         engine.setValue("[Channel2]","play",0);    // Stop
@@ -261,5 +257,5 @@ firstmix.playbutton2 = function (channel, control, value, status, group) {
         engine.setValue("[Channel2]","play",1);    // Start
         midi.sendShortMsg(0x90,0x4C,0x7F);    // Turn on the Play LED
     }
-}
+};
 

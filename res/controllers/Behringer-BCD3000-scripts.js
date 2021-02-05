@@ -1,4 +1,4 @@
-function BehringerBCD3000 () {}
+function BehringerBCD3000() {}
 BehringerBCD3000.debug = false;
 BehringerBCD3000.escratch = [false, false];
 
@@ -6,7 +6,7 @@ BehringerBCD3000.escratch = [false, false];
 BehringerBCD3000.UseAcceleration = true;
 BehringerBCD3000.JogSensitivity = 0.5;
 
-BehringerBCD3000.init = function (id) { // called when the device is opened & set up
+BehringerBCD3000.init = function(id) { // called when the device is opened & set up
 
     BehringerBCD3000.reset();
 
@@ -20,7 +20,7 @@ BehringerBCD3000.init = function (id) { // called when the device is opened & se
         midi.sendShortMsg(0xB0, 0x63, 0x0);
 };
 
-BehringerBCD3000.shutdown = function () {
+BehringerBCD3000.shutdown = function() {
 
     BehringerBCD3000.reset();
 
@@ -29,7 +29,7 @@ BehringerBCD3000.shutdown = function () {
         midi.sendShortMsg(0xB0, 0x63, 0x7F);
 };
 
-BehringerBCD3000.reset = function () {
+BehringerBCD3000.reset = function() {
 
     // Turn off all the lights
     for (i = 0; i <= 25; i++) {
@@ -38,7 +38,7 @@ BehringerBCD3000.reset = function () {
 
 };
 
-BehringerBCD3000.getDeck = function (group) {
+BehringerBCD3000.getDeck = function(group) {
     if (group == "[Channel1]")
         return 0;
     else if (group == "[Channel2]")
@@ -46,11 +46,11 @@ BehringerBCD3000.getDeck = function (group) {
 
     print("Invalid group : " + group);
     return -1; // error
-}
+};
 
 
 //Scratch, cue search and pitch bend function
-BehringerBCD3000.jogWheel = function (channel, control, value, status, group) {
+BehringerBCD3000.jogWheel = function(channel, control, value, status, group) {
 
 
     deck = BehringerBCD3000.getDeck(group);
@@ -75,7 +75,7 @@ BehringerBCD3000.jogWheel = function (channel, control, value, status, group) {
 };
 
 //Scratch button function
-BehringerBCD3000.scratchButton = function (channel, control, value, status, group) {
+BehringerBCD3000.scratchButton = function(channel, control, value, status, group) {
 
     if (value != 0x7F)
         return;
@@ -110,7 +110,7 @@ BehringerBCD3000.scratchButton = function (channel, control, value, status, grou
 };
 
 //Set loop function
-BehringerBCD3000.loop = function (channel, control, value, status, group) {
+BehringerBCD3000.loop = function(channel, control, value, status, group) {
     if (value)
         action = "loop_in";
     else

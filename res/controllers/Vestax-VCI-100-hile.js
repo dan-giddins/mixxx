@@ -5,7 +5,7 @@
 // For Mixxx version 1.11.x
 //
 
-function HileVci100() {};
+function HileVci100() {}
 
 HileVci100.debugging = true;
 
@@ -17,7 +17,7 @@ IGNORE_LED_UPDATES = [
     "beatloop_1_enabled", "beatloop_2_enabled",
     "beatloop_4_enabled", "beatloop_8_enabled",
     "rate_temp_up", "rate_temp_down"
-]
+];
 
 HileVci100.NOTE_ON_CONTROLS = {
   0xc: "fader1_reset",
@@ -105,13 +105,13 @@ HileVci100.debug = function(message) {
     if (!HileVci100.debugging)
         return;
     print("VCI-100 " + message);
-}
+};
 
 HileVci100.init = function(id) {
     HileVci100.id = id;
 
-    HileVci100.buttonStates = {released:0x00, pressed:0x7F};
-    HileVci100.beatloopSizes = { 1: 1, 2: 2, 3: 4, 4: 8 };
+    HileVci100.buttonStates = {released: 0x00, pressed: 0x7F};
+    HileVci100.beatloopSizes = {1: 1, 2: 2, 3: 4, 4: 8};
 
     HileVci100.scratchintervalsPerRev = 256;
     HileVci100.scratchRPM = 33+1/3;
@@ -148,7 +148,7 @@ HileVci100.init = function(id) {
         midi.sendShortMsg(0x90,control,value);
     }
 
-    for (i=1;i<=7;i++) {
+    for (i=1; i<=7; i++) {
         var group = HileVci100.activeLooperGroup;
         var button_name = "loop_button_" + i;
         var button = HileVci100.buttonMap[button_name];
@@ -158,7 +158,7 @@ HileVci100.init = function(id) {
     HileVci100.updateLooperLEDs();
 
     HileVci100.debug("Controller Initialized");
-}
+};
 
 HileVci100.shutdown = function(id) {
     for (var button_name in HileVci100.buttonMap) {
@@ -169,30 +169,30 @@ HileVci100.shutdown = function(id) {
             button.group,button.control,HileVci100.LEDCallback,true
         );
     }
-}
+};
 
 HileVci100.registerScalers = function() {
     HileVci100.scalers = new Object();
     HileVci100.scalers.eq = function(value) {
         return script.absoluteNonLin(value,0,1,5,0,127);
-    }
+    };
     HileVci100.scalers.pregain = function(value) {
         return script.absoluteNonLin(value,0,1,4,0,127);
-    }
+    };
     HileVci100.scalers.master = function(value) {
         return script.absoluteLin(value,0,5,0,127);
-    }
+    };
     HileVci100.scalers.volume = function(value) {
         return script.absoluteLin(value,0,1,0,127);
-    }
+    };
     HileVci100.scalers.crossfader = function(value) {
         return script.absoluteLin(value,-1,1,0,127);
-    }
+    };
     HileVci100.scalers.rate = function(value) {
         return HileVci100.pitchDirection * script.absoluteLin(value,-1,1,0,127);
-    }
-    HileVci100.scalers.jogticks = function(value) { return value-0x40; }
-}
+    };
+    HileVci100.scalers.jogticks = function(value) { return value-0x40; };
+};
 
 HileVci100.registerInputs = function() {
     HileVci100.modifiers = new Object();
@@ -285,7 +285,7 @@ HileVci100.linkButton = function(name,group,control,toggle,callback) {
         }
     }
     HileVci100.buttonMap[name] = button;
-}
+};
 
 HileVci100.LEDCallback = function(value,group,control) {
     for (var button_name in HileVci100.buttonMap) {
@@ -297,7 +297,7 @@ HileVci100.LEDCallback = function(value,group,control) {
         return;
     }
     HileVci100.debug("LED to update not found: " + group+" "+control);
-}
+};
 
 HileVci100.linkFader = function(name,group,control,scaler,callback) {
     if (name in HileVci100.faderMap) {
@@ -317,9 +317,9 @@ HileVci100.linkFader = function(name,group,control,scaler,callback) {
     fader.scaler = HileVci100.scalers[scaler];
     fader.callback = callback;
     HileVci100.faderMap[name] = fader;
-}
+};
 
-HileVci100.faders = function (channel,control,value,status,group) {
+HileVci100.faders = function(channel,control,value,status,group) {
     var name;
     if (status==0xb0) {
         name = HileVci100.FADER_CONTROLS[control];
@@ -345,9 +345,9 @@ HileVci100.faders = function (channel,control,value,status,group) {
         fader.callback(fader,value);
     else
         engine.setValue(fader.group,fader.control,value);
-}
+};
 
-HileVci100.buttons = function (channel,control,value,status,group) {
+HileVci100.buttons = function(channel,control,value,status,group) {
     var name;
     var value;
     if (status==0x90) {
@@ -380,10 +380,10 @@ HileVci100.buttons = function (channel,control,value,status,group) {
         if (IGNORE_LED_UPDATES.indexOf(button.control)!=-1) {
             value = true;
         } else {
-            value = (engine.getValue(button.group,button.control)) ? false : true;
+            value = !(engine.getValue(button.group,button.control));
         }
     } else {
-        value = (value==HileVci100.buttonStates.pressed) ? true : false;
+        value = (value==HileVci100.buttonStates.pressed);
     }
 
     midi.sendShortMsg(0x90,button.midino,value);
@@ -392,7 +392,7 @@ HileVci100.buttons = function (channel,control,value,status,group) {
     } else {
         engine.setValue(button.group,button.control,value);
     }
-}
+};
 
 HileVci100.cuestop = function(button,value) {
     var modifiers = HileVci100.modifiers[button.group];
@@ -403,7 +403,7 @@ HileVci100.cuestop = function(button,value) {
         engine.setValue(button.group,"cue_default",false);
         delete modifiers["cue_stop"];
     }
-}
+};
 
 HileVci100.togglePlay = function(button,value) {
     var modifiers = HileVci100.modifiers[button.group];
@@ -422,13 +422,13 @@ HileVci100.togglePlay = function(button,value) {
         engine.setValue(button.group,"play",true);
         midi.sendShortMsg(0x90,button.midino,0x7f);
     }
-}
+};
 
 // Update looper related LEDs
 HileVci100.updateLooperLEDs = function() {
     var group = HileVci100.activeLooperGroup;
     print("UPDATE LOOOPER LEDs");
-    for (i=1;i<=4;i++) {
+    for (i=1; i<=4; i++) {
         var name = "beatloop_" + HileVci100.beatloopSizes[i];
         var buttonname = "loop_button_" + (i+3);
         var button = HileVci100.buttonMap[buttonname];
@@ -447,7 +447,7 @@ HileVci100.updateLooperLEDs = function() {
     var button = HileVci100.buttonMap["loop2"];
     var status = (button.group==group) ? 0x7f : 0x0;
     midi.sendShortMsg(0x90,button.midino,status);
-}
+};
 
 HileVci100.active = function(button,value) {
     if (!value) return;
@@ -458,7 +458,7 @@ HileVci100.active = function(button,value) {
     var group = HileVci100.activeLooperGroup;
     var inactive_group = (group=="[Channel1]") ? "[Channel2]" : "[Channel1]";
     HileVci100.debug("ACTIVE LOOPER: " + HileVci100.activeLooperGroup);
-    for (i=1;i<=7;i++) {
+    for (i=1; i<=7; i++) {
         var button_name = "loop_button_" + i;
         var button = HileVci100.buttonMap[button_name];
         engine.connectControl(
@@ -469,7 +469,7 @@ HileVci100.active = function(button,value) {
         );
     }
     HileVci100.updateLooperLEDs();
-}
+};
 
 HileVci100.looper = function(button,value) {
     if (!value) {
@@ -492,7 +492,7 @@ HileVci100.looper = function(button,value) {
         engine.setValue(group,"loop_in",false);
         engine.setValue(group,"loop_out",false);
     }
-}
+};
 
 HileVci100.beatloop = function(button,value) {
     if (!value) return;
@@ -502,7 +502,7 @@ HileVci100.beatloop = function(button,value) {
     HileVci100.debug("BEATLOOP: " + group+" "+ button.control);
     midi.sendShortMsg(0x90,button.midino,0x7f);
     engine.setValue(group,control,true);
-}
+};
 
 HileVci100.scratchEnable = function(button,value) {
     var deck;
@@ -524,7 +524,7 @@ HileVci100.scratchEnable = function(button,value) {
         HileVci100.isScratchEnabled[button.group] = false;
         engine.scratchDisable(deck,HileVci100.rampedScratchDisable);
     }
-}
+};
 
 HileVci100.jog_wheel = function(button,value) {
     var deck;
@@ -535,5 +535,5 @@ HileVci100.jog_wheel = function(button,value) {
     } else {
         engine.setValue(button.group,"jog",value);
     }
-}
+};
 

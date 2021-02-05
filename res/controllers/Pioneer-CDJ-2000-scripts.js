@@ -5,8 +5,8 @@ PioneerCDJ2000.debug = false;
 PioneerCDJ2000.jog_sensitivity = 3.0;
 PioneerCDJ2000.scratch_sensitivity = 0.5;
 
-PioneerCDJ2000.init = function(id) {}
-PioneerCDJ2000.shutdown = function(id) {}
+PioneerCDJ2000.init = function(id) {};
+PioneerCDJ2000.shutdown = function(id) {};
 
 PioneerCDJ2000.jog_wheel = function(channel, control, value, status, group) {
     value = (value-0x40) / PioneerCDJ2000.jog_sensitivity;
