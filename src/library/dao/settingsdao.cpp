@@ -5,6 +5,10 @@
 #include "util/assert.h"
 #include "util/logger.h"
 
+#include <windows.h>
+#include <string>
+#include <iostream>
+
 namespace {
 
 mixxx::Logger kLogger("SettingsDAO");

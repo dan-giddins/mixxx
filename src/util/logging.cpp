@@ -18,6 +18,10 @@
 #include "util/assert.h"
 #include "util/cmdlineargs.h"
 
+#include <windows.h>
+#include <string>
+#include <iostream>
+
 namespace {
 
 /// Mutex guarding s_logfile.
@@ -318,6 +322,8 @@ void handleMessage(
 #ifdef MIXXX_DEBUG_ASSERTIONS_FATAL
         // re-send as fatal.
         // The "%s" is intentional. See -Werror=format-security.
+        std::string s = input.toLocal8Bit().constData();
+        OutputDebugString(std::wstring(s.begin(), s.end()).c_str());
         qFatal("%s", input.toLocal8Bit().constData());
         return;
 #endif // MIXXX_DEBUG_ASSERTIONS_FATAL
