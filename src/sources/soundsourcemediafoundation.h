@@ -5,6 +5,11 @@
 
 #include "sources/soundsourceprovider.h"
 #include "util/readaheadsamplebuffer.h"
+#include<QDebug>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 namespace mixxx {
 
@@ -44,6 +49,16 @@ class StreamUnitConverter final {
         // to round(!) this value to obtain the actual position in
         // sample frames.
         const SINT frameIndexOffset = static_cast<SINT>(round(streamPos * m_fromStreamUnitsToSampleFrames));
+        //std::ostringstream str;
+        //str << std::setprecision(std::numeric_limits<double>::digits10) << streamPos << "\n"
+        //    << m_fromStreamUnitsToSampleFrames << "\n"
+        //    << (streamPos * m_fromStreamUnitsToSampleFrames) << "\n"
+        //    << round(streamPos * m_fromStreamUnitsToSampleFrames) << "\n"
+        //    << frameIndexOffset << "\n"
+        //    << m_pAudioSource->frameIndexMin() << "\n"
+        //    << m_pAudioSource->frameIndexMin() + frameIndexOffset << "\n";
+        //std::string s = str.str();
+        //OutputDebugString(std::wstring(s.begin(), s.end()).c_str());
         return m_pAudioSource->frameIndexMin() + frameIndexOffset;
     }
 

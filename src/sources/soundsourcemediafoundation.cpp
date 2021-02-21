@@ -7,6 +7,12 @@
 #include "util/logger.h"
 #include "util/sample.h"
 
+#include<QDebug>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iomanip>
+
 namespace {
 
 const mixxx::Logger kLogger("SoundSourceMediaFoundation");
@@ -275,6 +281,7 @@ void SoundSourceMediaFoundation::seekSampleFrame(SINT frameIndex) {
 ReadableSampleFrames SoundSourceMediaFoundation::readSampleFramesClamped(
         const WritableSampleFrames& writableSampleFrames) {
     const SINT firstFrameIndex = writableSampleFrames.frameIndexRange().start();
+
     if (m_currentFrameIndex != kUnknownFrameIndex) {
         seekSampleFrame(firstFrameIndex);
         if (m_currentFrameIndex != firstFrameIndex) {
@@ -314,6 +321,16 @@ ReadableSampleFrames SoundSourceMediaFoundation::readSampleFramesClamped(
                         readableSlice.length());
                 pSampleBuffer += readableSlice.length();
             }
+
+            /*std::ostringstream str;
+            str << m_currentFrameIndex << "\n"
+                << readableSlice.length() << "\n"
+                << getSignalInfo().samples2frames(readableSlice.length()) << "\n"
+                << m_currentFrameIndex + getSignalInfo().samples2frames(readableSlice.length()) << "\n\n";
+            std::string s = str.str();
+            OutputDebugString(std::wstring(s.begin(), s.end()).c_str());
+            std::cout << s;*/
+
             m_currentFrameIndex += getSignalInfo().samples2frames(readableSlice.length());
             numberOfFramesRemaining -= getSignalInfo().samples2frames(readableSlice.length());
         }
@@ -331,14 +348,24 @@ ReadableSampleFrames SoundSourceMediaFoundation::readSampleFramesClamped(
         DWORD dwFlags = 0;
         LONGLONG streamPos = 0;
         IMFSample* pSample = nullptr;
+        DWORD streamIndex = 0;
         HRESULT hrReadSample =
                 m_pSourceReader->ReadSample(
                         kStreamIndex, // [in]  DWORD dwStreamIndex,
                         0,            // [in]  DWORD dwControlFlags,
-                        nullptr,      // [out] DWORD *pdwActualStreamIndex,
+                        &streamIndex,  // [out] DWORD *pdwActualStreamIndex,
                         &dwFlags,     // [out] DWORD *pdwStreamFlags,
                         &streamPos,   // [out] LONGLONG *pllTimestamp,
                         &pSample);    // [out] IMFSample **ppSample
+
+        std::ostringstream str;
+        str << streamIndex << "\n"
+            << dwFlags << "\n"
+            << streamPos << "\n\n";
+        std::string s = str.str();
+        OutputDebugString(std::wstring(s.begin(), s.end()).c_str());
+
+        std::cout << s;
         if (FAILED(hrReadSample)) {
             kLogger.warning()
                     << "IMFSourceReader::ReadSample() failed"
@@ -481,6 +508,15 @@ ReadableSampleFrames SoundSourceMediaFoundation::readSampleFramesClamped(
                 }
                 pLockedSampleBuffer += copySamplesCount;
                 lockedSampleBufferCount -= copySamplesCount;
+
+                /*std::ostringstream str;
+                str << m_currentFrameIndex << "\n"
+                    << copySamplesCount << "\n"
+                    << getSignalInfo().samples2frames(copySamplesCount) << "\n"
+                    << m_currentFrameIndex + getSignalInfo().samples2frames(copySamplesCount) << "\n\n";
+                std::string s = str.str();
+                OutputDebugString(std::wstring(s.begin(), s.end()).c_str());*/
+
                 m_currentFrameIndex += getSignalInfo().samples2frames(copySamplesCount);
                 numberOfFramesRemaining -= getSignalInfo().samples2frames(copySamplesCount);
             }
