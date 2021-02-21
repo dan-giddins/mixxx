@@ -359,9 +359,35 @@ ReadableSampleFrames SoundSourceMediaFoundation::readSampleFramesClamped(
                         &pSample);    // [out] IMFSample **ppSample
 
         std::ostringstream str;
-        str << streamIndex << "\n"
-            << dwFlags << "\n"
-            << streamPos << "\n\n";
+        str << "kStreamIndex: " << kStreamIndex << "\n"
+            << "streamIndex: " << streamIndex << "\n"
+            << "dwFlags: " << dwFlags << "\n"
+            << "streamPos: " << streamPos << "\n";
+        if (pSample != nullptr)
+        {
+            DWORD bufferCount;
+            LONGLONG sampleDuration;
+            DWORD sampleFlags;
+            LONGLONG sampleTime;
+            DWORD totalLength;
+            pSample->GetBufferCount(&bufferCount);
+            pSample->GetSampleDuration(&sampleDuration);
+            pSample->GetSampleFlags(&sampleFlags);
+            pSample->GetSampleTime(&sampleTime);
+            pSample->GetTotalLength(&totalLength);
+            str << "bufferCount: " << bufferCount << "\n"
+                << "sampleDuration: " << sampleDuration << "\n"
+                << "sampleFlags: " << sampleFlags << "\n"
+                << "sampleTime: " << sampleTime << "\n"
+                << "totalLength: " << totalLength << "\n";
+            DWORD bufferIndex = 0;
+            IMFMediaBuffer* buffer;
+            pSample->GetBufferByIndex(bufferIndex, &buffer);
+            DWORD bufferLength;
+            buffer->GetCurrentLength(&bufferLength);
+            str << "bufferLength: " << bufferLength << "\n";
+        }
+        str << "\n";
         std::string s = str.str();
         OutputDebugString(std::wstring(s.begin(), s.end()).c_str());
 
